@@ -11,7 +11,7 @@ void main() {
   //calls for the initialization meathod for the sheet
   GoogleSheetsApi().init();
   // https://fluttercentral.com/Articles/Post/1242/How_to_the_set_change_status_bar_or_system_navigation_bar_color_in_Flutter
-  //Does this working hard every day
+  //THE LORD HAS CLUTCHED
   runApp(const ScoutingApp());
 }
 
