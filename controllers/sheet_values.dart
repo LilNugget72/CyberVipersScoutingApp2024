@@ -17,7 +17,9 @@ class SheetValues extends GetxController {
   RxInt trap = 0.obs;
   RxString comments = ''.obs;
 
-  RxInt matchNum = 0.obs;
+  RxInt matchNum = 1.obs;
+
+  final scoutName = TextEditingController();
 
   valueCard({required RxInt value, required String title}) {
     return Container(

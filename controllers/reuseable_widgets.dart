@@ -190,7 +190,7 @@ class ReuseWid extends GetxController {
                 title: 'Admin',
                 function: () => Get.to(() => const AdminAuth()),
                 icon: Obx(() => Icon(
-                      Icons.alarm,
+                      Icons.person,
                       color: ut.tt.value,
                       size: 35,
                     ))),

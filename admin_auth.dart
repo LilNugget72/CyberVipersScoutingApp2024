@@ -29,7 +29,7 @@ class AdminAuth extends StatelessWidget {
             style: TextStyle(color: ut.tt.value),
             onSubmitted: (value) {
               if (value == '8717') {
-                Get.to(() => const AdminHub());
+                Get.off(() => const AdminHub());
               } else {
                 showDialog(
                   context: context,
