@@ -19,17 +19,19 @@ class UserTheme extends GetxController {
         backgroundColor: Colors.grey[850], shadowColor: Colors.grey[850]),
   )
       .copyWith(
-        scaffoldBackgroundColor: Colors.grey[850],
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          selectedLabelStyle: TextStyle(
-              fontFamily: 'NotoSans',
-              fontWeight: FontWeight.bold,
-              fontSize: 18),
-          unselectedLabelStyle: TextStyle(fontFamily: 'NotoSans', fontSize: 16),
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white,
-        ),
-      )
+          scaffoldBackgroundColor: Colors.grey[850],
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            selectedLabelStyle: TextStyle(
+                fontFamily: 'NotoSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
+            unselectedLabelStyle:
+                TextStyle(fontFamily: 'NotoSans', fontSize: 16),
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white,
+          ),
+          textSelectionTheme: const TextSelectionThemeData(
+              selectionColor: Colors.blue, selectionHandleColor: Colors.blue))
       .obs;
 
   final ThemeData lightTheme = ThemeData(
@@ -58,7 +60,9 @@ class UserTheme extends GetxController {
               fontSize: 18),
           unselectedLabelStyle: TextStyle(fontFamily: 'NotoSans', fontSize: 16),
           selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black));
+          unselectedItemColor: Colors.black),
+      textSelectionTheme: const TextSelectionThemeData(
+          selectionColor: Colors.blue, selectionHandleColor: Colors.blue));
 
   final ThemeData darkTheme = ThemeData(
     splashColor: Colors.transparent,
@@ -72,15 +76,16 @@ class UserTheme extends GetxController {
     drawerTheme: DrawerThemeData(
         backgroundColor: Colors.grey[850], shadowColor: Colors.grey[850]),
   ).copyWith(
-    scaffoldBackgroundColor: Colors.grey[850],
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedLabelStyle: TextStyle(
-          fontFamily: 'NotoSans', fontWeight: FontWeight.bold, fontSize: 18),
-      unselectedLabelStyle: TextStyle(fontFamily: 'NotoSans', fontSize: 16),
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white,
-    ),
-  );
+      scaffoldBackgroundColor: Colors.grey[850],
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedLabelStyle: TextStyle(
+            fontFamily: 'NotoSans', fontWeight: FontWeight.bold, fontSize: 18),
+        unselectedLabelStyle: TextStyle(fontFamily: 'NotoSans', fontSize: 16),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+      ),
+      textSelectionTheme: const TextSelectionThemeData(
+          selectionColor: Colors.blue, selectionHandleColor: Colors.blue));
 
   Color? bars = Colors.grey[850];
   Brightness statbright = Brightness.light;
@@ -95,7 +100,6 @@ class UserTheme extends GetxController {
     }
   }
 
-//hello
   toggleTheme() {
     if (userThemeState.value == true) {
       userThemeState.value = false;

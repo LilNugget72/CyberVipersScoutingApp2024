@@ -26,23 +26,22 @@ class HomePage extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 30),
-          child: Obx(
-            () => TextField(
-              controller: sv.scoutName,
-              textAlign: TextAlign.center,
-              enabled: true,
-              cursorColor: ut.tt.value,
-              style: TextStyle(
-                  color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
-              decoration: InputDecoration(
+          child: Obx(() => TextField(
+                controller: sv.scoutName,
+                textAlign: TextAlign.center,
+                enabled: true,
+                cursorColor: ut.tt.value,
+                style: TextStyle(
+                    color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
+                decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: BorderSide(color: ut.tt.value)),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: ut.tt.value)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: ut.tt.value))),
-            ),
-          ),
+                      borderSide: BorderSide(color: ut.tt.value)),
+                ),
+              )),
         ),
       ),
       bottomNavigationBar: rw.bnb(),
