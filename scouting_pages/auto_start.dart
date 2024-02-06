@@ -1,3 +1,4 @@
+import 'package:cyberviperscoutingapp2024/controllers/field_with_buttons.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class AutoStart extends StatelessWidget {
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
+    TouchField tf = Get.put(TouchField());
     return Scaffold(
         appBar: rw.ab(title: 'Auto Position'),
         body: Column(
@@ -17,10 +19,7 @@ class AutoStart extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Image(
-              height: 400,
-              image: AssetImage('lib/assets/2160xDarkCroppedFixed - Red.png'),
-            ),
+            tf.redSide(),
             rw.valueToggle(title: 'Leave', value: sv.leave),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,5 +1,4 @@
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
-import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/auto_start.dart';
 import 'package:flutter/material.dart';
