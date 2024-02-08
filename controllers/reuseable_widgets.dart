@@ -163,7 +163,7 @@ class ReuseWid extends GetxController {
           child: Center(
             child: Text(
               title,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white, fontSize: 30),
             ),
           ),
         ));
