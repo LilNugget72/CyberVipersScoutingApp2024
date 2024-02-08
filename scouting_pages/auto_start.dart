@@ -13,22 +13,22 @@ class AutoStart extends StatelessWidget {
     SheetValues sv = Get.find();
     TouchField tf = Get.put(TouchField());
     return Scaffold(
-        appBar: rw.ab(title: 'Auto Position'),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            tf.redSide(),
-            rw.valueToggle(title: 'Leave', value: sv.leave),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                sv.valueCard(value: sv.autoAmp, title: 'Amp'),
-                sv.valueCard(value: sv.autoSpeaker, title: 'Speaker')
-              ],
-            )
-          ],
-        ));
+      appBar: rw.ab(title: 'Auto Position'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          tf.redSide(),
+          rw.valueToggle(title: 'Leave', value: sv.leave),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              sv.valueCard(value: sv.autoAmp, title: 'Amp'),
+              sv.valueCard(value: sv.autoSpeaker, title: 'Speaker')
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

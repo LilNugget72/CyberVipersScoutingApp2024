@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 
 class UserTheme extends GetxController {
   final RxBool userThemeState = true.obs;
+
   final Rx<Color> tt = Colors.white.obs;
+
+  Rx<Color> buttonColor = Colors.red.obs;
 
   Rx<ThemeData> currentTheme = ThemeData(
     canvasColor: Colors.grey,

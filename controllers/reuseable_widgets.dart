@@ -148,8 +148,10 @@ class ReuseWid extends GetxController {
         onTap: () {
           if (value.value == true) {
             value.value = false;
+            ut.buttonColor.value = Colors.red;
           } else {
             value.value = true;
+            ut.buttonColor.value = Colors.blue;
           }
           print(value);
         },
