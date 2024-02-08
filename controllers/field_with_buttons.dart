@@ -9,9 +9,9 @@ SheetValues sv = Get.find();
 class TouchField extends GetxController {
   Rx<Color> filling = Colors.transparent.obs;
 
-  Rx<Color> pos1 = Colors.transparent.obs;
-  Rx<Color> pos2 = Colors.transparent.obs;
-  Rx<Color> pos3 = Colors.transparent.obs;
+  Rx<Color> pos1 = Colors.transparent.obs; //near amp
+  Rx<Color> pos2 = Colors.transparent.obs; //middle of speaker
+  Rx<Color> pos3 = Colors.transparent.obs; //closest to the source
 
   Rx<Color> note1 = Colors.transparent.obs;
   Rx<Color> note2 = Colors.transparent.obs;
@@ -26,6 +26,101 @@ class TouchField extends GetxController {
    when I made it an ink widget from a container 
    The solution i found for this was to make the image an ink and that fixed it
    if this happens with something outside an image try to make it use ink or inkwell */
+  blueSide() {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Ink.image(
+            image:
+                const AssetImage('lib/assets/2160xDarkCroppedFixed - Blue.png'),
+          ),
+          Align(
+            alignment: const AlignmentDirectional(0, -0.88),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                position(
+                  spot: sv.posSource,
+                  width: 55,
+                  height: 78,
+                  color: pos3,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(6, 41, 6, 0),
+                  child: position(
+                    spot: sv.posCenter,
+                    width: 80,
+                    height: 40,
+                    color: pos2,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 60),
+                  child: position(
+                    spot: sv.posAmp,
+                    width: 50,
+                    height: 80,
+                    color: pos1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: const Alignment(-0.275, -0.349),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 29),
+                  child: button(pickedNote: sv.note1, noteColor: note3),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 27),
+                  child: button(pickedNote: sv.note2, noteColor: note2),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 71.5),
+                  child: button(pickedNote: sv.note3, noteColor: note1),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: const Alignment(-0.275, 0.83),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 38),
+                  child: button(pickedNote: sv.note4, noteColor: note8),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 37.5),
+                  child: button(pickedNote: sv.note5, noteColor: note7),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 38),
+                  child: button(pickedNote: sv.note6, noteColor: note6),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 38),
+                  child: button(pickedNote: sv.note7, noteColor: note5),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 51.5),
+                  child: button(pickedNote: sv.note8, noteColor: note4),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   redSide() {
     return Expanded(
       child: Stack(
@@ -170,6 +265,7 @@ class TouchField extends GetxController {
     return InkWell(
         borderRadius: BorderRadius.circular(15),
         splashColor: ut.buttonColor.value,
+        splashFactory: InkRipple.splashFactory,
         onTap: () => toggleSpotFilling(spot: spot, posColor: color),
         child: Obx(
           () => Ink(

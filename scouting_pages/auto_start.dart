@@ -18,7 +18,7 @@ class AutoStart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          tf.redSide(),
+          tf.blueSide(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
