@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: ut.bars,
-        systemNavigationBarColor: ut.tt.value,
+        systemNavigationBarColor: ut.bars,
         statusBarIconBrightness: ut.statbright));
 
     return Scaffold(

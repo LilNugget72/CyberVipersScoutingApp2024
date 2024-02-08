@@ -15,7 +15,7 @@ class ScoutPage extends StatelessWidget {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: ut.bars,
-        systemNavigationBarColor: ut.tt.value,
+        systemNavigationBarColor: ut.bars,
         statusBarBrightness: ut.statbright));
 
     return Scaffold(

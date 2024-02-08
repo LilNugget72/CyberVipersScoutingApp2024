@@ -19,9 +19,26 @@ class AutoStart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           tf.redSide(),
-          rw.valueToggle(title: 'Leave', value: sv.leave),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              rw.valueToggle(
+                  title: 'Leave', value: sv.leave, width: 188, height: 100),
+              const SizedBox(
+                width: 15,
+              ),
+              rw.valueToggle(
+                  value: sv.preloaded,
+                  title: 'Prealoaded?',
+                  width: 188,
+                  height: 100)
+            ],
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               sv.valueCard(value: sv.autoAmp, title: 'Amp'),
               sv.valueCard(value: sv.autoSpeaker, title: 'Speaker')

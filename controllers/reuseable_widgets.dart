@@ -131,35 +131,28 @@ class ReuseWid extends GetxController {
     );
   }
 
-  // intChanger({required RxInt value, required String title}) {
-  //   return Column(
-  //     children: [
-  //       valueTitle(title: title),
-  //       const SizedBox(
-  //         height: 15,
-  //       ),
-  //       valueChanger(value: value)
-  //     ],
-  //   );
-  // }
-
-  valueToggle({required RxBool value, required String title}) {
+  valueToggle(
+      {required RxBool value,
+      required String title,
+      required double width,
+      required double height}) {
     return GestureDetector(
         onTap: () {
           if (value.value == true) {
             value.value = false;
-            ut.buttonColor.value = Colors.red;
+            ut.buttonColor.value = const Color.fromARGB(255, 237, 52, 52);
           } else {
             value.value = true;
-            ut.buttonColor.value = Colors.blue;
+            ut.buttonColor.value = const Color.fromARGB(255, 0, 101, 179);
           }
           print(value);
         },
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.red[700]),
-          width: 170,
-          height: 100,
+              borderRadius: BorderRadius.circular(10),
+              color: ut.buttonColor.value),
+          width: width,
+          height: height,
           child: Center(
             child: Text(
               title,
@@ -264,7 +257,7 @@ class ReuseWid extends GetxController {
   bnb() {
     return BottomNavigationBar(
       backgroundColor: Colors.transparent,
-      iconSize: 30,
+      iconSize: 28,
       elevation: 0,
       currentIndex: selectedIndex.value,
       onTap: (index) {
