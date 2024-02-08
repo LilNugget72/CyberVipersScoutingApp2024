@@ -74,7 +74,7 @@ class TouchField extends GetxController {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 29),
+                  padding: const EdgeInsets.only(right: 28),
                   child: button(pickedNote: sv.note1, noteColor: note3),
                 ),
                 Padding(
@@ -98,7 +98,7 @@ class TouchField extends GetxController {
                   child: button(pickedNote: sv.note4, noteColor: note8),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 37.5),
+                  padding: const EdgeInsets.only(right: 38),
                   child: button(pickedNote: sv.note5, noteColor: note7),
                 ),
                 Padding(
@@ -106,7 +106,7 @@ class TouchField extends GetxController {
                   child: button(pickedNote: sv.note6, noteColor: note6),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 38),
+                  padding: const EdgeInsets.only(right: 37),
                   child: button(pickedNote: sv.note7, noteColor: note5),
                 ),
                 Padding(
