@@ -1,6 +1,7 @@
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 ReuseWid rw = Get.find();
@@ -44,8 +45,8 @@ class SheetValues extends GetxController {
           decoration: BoxDecoration(
               color: ut.buttonColor.value,
               borderRadius: BorderRadius.circular(18)),
-          width: 200,
-          height: 240,
+          width: 180,
+          height: 140,
           child: Stack(
             children: [
               Align(
@@ -93,8 +94,8 @@ class SheetValues extends GetxController {
                             borderRadius: BorderRadius.circular(60),
                             color: Colors.white,
                           ),
-                          width: 70,
-                          height: 70,
+                          width: 55.w,
+                          height: 55.w,
                           child: Icon(
                             Icons.remove,
                             color: ut.buttonColor.value,
@@ -110,8 +111,8 @@ class SheetValues extends GetxController {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(60)),
-                          width: 70,
-                          height: 70,
+                          width: 50,
+                          height: 50,
                           child: Icon(
                             Icons.add,
                             color: ut.buttonColor.value,

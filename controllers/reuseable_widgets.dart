@@ -5,6 +5,7 @@ import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'google_sheets_api.dart';
@@ -163,83 +164,85 @@ class ReuseWid extends GetxController {
   }
 
   d() {
-    return SafeArea(
-      child: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 12,
-            ),
-            drawerWid(
-                title: 'About',
-                function: () => print('about'),
-                icon: Obx(() => Icon(
-                      Icons.info_outline,
-                      color: ut.tt.value,
-                      size: 35,
-                    ))),
+    return Drawer(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            height: 10.h,
+          ),
+          drawerWid(
+              title: 'About',
+              function: () => print('about'),
+              icon: Obx(() => Icon(
+                    Icons.info_outline,
+                    color: ut.tt.value,
+                    size: 35,
+                  ))),
 
-            drawerWid(
-                title: 'Admin',
-                function: () => Get.to(() => const AdminAuth()),
-                icon: Obx(() => Icon(
-                      Icons.person,
-                      color: ut.tt.value,
-                      size: 35,
-                    ))),
-            drawerWid(
-                title: 'Change Theme',
-                function: () => ut.toggleTheme(),
-                icon: Obx(() => Icon(
-                      Icons.dark_mode_outlined,
-                      color: ut.tt.value,
-                      size: 35,
-                    ))),
-            // This our way of sending all this data to the sheets. Simply match the value with the column of data.
-            drawerWid(
-                title: 'Manual',
-                function: () async {
-                  final submitData = {
-                    UserFields.teamName: 'Cyber Vipers',
-                    UserFields.teamNum: 8717,
-                    UserFields.leave: sv.leave.value,
-                    UserFields.autoAmp: sv.autoAmp.value,
-                    UserFields.autoSpeker: sv.autoSpeaker.value,
-                    UserFields.teleopAmp: sv.teleopAmp.value,
-                    UserFields.teleopSpeaker: sv.teleopSpeaker.value,
-                    UserFields.onstage: sv.onstage.value,
-                    UserFields.park: sv.park.value,
-                    UserFields.trap: sv.trap.value,
-                    UserFields.comments: sv.comments.value,
-                  };
-                  await GoogleSheetsApi.sendData([submitData]);
-                },
-                icon: Obx(() => Icon(
-                      Icons.send,
-                      color: ut.tt.value,
-                      size: 35,
-                    ))),
-            drawerWid(
-                title: 'Update?',
-                function: () => print('update'),
-                icon: Obx(() => Icon(
-                      Icons.update,
-                      color: ut.tt.value,
-                      size: 35,
-                    ))),
-            const SizedBox(
-              height: 445,
-            ),
-            const Center(
-              child: Text(
-                'Version 2.0',
-                style: TextStyle(color: Colors.grey, fontFamily: 'NotoSans'),
+          drawerWid(
+              title: 'Admin',
+              function: () => Get.to(() => const AdminAuth()),
+              icon: Obx(() => Icon(
+                    Icons.person,
+                    color: ut.tt.value,
+                    size: 35,
+                  ))),
+          drawerWid(
+              title: 'Change Theme',
+              function: () => ut.toggleTheme(),
+              icon: Obx(() => Icon(
+                    Icons.dark_mode_outlined,
+                    color: ut.tt.value,
+                    size: 35,
+                  ))),
+          // This our way of sending all this data to the sheets. Simply match the value with the column of data.
+          drawerWid(
+              title: 'Manual',
+              function: () async {
+                final submitData = {
+                  UserFields.teamName: 'Cyber Vipers',
+                  UserFields.teamNum: 8717,
+                  UserFields.leave: sv.leave.value,
+                  UserFields.autoAmp: sv.autoAmp.value,
+                  UserFields.autoSpeker: sv.autoSpeaker.value,
+                  UserFields.teleopAmp: sv.teleopAmp.value,
+                  UserFields.teleopSpeaker: sv.teleopSpeaker.value,
+                  UserFields.onstage: sv.onstage.value,
+                  UserFields.park: sv.park.value,
+                  UserFields.trap: sv.trap.value,
+                  UserFields.comments: sv.comments.value,
+                };
+                await GoogleSheetsApi.sendData([submitData]);
+              },
+              icon: Obx(() => Icon(
+                    Icons.send,
+                    color: ut.tt.value,
+                    size: 35,
+                  ))),
+          drawerWid(
+              title: 'Update?',
+              function: () => print('update'),
+              icon: Obx(() => Icon(
+                    Icons.update,
+                    color: ut.tt.value,
+                    size: 35,
+                  ))),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 15.h),
+                child: const Text(
+                  'Version 2.0',
+                  style: TextStyle(color: Colors.grey, fontFamily: 'NotoSans'),
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   // makes sure you have a connection with the sheet
@@ -26,14 +27,14 @@ class ScoutingApp extends StatelessWidget {
         statusBarColor: ut.bars,
         systemNavigationBarColor: ut.tt.value,
         statusBarBrightness: ut.statbright));
-    return Obx(() => SafeArea(
-          bottom: true,
-          top: true,
-          child: GetMaterialApp(
+    return ScreenUtilInit(
+      builder: (_, child) => Obx(() => SafeArea(
+              child: GetMaterialApp(
             theme: ut.currentTheme.value,
             home: const HomePage(),
             debugShowCheckedModeBanner: false,
-          ),
-        ));
+          ))),
+      designSize: const Size(360, 800),
+    );
   }
 }
