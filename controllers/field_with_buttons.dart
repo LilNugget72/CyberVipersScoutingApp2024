@@ -33,11 +33,12 @@ class TouchField extends GetxController {
         alignment: Alignment.center,
         children: [
           Ink.image(
+            height: 645.w,
             image:
                 const AssetImage('lib/assets/2160xDarkCroppedFixed - Blue.png'),
           ),
           Align(
-            alignment: const AlignmentDirectional(0, -0.88),
+            alignment: AlignmentDirectional(0.w, -0.88.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

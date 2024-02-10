@@ -23,7 +23,7 @@ class ReuseWid extends GetxController {
       },
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(60), color: Colors.white),
+            borderRadius: BorderRadius.circular(60.r), color: Colors.white),
         width: 75,
         height: 75,
         child: const Icon(
@@ -45,7 +45,7 @@ class ReuseWid extends GetxController {
         },
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(60),
+            borderRadius: BorderRadius.circular(60.r),
             color: Colors.white,
           ),
           width: 75,
@@ -150,7 +150,7 @@ class ReuseWid extends GetxController {
         },
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r),
               color: ut.buttonColor.value),
           width: width,
           height: height,
@@ -168,7 +168,6 @@ class ReuseWid extends GetxController {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
             height: 10.h,
@@ -230,14 +229,18 @@ class ReuseWid extends GetxController {
                     color: ut.tt.value,
                     size: 35,
                   ))),
+
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 15.h),
-                child: const Text(
-                  'Version 2.0',
-                  style: TextStyle(color: Colors.grey, fontFamily: 'NotoSans'),
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: Text(
+                  'Version 1.0',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontFamily: 'NotoSans',
+                  ),
                 ),
               ),
             ),

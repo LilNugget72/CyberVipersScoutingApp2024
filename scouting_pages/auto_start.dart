@@ -1,14 +1,20 @@
+import 'dart:ffi';
+
 import 'package:cyberviperscoutingapp2024/controllers/field_with_buttons.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
+import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
+import 'package:cyberviperscoutingapp2024/scouting_pages/teleop_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AutoStart extends StatelessWidget {
   const AutoStart({super.key});
 
   @override
   Widget build(BuildContext context) {
+    UserTheme ut = Get.find();
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
     TouchField tf = Get.put(TouchField());
@@ -20,30 +26,46 @@ class AutoStart extends StatelessWidget {
         children: [
           tf.blueSide(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               rw.valueToggle(
-                  title: 'Leave', value: sv.leave, width: 188, height: 100),
-              const SizedBox(
-                width: 15,
+                  title: 'Leave', value: sv.leave, width: 160.w, height: 75.h),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => const TeleopScreen());
+                  },
+                  child: Container(
+                    width: 160.w,
+                    height: 75.h,
+                    decoration: BoxDecoration(
+                        color: ut.buttonColor.value,
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: const Center(
+                      child: Text(
+                        'Next Page? ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'NotoSans',
+                            fontSize: 25),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              rw.valueToggle(
-                  value: sv.preloaded,
-                  title: 'Prealoaded?',
-                  width: 188,
-                  height: 100)
             ],
           ),
-          SizedBox(
-            height: 12,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.dg, vertical: 6.dg),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                sv.valueCard(value: sv.autoAmp, title: 'Amp'),
+                sv.valueCard(value: sv.autoSpeaker, title: 'Speaker')
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              sv.valueCard(value: sv.autoAmp, title: 'Amp'),
-              sv.valueCard(value: sv.autoSpeaker, title: 'Speaker')
-            ],
-          )
         ],
       ),
     );
