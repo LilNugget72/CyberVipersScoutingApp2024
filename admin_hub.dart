@@ -3,6 +3,7 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AdminHub extends StatelessWidget {
@@ -15,152 +16,213 @@ class AdminHub extends StatelessWidget {
     return Scaffold(
       appBar: rw.ab(title: 'Admin Hub'),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 30, 0, 55),
-            child: Center(
-              child: Text(
-                '0/6 in Lobby',
-                style: TextStyle(
-                    color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 40),
-              ),
+          Center(
+            child: Text(
+              '0/6 in Lobby',
+              style: TextStyle(
+                  color: ut.tt.value, fontSize: 40, fontFamily: 'NotoSans'),
             ),
           ),
-          Column(
+          Center(
+            child: Text(
+              'Match',
+              style: TextStyle(
+                  color: ut.tt.value, fontSize: 40, fontFamily: 'NotoSans'),
+            ),
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: Text(
-                  'Match',
-                  style: TextStyle(color: ut.tt.value, fontSize: 50),
+              InkWell(
+                splashColor: Colors.grey[350],
+                borderRadius: BorderRadius.circular(12.r),
+                onTap: () {
+                  sv.matchNum--;
+                  if (sv.matchNum.value < 1) {
+                    sv.matchNum.value = 1;
+                  }
+                },
+                child: Ink(
+                  width: 50.w,
+                  height: 50.w,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: const Icon(
+                    Icons.subdirectory_arrow_left_rounded,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    splashColor: const Color.fromARGB(225, 176, 171, 171),
-                    onTap: () {
-                      sv.matchNum--;
-                      if (sv.matchNum.value < 0) {
-                        sv.matchNum.value = 0;
-                      }
-                    },
-                    child: Ink(
-                      decoration: BoxDecoration(
-                          color: ut.tt.value,
-                          borderRadius: BorderRadius.circular(20)),
-                      width: 75,
-                      height: 75,
-                      child: const Icon(
-                        Icons.subdirectory_arrow_left,
-                        color: Colors.blue,
-                      ),
-                    ),
+              SizedBox(
+                width: 35.w,
+                height: 0,
+              ),
+              Obx(
+                () => Text(
+                  sv.matchNum.value.toString(),
+                  style: TextStyle(
+                      color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 70),
+                ),
+              ),
+              SizedBox(
+                width: 35.w,
+                height: 0,
+              ),
+              InkWell(
+                splashColor: Colors.grey[350],
+                borderRadius: BorderRadius.circular(12.r),
+                onTap: () => sv.matchNum++,
+                child: Ink(
+                  width: 50.w,
+                  height: 50.w,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
-                  const SizedBox(
-                    width: 20,
+                  child: const Icon(
+                    Icons.subdirectory_arrow_right_rounded,
+                    color: Colors.white,
                   ),
-                  Container(
-                    width: 130,
-                    height: 130,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white),
-                    child: Center(
-                      child: Obx(
-                        () => Text(
-                          sv.matchNum.value.toString(),
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 80),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    splashColor: const Color.fromARGB(225, 176, 171, 171),
-                    onTap: () {
-                      sv.matchNum++;
-                    },
-                    child: Ink(
-                      decoration: BoxDecoration(
-                          color: ut.tt.value,
-                          borderRadius: BorderRadius.circular(20)),
-                      width: 75,
-                      height: 75,
-                      child: const Icon(
-                        Icons.subdirectory_arrow_right,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
-          const SizedBox(
-            height: 60,
-          ),
           GestureDetector(
-            onTap: () {
-              print(sv.matchNum.value);
-            },
+            onTap: () => print('Going to match'),
             child: Container(
-              width: 260,
-              height: 130,
+              width: 200.w,
+              height: 100.h,
               decoration: BoxDecoration(
-                  color: Colors.green, borderRadius: BorderRadius.circular(18)),
+                  color: Colors.green[700],
+                  borderRadius: BorderRadius.circular(18.r)),
               child: const Center(
-                child: Text(
-                  'GO!!!',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'NotoSans',
-                      fontSize: 56),
+                  child: Text(
+                'GO!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 40,
                 ),
-              ),
+              )),
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () {
-                Get.off(() => const HomePage());
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: 350,
-                  height: 80,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: const Center(
-                    child: Text(
-                      'Close the Lobby',
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: GestureDetector(
+                onTap: () => Get.off(() => const HomePage()),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 20.h),
+                  child: Container(
+                    width: 300.w,
+                    height: 80.h,
+                    decoration: BoxDecoration(
+                        color: Colors.red[700],
+                        borderRadius: BorderRadius.circular(35.r)),
+                    child: const Center(
+                        child: Text(
+                      'Close Lobby',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'NotoSans',
-                          fontSize: 30),
-                    ),
+                        color: Colors.white,
+                        fontFamily: 'NotoSans',
+                        fontSize: 40,
+                      ),
+                    )),
                   ),
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
   }
 }
+          // Center(
+          //   child: Text(
+          //     'Match',
+          //     style: TextStyle(
+          //         color: ut.tt.value, fontSize: 40, fontFamily: 'NotoSans'),
+          //   ),
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     InkWell(
+          //       splashColor: Colors.grey[350],
+          //       borderRadius: BorderRadius.circular(12.r),
+          //       onTap: () {
+          //         sv.matchNum--;
+          //         if (sv.matchNum.value < 1) {
+          //           sv.matchNum.value = 1;
+          //         }
+          //       },
+          //       child: Ink(
+          //         width: 50.w,
+          //         height: 50.w,
+          //         decoration: BoxDecoration(
+          //           color: Colors.green,
+          //           borderRadius: BorderRadius.circular(12.r),
+          //         ),
+          //         child: const Icon(
+          //           Icons.subdirectory_arrow_left_rounded,
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 35.w,
+          //       height: 0,
+          //     ),
+          //     Obx(
+          //       () => Text(
+          //         sv.matchNum.value.toString(),
+          //         style: TextStyle(
+          //             color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 70),
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 35.w,
+          //       height: 0,
+          //     ),
+          //     InkWell(
+          //       splashColor: Colors.grey[350],
+          //       borderRadius: BorderRadius.circular(12.r),
+          //       onTap: () => sv.matchNum++,
+          //       child: Ink(
+          //         width: 50.w,
+          //         height: 50.w,
+          //         decoration: BoxDecoration(
+          //           color: Colors.green,
+          //           borderRadius: BorderRadius.circular(12.r),
+          //         ),
+          //         child: const Icon(
+          //           Icons.subdirectory_arrow_right_rounded,
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // GestureDetector(
+          //   onTap: () => print('Going to match'),
+          //   child: Container(
+          //     width: 200.w,
+          //     height: 100.h,
+          //     decoration: BoxDecoration(
+          //         color: Colors.green[700],
+          //         borderRadius: BorderRadius.circular(18.r)),
+          //     child: const Center(
+          //         child: Text(
+          //       'GO!',
+          //       style: TextStyle(
+          //         color: Colors.white,
+          //         fontFamily: 'NotoSans',
+          //         fontSize: 40,
+          //       ),
+          //     )),
+          //   ),
+          // ),

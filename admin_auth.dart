@@ -1,5 +1,6 @@
 import 'package:cyberviperscoutingapp2024/admin_hub.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'controllers/reuseable_widgets.dart';
 import 'controllers/user_theme.dart';
@@ -12,46 +13,50 @@ class AdminAuth extends StatelessWidget {
     ReuseWid rw = Get.find();
     UserTheme ut = Get.find();
     return Scaffold(
-      appBar: rw.ab(title: 'Admin Authentication'),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          child: TextField(
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ut.tt.value)),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: ut.tt.value),
+        appBar: rw.ab(title: 'Admin Authentication'),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                  borderSide: BorderSide(color: ut.tt.value, width: 2.w),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                  borderSide: BorderSide(color: ut.tt.value, width: 2.w),
+                ),
               ),
-            ),
-            style: TextStyle(color: ut.tt.value),
-            onSubmitted: (value) {
-              if (value == '8717') {
-                Get.off(() => const AdminHub());
-              } else {
-                showDialog(
-                  context: context,
-                  builder: (context) => const Dialog(
-                    insetPadding: EdgeInsets.fromLTRB(100, 310, 100, 310),
-                    backgroundColor: Colors.red,
-                    child: Center(
-                      child: Text(
-                        'TRY AGAIN \nBOZO',
-                        style: TextStyle(
-                            fontFamily: 'SenorSaturno',
-                            fontSize: 40,
-                            color: Colors.white),
+              cursorColor: ut.tt.value,
+              style: TextStyle(color: ut.tt.value, fontFamily: 'NotoSans'),
+              onSubmitted: (value) {
+                if (value != '8717') {
+                  showDialog(
+                    context: context,
+                    builder: (context) => Dialog(
+                      backgroundColor: Colors.red,
+                      child: SizedBox(
+                        width: 100.w,
+                        height: 100.h,
+                        child: const Center(
+                          child: Text(
+                            'TRY AGAIN',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'SenorSaturno',
+                                fontSize: 40),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }
-            },
+                  );
+                } else {
+                  Get.offAll(() => const AdminHub());
+                }
+              },
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
