@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
       body: Align(
         alignment: Alignment.bottomCenter,
         child: SizedBox(
-          width: 330.w,
+          width: 300.w,
           child: Obx(
             () => TextField(
               controller: sv.scoutName,

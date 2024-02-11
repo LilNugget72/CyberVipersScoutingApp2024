@@ -40,13 +40,15 @@ class SheetValues extends GetxController {
 
   valueCard({required RxInt value, required String title}) {
     return Stack(
+      fit: StackFit.passthrough,
       children: [
         Ink(
           decoration: BoxDecoration(
-              color: ut.buttonColor.value,
-              borderRadius: BorderRadius.circular(18)),
-          width: 180.w,
-          height: 140.h,
+            color: ut.buttonColor.value,
+            borderRadius: BorderRadius.circular(18),
+          ),
+          width: 165.w,
+          height: 218.h,
           child: Stack(
             children: [
               Align(
@@ -56,31 +58,30 @@ class SheetValues extends GetxController {
                   style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'NotoSans',
-                      fontSize: 45),
+                      fontSize: 40),
                 ),
               ),
-              Obx(
-                () => Align(
+              Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    value.value.toString(),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'NotoSans',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 60),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 18,
-              ),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 12.dg),
+                    child: Obx(
+                      () => Text(
+                        value.value.toString(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'NotoSans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 45),
+                      ),
+                    ),
+                  )),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 11),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
@@ -91,7 +92,7 @@ class SheetValues extends GetxController {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
+                            borderRadius: BorderRadius.circular(60.r),
                             color: Colors.white,
                           ),
                           width: 55.w,
@@ -99,9 +100,12 @@ class SheetValues extends GetxController {
                           child: Icon(
                             Icons.remove,
                             color: ut.buttonColor.value,
-                            size: 40,
+                            size: 30.dg,
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        width: 30.w,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -110,13 +114,13 @@ class SheetValues extends GetxController {
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(60)),
-                          width: 50.w,
-                          height: 50.w,
+                              borderRadius: BorderRadius.circular(60.r)),
+                          width: 55.w,
+                          height: 55.w,
                           child: Icon(
                             Icons.add,
                             color: ut.buttonColor.value,
-                            size: 40,
+                            size: 30.dg,
                           ),
                         ),
                       )

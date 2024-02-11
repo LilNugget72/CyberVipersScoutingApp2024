@@ -2,6 +2,7 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 UserTheme ut = Get.find();
 SheetValues sv = Get.find();
@@ -32,11 +33,12 @@ class TouchField extends GetxController {
         alignment: Alignment.center,
         children: [
           Ink.image(
+            height: 645.w,
             image:
                 const AssetImage('lib/assets/2160xDarkCroppedFixed - Blue.png'),
           ),
           Align(
-            alignment: const AlignmentDirectional(0, -0.88),
+            alignment: AlignmentDirectional(0.w, -0.88.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
