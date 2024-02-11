@@ -45,8 +45,8 @@ class SheetValues extends GetxController {
           decoration: BoxDecoration(
               color: ut.buttonColor.value,
               borderRadius: BorderRadius.circular(18)),
-          width: 180,
-          height: 140,
+          width: 180.w,
+          height: 140.h,
           child: Stack(
             children: [
               Align(
@@ -111,8 +111,8 @@ class SheetValues extends GetxController {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(60)),
-                          width: 50,
-                          height: 50,
+                          width: 50.w,
+                          height: 50.w,
                           child: Icon(
                             Icons.add,
                             color: ut.buttonColor.value,
