@@ -30,12 +30,15 @@ class ScoutingApp extends StatelessWidget {
         systemNavigationBarColor: ut.tt.value,
         statusBarBrightness: ut.statbright));
     return ScreenUtilInit(
-      builder: (_, child) => Obx(() => SafeArea(
-              child: GetMaterialApp(
+      builder: (_, child) => Obx(
+        () => SafeArea(
+          child: GetMaterialApp(
             theme: ut.currentTheme.value,
             home: const HomePage(),
             debugShowCheckedModeBanner: false,
-          ))),
+          ),
+        ),
+      ),
       designSize: const Size(360, 800),
     );
   }

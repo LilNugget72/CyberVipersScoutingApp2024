@@ -18,77 +18,92 @@ class AdminHub extends StatelessWidget {
       body: Column(
         children: [
           Center(
-            child: Text(
-              '0/6 in Lobby',
-              style: TextStyle(
-                  color: ut.tt.value, fontSize: 40, fontFamily: 'NotoSans'),
+            child: Padding(
+              padding: EdgeInsets.only(top: 10.h),
+              child: Text(
+                '0/6 in Lobby',
+                style: TextStyle(
+                    color: ut.tt.value, fontSize: 45, fontFamily: 'NotoSans'),
+              ),
             ),
           ),
-          Center(
-            child: Text(
-              'Match',
-              style: TextStyle(
-                  color: ut.tt.value, fontSize: 40, fontFamily: 'NotoSans'),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Match',
+                style: TextStyle(
+                    color: ut.tt.value, fontSize: 45, fontFamily: 'NotoSans'),
+              ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                splashColor: Colors.grey[350],
-                borderRadius: BorderRadius.circular(12.r),
-                onTap: () {
-                  sv.matchNum--;
-                  if (sv.matchNum.value < 1) {
-                    sv.matchNum.value = 1;
-                  }
-                },
-                child: Ink(
-                  width: 50.w,
-                  height: 50.w,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
+          Expanded(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    splashColor: Colors.grey[350],
                     borderRadius: BorderRadius.circular(12.r),
+                    onTap: () {
+                      sv.matchNum--;
+                      if (sv.matchNum.value < 1) {
+                        sv.matchNum.value = 1;
+                      }
+                    },
+                    child: Ink(
+                      width: 70.w,
+                      height: 70.w,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: const Icon(
+                        Icons.subdirectory_arrow_left_rounded,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.subdirectory_arrow_left_rounded,
-                    color: Colors.white,
+                  SizedBox(
+                    width: 35.w,
+                    height: 0,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 35.w,
-                height: 0,
-              ),
-              Obx(
-                () => Text(
-                  sv.matchNum.value.toString(),
-                  style: TextStyle(
-                      color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 70),
-                ),
-              ),
-              SizedBox(
-                width: 35.w,
-                height: 0,
-              ),
-              InkWell(
-                splashColor: Colors.grey[350],
-                borderRadius: BorderRadius.circular(12.r),
-                onTap: () => sv.matchNum++,
-                child: Ink(
-                  width: 50.w,
-                  height: 50.w,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
+                  Obx(
+                    () => Text(
+                      sv.matchNum.value.toString(),
+                      style: TextStyle(
+                          color: ut.tt.value,
+                          fontFamily: 'NotoSans',
+                          fontSize: 70),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 35.w,
+                    height: 0,
+                  ),
+                  InkWell(
+                    splashColor: Colors.grey[350],
                     borderRadius: BorderRadius.circular(12.r),
+                    onTap: () => sv.matchNum++,
+                    child: Ink(
+                      width: 70.w,
+                      height: 70.w,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: const Icon(
+                        Icons.subdirectory_arrow_right_rounded,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.subdirectory_arrow_right_rounded,
-                    color: Colors.white,
-                  ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
           GestureDetector(
             onTap: () => print('Going to match'),
