@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cyberviperscoutingapp2024/controllers/field_with_buttons.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
@@ -24,7 +22,7 @@ class AutoStart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          tf.blueSide(),
+          tf.redSide(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

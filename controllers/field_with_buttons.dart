@@ -33,7 +33,6 @@ class TouchField extends GetxController {
         alignment: Alignment.center,
         children: [
           Ink.image(
-            height: 645.w,
             image:
                 const AssetImage('lib/assets/2160xDarkCroppedFixed - Blue.png'),
           ),
@@ -137,7 +136,7 @@ class TouchField extends GetxController {
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 58),
+                  padding: EdgeInsets.only(left: 58.w),
                   child: position(
                     spot: sv.posAmp,
                     width: 50,

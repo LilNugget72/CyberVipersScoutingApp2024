@@ -6,13 +6,15 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
   // makes sure you have a connection with the sheet
   WidgetsFlutterBinding.ensureInitialized();
   //calls for the initialization meathod for the sheet
   GoogleSheetsApi().init();
   // https://fluttercentral.com/Articles/Post/1242/How_to_the_set_change_status_bar_or_system_navigation_bar_color_in_Flutter
   //THE LORD HAS CLUTCHED
+  //the line under this waits for the screen size to be init
+  await ScreenUtil.ensureScreenSize();
   runApp(const ScoutingApp());
 }
 

@@ -45,10 +45,10 @@ class SheetValues extends GetxController {
         Ink(
           decoration: BoxDecoration(
             color: ut.buttonColor.value,
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(18.r),
           ),
           width: 165.w,
-          height: 218.h,
+          height: 200.h,
           child: Stack(
             children: [
               Align(
@@ -64,7 +64,7 @@ class SheetValues extends GetxController {
               Align(
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 12.dg),
+                    padding: EdgeInsets.only(bottom: 12.h),
                     child: Obx(
                       () => Text(
                         value.value.toString(),
@@ -79,7 +79,7 @@ class SheetValues extends GetxController {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 11),
+                  padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 11.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -95,8 +95,8 @@ class SheetValues extends GetxController {
                             borderRadius: BorderRadius.circular(60.r),
                             color: Colors.white,
                           ),
-                          width: 55.w,
-                          height: 55.w,
+                          width: 50.w,
+                          height: 50.w,
                           child: Icon(
                             Icons.remove,
                             color: ut.buttonColor.value,
@@ -115,8 +115,8 @@ class SheetValues extends GetxController {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(60.r)),
-                          width: 55.w,
-                          height: 55.w,
+                          width: 50.w,
+                          height: 50.w,
                           child: Icon(
                             Icons.add,
                             color: ut.buttonColor.value,

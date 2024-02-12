@@ -235,7 +235,7 @@ class ReuseWid extends GetxController {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: Text(
+                child: const Text(
                   'Version 1.0',
                   style: TextStyle(
                     color: Colors.grey,
