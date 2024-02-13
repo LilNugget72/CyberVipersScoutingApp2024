@@ -38,7 +38,7 @@ class TeleopScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 10.h),
+              padding: EdgeInsets.only(bottom: 16.h),
               child: sv.valueCard(value: sv.trap, title: 'Trap'),
             ),
             GestureDetector(

@@ -56,12 +56,12 @@ class AdminHub extends StatelessWidget {
                       width: 70.w,
                       height: 70.w,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        border: Border.all(color: ut.tt.value, width: 2),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.subdirectory_arrow_left_rounded,
-                        color: Colors.white,
+                        color: ut.tt.value,
                         size: 35,
                       ),
                     ),
@@ -91,12 +91,12 @@ class AdminHub extends StatelessWidget {
                       width: 70.w,
                       height: 70.w,
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        border: Border.all(color: ut.tt.value, width: 2),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.subdirectory_arrow_right_rounded,
-                        color: Colors.white,
+                        color: ut.tt.value,
                         size: 35,
                       ),
                     ),
