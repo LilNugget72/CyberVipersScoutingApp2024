@@ -44,7 +44,7 @@ class TeleopScreen extends StatelessWidget {
             GestureDetector(
               onTap: () => Get.to(() => const Endgame()),
               child: Container(
-                width: 320.w,
+                width: 250.w,
                 height: 50.h,
                 decoration: BoxDecoration(
                   color: ut.buttonColor.value,
