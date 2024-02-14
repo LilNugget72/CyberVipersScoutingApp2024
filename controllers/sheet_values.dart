@@ -40,7 +40,6 @@ class SheetValues extends GetxController {
 
   valueCard({required RxInt value, required String title}) {
     return Stack(
-      fit: StackFit.passthrough,
       children: [
         Ink(
           decoration: BoxDecoration(
