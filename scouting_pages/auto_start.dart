@@ -20,42 +20,47 @@ class AutoStart extends StatelessWidget {
       appBar: rw.ab(title: 'Auto Position'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           tf.redSide(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              rw.valueToggle(
-                  title: 'Leave', value: sv.leave, width: 160.w, height: 75.h),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.to(() => const TeleopScreen());
-                  },
-                  child: Container(
+          Padding(
+            padding: EdgeInsets.only(top: 8.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                rw.valueToggle(
+                    title: 'Leave',
+                    value: sv.leave,
                     width: 160.w,
-                    height: 75.h,
-                    decoration: BoxDecoration(
-                        color: ut.buttonColor.value,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: const Center(
-                      child: Text(
-                        'Next Page? ',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'NotoSans',
-                            fontSize: 25),
+                    height: 75.h),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(() => const TeleopScreen());
+                    },
+                    child: Container(
+                      width: 160.w,
+                      height: 75.h,
+                      decoration: BoxDecoration(
+                          color: ut.buttonColor.value,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: const Center(
+                        child: Text(
+                          'To Teleop',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'NotoSans',
+                              fontSize: 25),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.dg, vertical: 6.dg),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
