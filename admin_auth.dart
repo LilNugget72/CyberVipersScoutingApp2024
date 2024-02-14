@@ -19,6 +19,8 @@ class AdminAuth extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: TextField(
               decoration: InputDecoration(
+                labelText: 'ENTER THE PASSWORD',
+                labelStyle: TextStyle(color: ut.tt.value),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.r),
                   borderSide: BorderSide(color: ut.tt.value, width: 2.w),

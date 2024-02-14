@@ -67,7 +67,7 @@ class AdminHub extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 35.w,
+                    width: 33.w,
                     height: 0,
                   ),
                   Obx(
@@ -80,7 +80,7 @@ class AdminHub extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 35.w,
+                    width: 33.w,
                     height: 0,
                   ),
                   InkWell(
