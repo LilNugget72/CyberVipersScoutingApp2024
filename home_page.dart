@@ -36,6 +36,9 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                   color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
               decoration: InputDecoration(
+                labelText: 'First Name Last Initial',
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                labelStyle: TextStyle(color: ut.tt.value),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: ut.tt.value)),
                 enabledBorder: OutlineInputBorder(
