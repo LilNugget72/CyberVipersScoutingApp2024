@@ -19,14 +19,15 @@ class TeleopScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    sv.valueCard(value: sv.teleopAmp, title: 'Amp'),
-                    sv.valueCard(value: sv.trap, title: 'Missed')
-                  ],
-                )),
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  sv.valueCard(value: sv.teleopAmp, title: 'Amp'),
+                  sv.valueCard(value: sv.trap, title: 'Missed')
+                ],
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 8.h),
               child: Row(
@@ -39,7 +40,13 @@ class TeleopScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 16.h),
-              child: sv.valueCard(value: sv.trap, title: 'Trap'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  sv.valueCard(value: sv.trap, title: 'Trap'),
+                  sv.valueCard(value: sv.trap, title: 'Missed')
+                ],
+              ),
             ),
             GestureDetector(
               onTap: () => Get.to(() => const Endgame()),

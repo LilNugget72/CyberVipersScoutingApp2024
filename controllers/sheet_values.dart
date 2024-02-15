@@ -29,14 +29,19 @@ class SheetValues extends GetxController {
   RxInt teleopAmp = 0.obs;
   RxInt teleopSpeaker = 0.obs;
 
+  RxBool leftStage = false.obs;
+  RxBool rightStage = false.obs;
+  RxBool centerStage = false.obs;
   RxBool park = false.obs;
   RxBool onstage = false.obs;
+  RxBool harmony = false.obs;
   RxInt trap = 0.obs;
-  RxString comments = ''.obs;
+  RxString sheetComments = ''.obs;
 
   RxInt matchNum = 1.obs;
 
   final scoutName = TextEditingController();
+  final comments = TextEditingController();
 
   valueCard({required RxInt value, required String title}) {
     return Stack(

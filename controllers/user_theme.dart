@@ -6,7 +6,9 @@ class UserTheme extends GetxController {
 
   final Rx<Color> tt = Colors.white.obs;
 
-  Rx<Color> buttonColor = const Color.fromARGB(255, 237, 52, 52).obs;
+  Rx<Color> buttonColor = const Color.fromARGB(255, 0, 101, 179).obs;
+  // Color.fromARGB(255, 237, 52, 52).obs is red
+  //Color.fromARGB(255, 0, 101, 179).obs is blue
 
   Rx<ThemeData> currentTheme = ThemeData(
     canvasColor: Colors.grey,

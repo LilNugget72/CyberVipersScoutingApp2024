@@ -3,6 +3,7 @@ import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:math';
 
 UserTheme ut = Get.find();
 SheetValues sv = Get.find();
@@ -14,6 +15,9 @@ class TouchField extends GetxController {
   Rx<Color> pos2 = Colors.transparent.obs; //middle of speaker
   Rx<Color> pos3 = Colors.transparent.obs; //closest to the source
 
+  Rx<Color> stage1 = Colors.transparent.obs; //left of the driver station
+  Rx<Color> stage2 = Colors.transparent.obs; //the only flat part
+  Rx<Color> stage3 = Colors.transparent.obs; //right of the driver station
   Rx<Color> note1 = Colors.transparent.obs;
   Rx<Color> note2 = Colors.transparent.obs;
   Rx<Color> note3 = Colors.transparent.obs;
@@ -114,6 +118,56 @@ class TouchField extends GetxController {
     );
   }
 
+  blueStage() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Ink.image(
+          height: 300.h,
+          width: 360.w,
+          centerSlice: Rect.largest,
+          image: const AssetImage('lib/assets/Stage - Blue.png'),
+        ),
+        Positioned(
+          right: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (55 * pi / 180),
+            child: startingZone(
+                spot: sv.leftStage,
+                width: 120.w,
+                height: 50.h,
+                color: stage1,
+                selectedZone: sv.leftStage),
+          ),
+        ),
+        Positioned(
+          bottom: 22.h,
+          right: 116.w,
+          child: startingZone(
+              spot: sv.centerStage,
+              width: 130.w,
+              height: 50.h,
+              color: stage2,
+              selectedZone: sv.centerStage),
+        ),
+        Positioned(
+          left: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (-55 * pi / 180),
+            child: startingZone(
+                spot: sv.rightStage,
+                width: 120.w,
+                height: 50.h,
+                color: stage3,
+                selectedZone: sv.rightStage),
+          ),
+        ),
+      ],
+    );
+  }
+
   redSide() {
     return Stack(
       children: [
@@ -188,6 +242,56 @@ class TouchField extends GetxController {
             ],
           ),
         )
+      ],
+    );
+  }
+
+  redStage() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Ink.image(
+          height: 300.h,
+          width: 360.w,
+          centerSlice: Rect.largest,
+          image: const AssetImage('lib/assets/Stage - Red.png'),
+        ),
+        Positioned(
+          right: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (55 * pi / 180),
+            child: startingZone(
+                spot: sv.leftStage,
+                width: 120.w,
+                height: 50.h,
+                color: stage1,
+                selectedZone: sv.leftStage),
+          ),
+        ),
+        Positioned(
+          bottom: 22.h,
+          right: 116.w,
+          child: startingZone(
+              spot: sv.centerStage,
+              width: 130.w,
+              height: 50.h,
+              color: stage2,
+              selectedZone: sv.centerStage),
+        ),
+        Positioned(
+          left: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (-55 * pi / 180),
+            child: startingZone(
+                spot: sv.rightStage,
+                width: 120.w,
+                height: 50.h,
+                color: stage3,
+                selectedZone: sv.rightStage),
+          ),
+        ),
       ],
     );
   }
