@@ -53,26 +53,26 @@ class TouchField extends GetxController {
           child: Row(
             children: [
               startingZone(
-                  spot: sv.posSource,
-                  width: 45.w,
-                  height: 73.h,
-                  color: pos3,
-                  selectedZone: sv.posSource),
+                zone: sv.posSource,
+                width: 45.w,
+                height: 73.h,
+                color: pos3,
+              ),
               Padding(
                 padding: EdgeInsets.fromLTRB(4.w, 40.h, 4.w, 0),
                 child: startingZone(
-                    spot: sv.posCenter,
-                    width: 80.w,
-                    height: 35.h,
-                    color: pos2,
-                    selectedZone: sv.posCenter),
+                  zone: sv.posCenter,
+                  width: 80.w,
+                  height: 35.h,
+                  color: pos2,
+                ),
               ),
               startingZone(
-                  spot: sv.posAmp,
-                  width: 45.w,
-                  height: 73.h,
-                  color: pos1,
-                  selectedZone: sv.posAmp)
+                zone: sv.posAmp,
+                width: 45.w,
+                height: 73.h,
+                color: pos1,
+              )
             ],
           ),
         ),
@@ -133,35 +133,35 @@ class TouchField extends GetxController {
           bottom: 130.h,
           child: Transform.rotate(
             angle: (55 * pi / 180),
-            child: startingZone(
-                spot: sv.leftStage,
-                width: 120.w,
-                height: 50.h,
-                color: stage1,
-                selectedZone: sv.leftStage),
+            child: endingStage(
+              stage: sv.leftStage,
+              width: 120.w,
+              height: 50.h,
+              color: stage1,
+            ),
           ),
         ),
         Positioned(
           bottom: 22.h,
           right: 116.w,
-          child: startingZone(
-              spot: sv.centerStage,
-              width: 130.w,
-              height: 50.h,
-              color: stage2,
-              selectedZone: sv.centerStage),
+          child: endingStage(
+            stage: sv.centerStage,
+            width: 130.w,
+            height: 50.h,
+            color: stage2,
+          ),
         ),
         Positioned(
           left: 55.w,
           bottom: 130.h,
           child: Transform.rotate(
             angle: (-55 * pi / 180),
-            child: startingZone(
-                spot: sv.rightStage,
-                width: 120.w,
-                height: 50.h,
-                color: stage3,
-                selectedZone: sv.rightStage),
+            child: endingStage(
+              stage: sv.rightStage,
+              width: 120.w,
+              height: 50.h,
+              color: stage3,
+            ),
           ),
         ),
       ],
@@ -181,32 +181,32 @@ class TouchField extends GetxController {
           child: Row(
             children: [
               startingZone(
-                  spot: sv.posAmp,
-                  width: 45.w,
-                  height: 80.h,
-                  color: pos1,
-                  selectedZone: sv.posAmp),
+                zone: sv.posAmp,
+                width: 45.w,
+                height: 80.h,
+                color: pos1,
+              ),
               Padding(
                 padding: EdgeInsets.fromLTRB(4.w, 40.h, 4.w, 0),
                 child: startingZone(
-                    spot: sv.posCenter,
-                    width: 80.w,
-                    height: 40.h,
-                    color: pos2,
-                    selectedZone: sv.posCenter),
+                  zone: sv.posCenter,
+                  width: 80.w,
+                  height: 40.h,
+                  color: pos2,
+                ),
               ),
               startingZone(
-                  spot: sv.posSource,
-                  width: 45.w,
-                  height: 80.h,
-                  color: pos3,
-                  selectedZone: sv.posSource)
+                zone: sv.posSource,
+                width: 45.w,
+                height: 80.h,
+                color: pos3,
+              )
             ],
           ),
         ),
         Positioned.fill(
           left: 51.5.w,
-          bottom: 148.h,
+          bottom: 150.h,
           child: Row(
             children: [
               button(pickedNote: sv.note1, noteColor: note1),
@@ -261,105 +261,158 @@ class TouchField extends GetxController {
           bottom: 130.h,
           child: Transform.rotate(
             angle: (55 * pi / 180),
-            child: startingZone(
-                spot: sv.leftStage,
-                width: 120.w,
-                height: 50.h,
-                color: stage1,
-                selectedZone: sv.leftStage),
+            child: endingStage(
+              stage: sv.leftStage,
+              width: 120.w,
+              height: 50.h,
+              color: stage1,
+            ),
           ),
         ),
         Positioned(
           bottom: 22.h,
           right: 116.w,
-          child: startingZone(
-              spot: sv.centerStage,
-              width: 130.w,
-              height: 50.h,
-              color: stage2,
-              selectedZone: sv.centerStage),
+          child: endingStage(
+            stage: sv.centerStage,
+            width: 130.w,
+            height: 50.h,
+            color: stage2,
+          ),
         ),
         Positioned(
           left: 55.w,
           bottom: 130.h,
           child: Transform.rotate(
-            angle: (-55 * pi / 180),
-            child: startingZone(
-                spot: sv.rightStage,
+              angle: (-55 * pi / 180),
+              child: endingStage(
+                stage: sv.rightStage,
                 width: 120.w,
                 height: 50.h,
                 color: stage3,
-                selectedZone: sv.rightStage),
-          ),
+              )),
         ),
       ],
     );
   }
 
-  toggleNoteFilling(
-      {required RxBool pickedNote, required Rx<Color> noteColor}) {
-    if (pickedNote.value == false) {
-      pickedNote.value = true;
-      noteColor.value = ut.buttonColor.value;
-    } else {
-      pickedNote.value = false;
-      noteColor.value = Colors.transparent;
-    }
-  }
-
   button({required RxBool pickedNote, required Rx<Color> noteColor}) {
     return InkWell(
-      splashColor: Colors.grey,
+      splashFactory: InkSplash.splashFactory,
+      splashColor: Colors.grey[300],
       borderRadius: BorderRadius.circular(60.r),
       onTap: () {
-        toggleNoteFilling(pickedNote: pickedNote, noteColor: noteColor);
+        if (pickedNote.value == false) {
+          pickedNote.value = true;
+          noteColor.value = ut.buttonColor.value;
+        } else {
+          pickedNote.value = false;
+          noteColor.value = Colors.transparent;
+        }
       },
       child: Obx(
-        () => Container(
+        () => Ink(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60.r),
+              border: Border.all(color: ut.buttonColor.value, width: 3.w),
+              color: noteColor.value),
           width: 35.w,
           height: 35.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(90.r),
-            border: Border.all(color: ut.buttonColor.value, width: 3.w),
-            color: noteColor.value,
-          ),
         ),
       ),
     );
   }
 
-  toggleSpotFilling({required Rx<Color> posColor}) {
-    if (posColor.value == Colors.transparent) {
-      posColor.value = ut.buttonColor.value;
-    } else {
-      posColor.value = Colors.transparent;
-    }
-  }
-
   startingZone({
-    required RxBool spot,
+    required RxBool zone,
     required double width,
     required double height,
     required Rx<Color> color,
-    required RxBool selectedZone,
   }) {
     return InkWell(
-      borderRadius: BorderRadius.circular(15.r),
-      splashColor: ut.buttonColor.value,
       splashFactory: InkSplash.splashFactory,
+      splashColor: Colors.grey[300],
+      borderRadius: BorderRadius.circular(12.r),
       onTap: () {
-        toggleSpotFilling(posColor: color);
+        if (zone.isFalse) {
+          toggleZone(zone: zone, color: color);
+        } else {
+          zone.value = false;
+          color.value = Colors.transparent;
+        }
       },
       child: Obx(
-        () => Container(
+        () => Ink(
           decoration: BoxDecoration(
-              border: Border.all(color: ut.buttonColor.value, width: 3.w),
-              borderRadius: BorderRadius.circular(15.r),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: ut.buttonColor.value, width: 4.w),
               color: color.value),
           width: width,
           height: height,
         ),
       ),
     );
+  }
+
+  toggleZone({required RxBool zone, required Rx<Color> color}) {
+    pos1.value = Colors.transparent;
+    pos2.value = Colors.transparent;
+    pos3.value = Colors.transparent;
+
+    sv.posAmp.value = false;
+    sv.posCenter.value = false;
+    sv.posSource.value = false;
+
+    zone.value = true;
+
+    color.value = ut.buttonColor.value;
+  }
+
+  endingStage({
+    required RxBool stage,
+    required double width,
+    required double height,
+    required Rx<Color> color,
+  }) {
+    return InkWell(
+      splashFactory: InkSplash.splashFactory,
+      splashColor: Colors.grey[300],
+      borderRadius: BorderRadius.circular(12.r),
+      onTap: () {
+        if (stage.isFalse) {
+          toggleStage(stage: stage, color: color);
+        } else {
+          stage1.value = Colors.transparent;
+          stage2.value = Colors.transparent;
+          stage3.value = Colors.transparent;
+
+          sv.leftStage.value = false;
+          sv.centerStage.value = false;
+          sv.rightStage.value = false;
+        }
+      },
+      child: Obx(
+        () => Ink(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(color: ut.buttonColor.value, width: 4.w),
+              color: color.value),
+          width: width,
+          height: height,
+        ),
+      ),
+    );
+  }
+
+  toggleStage({required RxBool stage, required Rx<Color> color}) {
+    stage1.value = Colors.transparent;
+    stage2.value = Colors.transparent;
+    stage3.value = Colors.transparent;
+
+    sv.leftStage.value = false;
+    sv.centerStage.value = false;
+    sv.rightStage.value = false;
+
+    stage.value = true;
+    color.value = ut.buttonColor.value;
   }
 }
