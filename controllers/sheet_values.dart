@@ -23,19 +23,26 @@ class SheetValues extends GetxController {
 
   RxBool leave = false.obs;
   RxBool preloaded = false.obs;
-  RxInt autoAmp = 0.obs;
-  RxInt autoSpeaker = 0.obs;
 
+  RxInt autoAmp = 0.obs;
   RxInt teleopAmp = 0.obs;
+  RxInt ampMissed = 0.obs;
+
+  RxInt autoSpeaker = 0.obs;
   RxInt teleopSpeaker = 0.obs;
+  RxInt speakerMissed = 0.obs;
+
+  RxInt trap = 0.obs;
+  RxInt trapMissed = 0.obs;
 
   RxBool leftStage = false.obs;
   RxBool rightStage = false.obs;
   RxBool centerStage = false.obs;
+
   RxBool park = false.obs;
   RxBool onstage = false.obs;
   RxBool harmony = false.obs;
-  RxInt trap = 0.obs;
+
   RxString sheetComments = ''.obs;
 
   RxInt matchNum = 1.obs;
