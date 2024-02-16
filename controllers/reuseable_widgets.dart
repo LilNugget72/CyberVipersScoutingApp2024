@@ -136,28 +136,44 @@ class ReuseWid extends GetxController {
       {required RxBool value,
       required String title,
       required double width,
-      required double height}) {
-    return GestureDetector(
-        onTap: () {
-          if (value.value == true) {
-            value.value = false;
-          } else {
-            value.value = true;
-          }
-        },
-        child: Container(
+      required double height,
+      required Rx<Color> fillColor,
+      required Color textColor}) {
+    return InkWell(
+      splashFactory: InkSplash.splashFactory,
+      splashColor: Colors.grey[300],
+      borderRadius: BorderRadius.circular(18.r),
+      onTap: () {
+        if (value.value == true) {
+          value.value = false;
+          fillColor.value = Colors.transparent;
+
+          textColor = ut.tt.value;
+        } else {
+          value.value = true;
+          fillColor.value = ut.buttonColor.value;
+          textColor = Colors.white;
+        }
+        print(textColor);
+      },
+      child: Obx(
+        () => Ink(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              color: ut.buttonColor.value),
+              borderRadius: BorderRadius.circular(18.r),
+              border: Border.all(color: ut.buttonColor.value, width: 4.w),
+              color: fillColor.value),
           width: width,
           height: height,
           child: Center(
             child: Text(
               title,
-              style: const TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(
+                  color: textColor, fontSize: 30, fontFamily: 'NotoSans'),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   d() {

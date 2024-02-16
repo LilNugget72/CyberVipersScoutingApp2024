@@ -16,6 +16,9 @@ class AutoStart extends StatelessWidget {
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
     TouchField tf = Get.put(TouchField());
+
+    Rx<Color> leaveColor = Colors.transparent.obs;
+    Color leaveTextColor = ut.tt.value;
     return Scaffold(
       appBar: rw.ab(title: 'Auto Position'),
       body: Column(
@@ -31,7 +34,9 @@ class AutoStart extends StatelessWidget {
                     title: 'Leave',
                     value: sv.leave,
                     width: 160.w,
-                    height: 75.h),
+                    height: 75.h,
+                    fillColor: leaveColor,
+                    textColor: leaveTextColor),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
