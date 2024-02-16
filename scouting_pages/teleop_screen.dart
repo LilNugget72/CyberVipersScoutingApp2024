@@ -24,7 +24,7 @@ class TeleopScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   sv.valueCard(value: sv.teleopAmp, title: 'Amp'),
-                  sv.valueCard(value: sv.trap, title: 'Missed')
+                  sv.valueCard(value: sv.ampMissed, title: 'Missed')
                 ],
               ),
             ),
@@ -34,7 +34,7 @@ class TeleopScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   sv.valueCard(value: sv.teleopSpeaker, title: 'Speaker'),
-                  sv.valueCard(value: sv.trap, title: 'Missed')
+                  sv.valueCard(value: sv.speakerMissed, title: 'Missed')
                 ],
               ),
             ),
@@ -44,7 +44,7 @@ class TeleopScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   sv.valueCard(value: sv.trap, title: 'Trap'),
-                  sv.valueCard(value: sv.trap, title: 'Missed')
+                  sv.valueCard(value: sv.trapMissed, title: 'Missed')
                 ],
               ),
             ),
