@@ -3,18 +3,36 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
+import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'google_sheets_api.dart';
-import 'user.dart';
-
 class ReuseWid extends GetxController {
   RxInt selectedIndex = 0.obs;
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
+  RxBool manual = false.obs;
+  teaminfo() {
+    if (manual.isFalse) {
+      return Center(
+        child: Text(
+          '${sv.teamName.value} - ${sv.teamNum.value}',
+          style: TextStyle(
+              fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 28),
+        ),
+      );
+    } else {
+      return Center(
+        child: Text(
+          'Team ${sv.teamNum.value} - Match ${sv.matchNum.value}',
+          style: TextStyle(
+              fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 28),
+        ),
+      );
+    }
+  }
 
   valueUp({required RxInt value, String? varName}) {
     return GestureDetector(
@@ -147,7 +165,6 @@ class ReuseWid extends GetxController {
         if (value.value == true) {
           value.value = false;
           fillColor.value = Colors.transparent;
-
           textColor = ut.tt.value;
         } else {
           value.value = true;
@@ -213,24 +230,9 @@ class ReuseWid extends GetxController {
           // This our way of sending all this data to the sheets. Simply match the value with the column of data.
           drawerWid(
               title: 'Manual',
-              function: () async {
-                final submitData = {
-                  UserFields.teamName: 'Cyber Vipers',
-                  UserFields.teamNum: 8717,
-                  UserFields.leave: sv.leave.value,
-                  UserFields.autoAmp: sv.autoAmp.value,
-                  UserFields.autoSpeker: sv.autoSpeaker.value,
-                  UserFields.teleopAmp: sv.teleopAmp.value,
-                  UserFields.teleopSpeaker: sv.teleopSpeaker.value,
-                  UserFields.onstage: sv.onstage.value,
-                  UserFields.park: sv.park.value,
-                  UserFields.trap: sv.trap.value,
-                  UserFields.comments: sv.comments.value,
-                };
-                await GoogleSheetsApi.sendData([submitData]);
-              },
+              function: () => Get.to(ManualPage()),
               icon: Obx(() => Icon(
-                    Icons.send,
+                    Icons.add_circle_outline_rounded,
                     color: ut.tt.value,
                     size: 35,
                   ))),
