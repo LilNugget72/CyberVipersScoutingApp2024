@@ -13,11 +13,12 @@ class TeleopScreen extends StatelessWidget {
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
     return Scaffold(
-      appBar: rw.ab(title: 'Teleop Period'),
+      appBar: rw.ab(title: 'Teleop'),
       body: Align(
         alignment: Alignment.topCenter,
         child: Column(
           children: [
+            rw.teaminfo(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 8.h),
               child: Row(
@@ -57,14 +58,26 @@ class TeleopScreen extends StatelessWidget {
                   color: ut.buttonColor.value,
                   borderRadius: BorderRadius.circular(30.r),
                 ),
-                child: const Center(
-                    child: Text(
-                  'To "Endgame"',
-                  style: TextStyle(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      '"Endgame"',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'NotoSans',
+                          fontSize: 25),
+                    ),
+                    SizedBox(
+                      width: 7.w,
+                    ),
+                    const Icon(
+                      Icons.arrow_forward,
                       color: Colors.white,
-                      fontFamily: 'NotoSans',
-                      fontSize: 24),
-                )),
+                      size: 30,
+                    )
+                  ],
+                ),
               ),
             ),
           ],

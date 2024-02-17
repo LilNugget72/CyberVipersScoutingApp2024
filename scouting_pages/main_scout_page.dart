@@ -23,24 +23,30 @@ class ScoutPage extends StatelessWidget {
       appBar: rw.ab(
         title: 'Scouting Page Lobby',
       ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            Get.to(() => const AutoStart());
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: Colors.redAccent),
-            width: 150,
-            height: 150,
-            child: const Center(
-                child: Text(
-              'Ready to Scout?',
-              style: TextStyle(color: Colors.white),
-            )),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => const AutoStart());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.redAccent),
+                  width: 150,
+                  height: 150,
+                  child: const Center(
+                      child: Text(
+                    'Ready to Scout?',
+                    style: TextStyle(color: Colors.white),
+                  )),
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
       bottomNavigationBar: rw.bnb(),
     );

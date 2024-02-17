@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
     ReuseWid rw = Get.put(ReuseWid());
     UserTheme ut = Get.put(UserTheme());
     SheetValues sv = Get.find();
-
+//Color.fromARGB(255, 57, 57, 57)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: ut.bars,
         systemNavigationBarColor: ut.bars,
@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
           width: 300.w,
           child: Obx(
             () => TextField(
+              autocorrect: false,
               controller: sv.scoutName,
               textAlign: TextAlign.center,
               enabled: true,
@@ -36,14 +37,22 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                   color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
               decoration: InputDecoration(
-                labelText: 'First Name Last Initial',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
+                label: const Center(
+                    child: Text(
+                  'First Name Last Initial',
+                  style: TextStyle(
+                      color: Color.fromARGB(85, 255, 255, 255),
+                      fontFamily: 'NotoSans',
+                      fontSize: 20),
+                )),
                 labelStyle: TextStyle(color: ut.tt.value),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: ut.tt.value)),
                 enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: ut.tt.value)),
                 focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: ut.tt.value)),
               ),
             ),

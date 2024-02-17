@@ -42,24 +42,24 @@ class TouchField extends GetxController {
     return Stack(
       children: [
         Ink.image(
-          height: 400.h,
+          height: 370.h,
           centerSlice: Rect.largest,
           image:
               const AssetImage('lib/assets/2160xDarkCroppedFixed - Blue.png'),
         ),
         Positioned(
-          top: 19.h,
+          top: 18.h,
           right: 40.w,
           child: Row(
             children: [
               startingZone(
                 zone: sv.posSource,
                 width: 45.w,
-                height: 73.h,
+                height: 68.h,
                 color: pos3,
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(4.w, 40.h, 4.w, 0),
+                padding: EdgeInsets.fromLTRB(4.w, 35.h, 4.w, 0),
                 child: startingZone(
                   zone: sv.posCenter,
                   width: 80.w,
@@ -70,7 +70,7 @@ class TouchField extends GetxController {
               startingZone(
                 zone: sv.posAmp,
                 width: 45.w,
-                height: 73.h,
+                height: 68.h,
                 color: pos1,
               )
             ],
@@ -78,7 +78,7 @@ class TouchField extends GetxController {
         ),
         Positioned.fill(
           left: 154.w,
-          bottom: 128.h,
+          bottom: 119.h,
           child: Row(
             children: [
               button(pickedNote: sv.note3, noteColor: note3),
@@ -87,14 +87,14 @@ class TouchField extends GetxController {
                 child: button(pickedNote: sv.note2, noteColor: note2),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 25.w),
+                padding: EdgeInsets.only(left: 24.w),
                 child: button(pickedNote: sv.note1, noteColor: note1),
               ),
             ],
           ),
         ),
         Positioned.fill(
-          top: 306.h,
+          top: 283.h,
           left: 16.5.w,
           child: Row(
             children: [
@@ -172,7 +172,7 @@ class TouchField extends GetxController {
     return Stack(
       children: [
         Ink.image(
-          height: 400.h,
+          height: 370.h,
           centerSlice: Rect.largest,
           image: const AssetImage('lib/assets/2160xDarkCroppedFixed - Red.png'),
         ),
@@ -183,11 +183,11 @@ class TouchField extends GetxController {
               startingZone(
                 zone: sv.posAmp,
                 width: 45.w,
-                height: 80.h,
+                height: 75.h,
                 color: pos1,
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(4.w, 40.h, 4.w, 0),
+                padding: EdgeInsets.fromLTRB(4.w, 35.h, 4.w, 0),
                 child: startingZone(
                   zone: sv.posCenter,
                   width: 80.w,
@@ -198,15 +198,15 @@ class TouchField extends GetxController {
               startingZone(
                 zone: sv.posSource,
                 width: 45.w,
-                height: 80.h,
+                height: 75.h,
                 color: pos3,
               )
             ],
           ),
         ),
         Positioned.fill(
-          left: 51.5.w,
-          bottom: 150.h,
+          left: 51.w,
+          bottom: 139.h,
           child: Row(
             children: [
               button(pickedNote: sv.note1, noteColor: note1),
@@ -222,8 +222,8 @@ class TouchField extends GetxController {
           ),
         ),
         Positioned.fill(
-          top: 324.h,
-          left: 32.w,
+          top: 300.h,
+          left: 31.5.w,
           child: Row(
             children: [
               button(pickedNote: sv.note4, noteColor: note4),

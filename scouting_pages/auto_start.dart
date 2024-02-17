@@ -20,10 +20,14 @@ class AutoStart extends StatelessWidget {
     Rx<Color> leaveColor = Colors.transparent.obs;
     Color leaveTextColor = ut.tt.value;
     return Scaffold(
-      appBar: rw.ab(title: 'Auto Position'),
+      appBar: rw.ab(title: 'Auto'),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 12.h),
+            child: rw.teaminfo(),
+          ),
           tf.blueSide(),
           Padding(
             padding: EdgeInsets.only(top: 8.h),
@@ -44,21 +48,31 @@ class AutoStart extends StatelessWidget {
                       Get.to(() => const TeleopScreen());
                     },
                     child: Container(
-                      width: 160.w,
-                      height: 75.h,
-                      decoration: BoxDecoration(
-                          color: ut.buttonColor.value,
-                          borderRadius: BorderRadius.circular(10.r)),
-                      child: const Center(
-                        child: Text(
-                          'To Teleop',
-                          style: TextStyle(
+                        width: 160.w,
+                        height: 75.h,
+                        decoration: BoxDecoration(
+                            color: ut.buttonColor.value,
+                            borderRadius: BorderRadius.circular(10.r)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Teleop',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'NotoSans',
+                                  fontSize: 25),
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            const Icon(
+                              Icons.arrow_forward,
                               color: Colors.white,
-                              fontFamily: 'NotoSans',
-                              fontSize: 25),
-                        ),
-                      ),
-                    ),
+                              size: 30,
+                            )
+                          ],
+                        )),
                   ),
                 ),
               ],
