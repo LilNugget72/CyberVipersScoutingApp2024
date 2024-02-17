@@ -8,21 +8,25 @@ ReuseWid rw = Get.find();
 UserTheme ut = Get.find();
 
 class SheetValues extends GetxController {
+  RxInt matchNum = 1.obs;
+  RxString teamName = ''.obs;
+  RxInt teamNum = 1.obs;
+
   RxBool posAmp = false.obs;
   RxBool posCenter = false.obs;
   RxBool posSource = false.obs;
 
-  RxBool note1 = false.obs;
+  RxBool note1 = false.obs; //note closest to the amp
   RxBool note2 = false.obs;
-  RxBool note3 = false.obs;
-  RxBool note4 = false.obs;
+  RxBool note3 = false.obs; //note farthest to the amp
+
+  RxBool note4 = false.obs; //note closest to the amp on the bottom
   RxBool note5 = false.obs;
   RxBool note6 = false.obs;
   RxBool note7 = false.obs;
-  RxBool note8 = false.obs;
+  RxBool note8 = false.obs; //note farthest to the amp bottom
 
   RxBool leave = false.obs;
-  RxBool preloaded = false.obs;
 
   RxInt autoAmp = 0.obs;
   RxInt teleopAmp = 0.obs;
@@ -36,16 +40,12 @@ class SheetValues extends GetxController {
   RxInt trapMissed = 0.obs;
 
   RxBool leftStage = false.obs;
-  RxBool rightStage = false.obs;
   RxBool centerStage = false.obs;
+  RxBool rightStage = false.obs;
 
   RxBool park = false.obs;
   RxBool onstage = false.obs;
   RxBool harmony = false.obs;
-
-  RxString sheetComments = ''.obs;
-
-  RxInt matchNum = 1.obs;
 
   final scoutName = TextEditingController();
   final comments = TextEditingController();
@@ -59,7 +59,7 @@ class SheetValues extends GetxController {
             borderRadius: BorderRadius.circular(18.r),
           ),
           width: 165.w,
-          height: 200.h,
+          height: 186.h,
           child: Stack(
             children: [
               Align(
@@ -94,44 +94,48 @@ class SheetValues extends GetxController {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      InkWell(
+                        borderRadius: BorderRadius.circular(60.r),
+                        splashColor: Colors.grey[300],
                         onTap: () {
                           value--;
                           if (value < 0) {
                             value.value = 0;
                           }
                         },
-                        child: Container(
+                        child: Ink(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60.r),
-                            color: Colors.white,
-                          ),
+                              borderRadius: BorderRadius.circular(60.r),
+                              border:
+                                  Border.all(color: Colors.white, width: 3)),
                           width: 50.w,
                           height: 50.w,
-                          child: Icon(
+                          child: const Icon(
                             Icons.remove,
-                            color: ut.buttonColor.value,
-                            size: 30.dg,
+                            color: Colors.white,
+                            size: 40,
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 30.w,
                       ),
-                      GestureDetector(
+                      InkWell(
+                        borderRadius: BorderRadius.circular(60.r),
+                        splashColor: Colors.grey[300],
                         onTap: () {
                           value++;
                         },
-                        child: Container(
+                        child: Ink(
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              border: Border.all(color: Colors.white, width: 3),
                               borderRadius: BorderRadius.circular(60.r)),
                           width: 50.w,
                           height: 50.w,
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
-                            color: ut.buttonColor.value,
-                            size: 30.dg,
+                            color: Colors.white,
+                            size: 40,
                           ),
                         ),
                       )
