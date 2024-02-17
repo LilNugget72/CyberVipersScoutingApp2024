@@ -1,9 +1,11 @@
+import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 UserTheme ut = Get.put(UserTheme());
+SheetValues sv = Get.put(SheetValues());
 
 class EndgameDefense extends GetxController {
   RxBool dNone = false.obs;
@@ -22,57 +24,35 @@ class EndgameDefense extends GetxController {
   Rx<Color> dAllTheyDoColor = Colors.transparent.obs;
   Color dAllTheyDoTextColor = ut.tt.value;
 
-  toggleD() {
-    dNoneColor.value = Colors.transparent;
-    dSlightColor.value = Colors.transparent;
-    dModerateColor.value = Colors.transparent;
-    dGoodAmountColor.value = Colors.transparent;
-    dAllTheyDoColor.value = Colors.transparent;
-
-    dNone.value = false;
-    dSlight.value = false;
-    dModerate.value = false;
-    dGoodAmount.value = false;
-    dAllTheyDo.value = false;
-    update();
-  }
-
   toggleDefense(
       {required RxBool defense,
       required String title,
       required double width,
       required Rx<Color> fillColor,
-      required Rx<Color> textColor}) {
+      required Color textColor}) {
     return InkWell(
       splashFactory: InkSplash.splashFactory,
       splashColor: Colors.grey[300],
       borderRadius: BorderRadius.circular(10.r),
       onTap: () {
-        if (defense.isFalse) {
-          toggleD();
-          fillColor.value = ut.buttonColor.value;
-          textColor.value = Colors.white;
-          defense.value = true;
+        sv.teamName.value = 'Cyber Vipers';
+        sv.teamNum.value = 8717;
+        dNoneColor.value = Colors.transparent;
+        dSlightColor.value = Colors.transparent;
+        dModerateColor.value = Colors.transparent;
+        dGoodAmountColor.value = Colors.transparent;
+        dAllTheyDoColor.value = Colors.transparent;
 
-          if (ut.tt.value == Colors.white) {
-            dNoneTextColor = Colors.white;
-            dSlightTextColor = Colors.white;
-            dModerateTextColor = Colors.white;
-            dGoodAmountTextColor = Colors.white;
-            dAllTheyDoTextColor = Colors.white;
-          } else {
-            dNoneTextColor = Colors.black;
-            dSlightTextColor = Colors.black;
-            dModerateTextColor = Colors.black;
-            dGoodAmountTextColor = Colors.black;
-            dAllTheyDoTextColor = Colors.black;
-          }
-        }
+        fillColor.value = ut.buttonColor.value;
+        textColor = ut.tt.value;
 
-        print(textColor);
+        dNone.value = false;
+        dSlight.value = false;
+        dModerate.value = false;
+        dGoodAmount.value = false;
+        dAllTheyDo.value = false;
 
-        print(defense);
-        print(dNoneTextColor);
+        defense.value = true;
       },
       child: Obx(
         () => Ink(
@@ -86,7 +66,7 @@ class EndgameDefense extends GetxController {
             child: Text(
               title,
               style: TextStyle(
-                  color: textColor.value, fontSize: 15, fontFamily: 'NotoSans'),
+                  color: textColor, fontSize: 15, fontFamily: 'NotoSans'),
             ),
           ),
         ),
@@ -105,31 +85,31 @@ class EndgameDefense extends GetxController {
               title: 'None',
               width: 50.w,
               fillColor: dNoneColor,
-              textColor: dNoneTextColor.obs),
+              textColor: dNoneTextColor),
           toggleDefense(
               defense: dSlight,
               title: 'Slight',
               width: 50.w,
               fillColor: dSlightColor,
-              textColor: dSlightTextColor.obs),
+              textColor: dSlightTextColor),
           toggleDefense(
               defense: dModerate,
               title: 'Moderate',
               width: 75.w,
               fillColor: dModerateColor,
-              textColor: dModerateTextColor.obs),
+              textColor: dModerateTextColor),
           toggleDefense(
               defense: dGoodAmount,
-              title: 'Good Amount',
-              width: 104.w,
+              title: 'A Lot',
+              width: 50.w,
               fillColor: dGoodAmountColor,
-              textColor: dGoodAmountTextColor.obs),
+              textColor: dGoodAmountTextColor),
           toggleDefense(
               defense: dAllTheyDo,
               title: 'All They Do',
               width: 81.w,
               fillColor: dAllTheyDoColor,
-              textColor: dAllTheyDoTextColor.obs)
+              textColor: dAllTheyDoTextColor)
         ],
       ),
     );
