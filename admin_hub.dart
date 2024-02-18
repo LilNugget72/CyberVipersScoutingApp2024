@@ -17,6 +17,7 @@ class AdminHub extends StatelessWidget {
       appBar: rw.ab(title: 'Admin Hub'),
       body: Column(
         children: [
+          rw.line(),
           Center(
             child: Padding(
               padding: EdgeInsets.only(top: 10.h),

@@ -40,11 +40,11 @@ class FinalPage extends StatelessWidget {
                   style: TextStyle(
                       color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
                   decoration: InputDecoration(
-                    label: const Center(
+                    label: Center(
                         child: Text(
                       'Comments',
                       style: TextStyle(
-                          color: Color.fromARGB(85, 255, 255, 255),
+                          color: ut.ts.value,
                           fontFamily: 'NotoSans',
                           fontSize: 20),
                     )),

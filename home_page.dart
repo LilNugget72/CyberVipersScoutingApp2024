@@ -43,11 +43,11 @@ class HomePage extends StatelessWidget {
                         fontFamily: 'NotoSans',
                         fontSize: 20),
                     decoration: InputDecoration(
-                      label: const Center(
+                      label: Center(
                           child: Text(
                         'First Name Last Initial',
                         style: TextStyle(
-                            color: Color.fromARGB(85, 255, 255, 255),
+                            color: ut.ts.value,
                             fontFamily: 'NotoSans',
                             fontSize: 20),
                       )),
@@ -56,10 +56,10 @@ class HomePage extends StatelessWidget {
                           borderSide: BorderSide(color: ut.tt.value)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.r),
-                          borderSide: BorderSide(color: ut.tt.value)),
+                          borderSide: BorderSide(color: ut.tt.value, width: 2)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.r),
-                          borderSide: BorderSide(color: ut.tt.value)),
+                          borderSide: BorderSide(color: ut.tt.value, width: 2)),
                     ),
                   ),
                 ),

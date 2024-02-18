@@ -5,6 +5,7 @@ class UserTheme extends GetxController {
   final RxBool userThemeState = true.obs;
 
   final Rx<Color> tt = Colors.white.obs;
+  final Rx<Color> ts = Color.fromARGB(85, 255, 255, 255).obs;
 
   Rx<Color> buttonColor = const Color.fromARGB(255, 237, 52, 52).obs;
   // Color.fromARGB(255, 237, 52, 52).obs is red
@@ -110,11 +111,12 @@ class UserTheme extends GetxController {
       userThemeState.value = false;
       currentTheme.value = lightTheme;
       tt.value = Colors.black;
-      borderThemes();
+      ts.value = Colors.grey;
     } else {
       userThemeState.value = true;
       currentTheme.value = darkTheme;
       tt.value = Colors.white;
+      ts.value = const Color.fromARGB(85, 255, 255, 255);
       borderThemes();
     }
   }

@@ -37,11 +37,11 @@ class ManualPage extends StatelessWidget {
                           fontFamily: 'NotoSans',
                           fontSize: 20),
                       decoration: InputDecoration(
-                        label: const Center(
+                        label: Center(
                           child: Text(
                             'Team #',
                             style: TextStyle(
-                                color: Color.fromARGB(85, 255, 255, 255),
+                                color: ut.ts.value,
                                 fontFamily: 'NotoSans',
                                 fontSize: 20),
                           ),
@@ -75,11 +75,11 @@ class ManualPage extends StatelessWidget {
                           fontFamily: 'NotoSans',
                           fontSize: 20),
                       decoration: InputDecoration(
-                        label: const Center(
+                        label: Center(
                           child: Text(
                             'Match #',
                             style: TextStyle(
-                                color: Color.fromARGB(85, 255, 255, 255),
+                                color: ut.ts.value,
                                 fontFamily: 'NotoSans',
                                 fontSize: 20),
                           ),

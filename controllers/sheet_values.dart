@@ -56,10 +56,7 @@ class SheetValues extends GetxController {
       children: [
         Ink(
           decoration: BoxDecoration(
-            border: Border.all(
-              color: ut.buttonColor.value,
-              width: 3,
-            ),
+            color: ut.buttonColor.value,
             borderRadius: BorderRadius.circular(18.r),
           ),
           width: 165.w,
@@ -86,7 +83,6 @@ class SheetValues extends GetxController {
                         style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'NotoSans',
-                            fontWeight: FontWeight.bold,
                             fontSize: 45),
                       ),
                     ),
@@ -111,8 +107,8 @@ class SheetValues extends GetxController {
                           decoration: BoxDecoration(
                               color: ut.buttonColor.value,
                               borderRadius: BorderRadius.circular(60.r),
-                              border: Border.all(
-                                  color: ut.buttonColor.value, width: 3)),
+                              border:
+                                  Border.all(color: Colors.white, width: 3)),
                           width: 50.w,
                           height: 50.w,
                           child: const Icon(
@@ -134,8 +130,7 @@ class SheetValues extends GetxController {
                         child: Ink(
                           decoration: BoxDecoration(
                               color: ut.buttonColor.value,
-                              border: Border.all(
-                                  color: ut.buttonColor.value, width: 3),
+                              border: Border.all(color: Colors.white, width: 3),
                               borderRadius: BorderRadius.circular(60.r)),
                           width: 50.w,
                           height: 50.w,

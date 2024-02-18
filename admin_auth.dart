@@ -14,51 +14,66 @@ class AdminAuth extends StatelessWidget {
     UserTheme ut = Get.find();
     return Scaffold(
         appBar: rw.ab(title: 'Admin Authentication'),
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: TextField(
-              decoration: InputDecoration(
-                labelText: 'ENTER THE PASSWORD',
-                labelStyle: TextStyle(color: ut.tt.value),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                  borderSide: BorderSide(color: ut.tt.value, width: 2.w),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                  borderSide: BorderSide(color: ut.tt.value, width: 2.w),
-                ),
-              ),
-              cursorColor: ut.tt.value,
-              style: TextStyle(color: ut.tt.value, fontFamily: 'NotoSans'),
-              onSubmitted: (value) {
-                if (value != '8717') {
-                  showDialog(
-                    context: context,
-                    builder: (context) => Dialog(
-                      backgroundColor: Colors.red,
-                      child: SizedBox(
-                        width: 100.w,
-                        height: 100.h,
-                        child: const Center(
+        body: Column(
+          children: [
+            rw.line(),
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      label: Center(
                           child: Text(
-                            'TRY AGAIN',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'SenorSaturno',
-                                fontSize: 40),
-                          ),
-                        ),
+                        'Password',
+                        style: TextStyle(
+                            color: ut.ts.value,
+                            fontFamily: 'NotoSans',
+                            fontSize: 20),
+                      )),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.r),
+                        borderSide: BorderSide(color: ut.tt.value, width: 2.w),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.r),
+                        borderSide: BorderSide(color: ut.tt.value, width: 2.w),
                       ),
                     ),
-                  );
-                } else {
-                  Get.offAll(() => const AdminHub());
-                }
-              },
-            ),
-          ),
+                    cursorColor: ut.tt.value,
+                    style:
+                        TextStyle(color: ut.tt.value, fontFamily: 'NotoSans'),
+                    onSubmitted: (value) {
+                      if (value != '8717') {
+                        showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                            backgroundColor: Colors.red,
+                            child: SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: const Center(
+                                child: Text(
+                                  'TRY AGAIN',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'SenorSaturno',
+                                      fontSize: 40),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        Get.offAll(() => const AdminHub());
+                      }
+                    },
+                  ),
+                ),
+              ),
+            )
+          ],
         ));
   }
 }
