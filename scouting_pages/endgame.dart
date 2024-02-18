@@ -73,7 +73,7 @@ class _EndgameState extends State<Endgame> {
           ed.defenseRow(),
           Padding(
             padding: EdgeInsets.only(top: 40.h, bottom: 25.h),
-            child: tf.blueStage(),
+            child: tf.redStage(),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 10.h),

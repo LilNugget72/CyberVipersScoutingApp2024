@@ -25,6 +25,7 @@ class ScoutPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          rw.line(),
           Expanded(
             child: Center(
               child: GestureDetector(

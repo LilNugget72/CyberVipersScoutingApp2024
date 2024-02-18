@@ -35,8 +35,6 @@ class EndgameDefense extends GetxController {
       splashColor: Colors.grey[300],
       borderRadius: BorderRadius.circular(10.r),
       onTap: () {
-        sv.teamName.value = 'Cyber Vipers';
-        sv.teamNum.value = 8717;
         dNoneColor.value = Colors.transparent;
         dSlightColor.value = Colors.transparent;
         dModerateColor.value = Colors.transparent;

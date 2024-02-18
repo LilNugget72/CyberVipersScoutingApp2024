@@ -14,6 +14,14 @@ class ReuseWid extends GetxController {
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
   RxBool manual = false.obs;
+
+  line() {
+    return Container(
+      height: 2,
+      color: ut.tt.value,
+    );
+  }
+
   teaminfo() {
     if (manual.isFalse) {
       return Center(
@@ -230,7 +238,7 @@ class ReuseWid extends GetxController {
           // This our way of sending all this data to the sheets. Simply match the value with the column of data.
           drawerWid(
               title: 'Manual',
-              function: () => Get.to(ManualPage()),
+              function: () => Get.to(() => ManualPage()),
               icon: Obx(() => Icon(
                     Icons.add_circle_outline_rounded,
                     color: ut.tt.value,

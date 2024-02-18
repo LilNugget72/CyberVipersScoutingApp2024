@@ -13,7 +13,8 @@ class TouchField extends GetxController {
 
   Rx<Color> pos1 = Colors.transparent.obs; //near amp
   Rx<Color> pos2 = Colors.transparent.obs; //middle of speaker
-  Rx<Color> pos3 = Colors.transparent.obs; //closest to the source
+  Rx<Color> pos3 = Colors.transparent.obs; //between speaker and source
+  Rx<Color> pos4 = Colors.transparent.obs; //closest to the source
 
   Rx<Color> stage1 = Colors.transparent.obs; //left of the driver station
   Rx<Color> stage2 = Colors.transparent.obs; //the only flat part
@@ -54,9 +55,20 @@ class TouchField extends GetxController {
             children: [
               startingZone(
                 zone: sv.posSource,
-                width: 45.w,
+                width: 70.w,
                 height: 68.h,
-                color: pos3,
+                color: pos4,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 5.w,
+                ),
+                child: startingZone(
+                  zone: sv.posBetween,
+                  width: 45.w,
+                  height: 68.h,
+                  color: pos3,
+                ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(4.w, 35.h, 4.w, 0),
@@ -195,11 +207,20 @@ class TouchField extends GetxController {
                   color: pos2,
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(right: 5.w),
+                child: startingZone(
+                  zone: sv.posBetween,
+                  width: 45.w,
+                  height: 75.h,
+                  color: pos3,
+                ),
+              ),
               startingZone(
                 zone: sv.posSource,
-                width: 45.w,
+                width: 75.w,
                 height: 75.h,
-                color: pos3,
+                color: pos4,
               )
             ],
           ),
@@ -357,9 +378,11 @@ class TouchField extends GetxController {
     pos1.value = Colors.transparent;
     pos2.value = Colors.transparent;
     pos3.value = Colors.transparent;
+    pos4.value = Colors.transparent;
 
     sv.posAmp.value = false;
     sv.posCenter.value = false;
+    sv.posBetween.value = false;
     sv.posSource.value = false;
 
     zone.value = true;
@@ -414,5 +437,26 @@ class TouchField extends GetxController {
 
     stage.value = true;
     color.value = ut.buttonColor.value;
+  }
+
+  finished() {
+    filling.value = Colors.transparent;
+
+    pos1.value = Colors.transparent;
+    pos2.value = Colors.transparent;
+    pos3.value = Colors.transparent;
+    pos4.value = Colors.transparent;
+
+    stage1.value = Colors.transparent;
+    stage2.value = Colors.transparent;
+    stage3.value = Colors.transparent;
+    note1.value = Colors.transparent;
+    note2.value = Colors.transparent;
+    note3.value = Colors.transparent;
+    note4.value = Colors.transparent;
+    note5.value = Colors.transparent;
+    note6.value = Colors.transparent;
+    note7.value = Colors.transparent;
+    note8.value = Colors.transparent;
   }
 }

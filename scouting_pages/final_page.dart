@@ -1,3 +1,4 @@
+import 'package:cyberviperscoutingapp2024/controllers/field_with_buttons.dart';
 import 'package:cyberviperscoutingapp2024/controllers/google_sheets_api.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
@@ -17,6 +18,8 @@ class FinalPage extends StatelessWidget {
     UserTheme ut = Get.find();
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
+    TouchField tf = Get.find();
+
     return Scaffold(
       appBar: rw.ab(title: 'Comments'),
       body: Column(
@@ -102,6 +105,8 @@ class FinalPage extends StatelessWidget {
                     };
                     await GoogleSheetsApi.sendData([submitData]);
                     rw.manual.value = false;
+                    sv.finished();
+                    tf.finished();
                     Get.to(() => const HomePage());
                   },
                   child: Container(

@@ -28,7 +28,7 @@ class AutoStart extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 12.h),
             child: rw.teaminfo(),
           ),
-          tf.blueSide(),
+          tf.redSide(),
           Padding(
             padding: EdgeInsets.only(top: 8.h),
             child: Row(

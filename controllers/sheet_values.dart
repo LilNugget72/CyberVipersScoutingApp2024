@@ -14,6 +14,7 @@ class SheetValues extends GetxController {
 
   RxBool posAmp = false.obs;
   RxBool posCenter = false.obs;
+  RxBool posBetween = false.obs;
   RxBool posSource = false.obs;
 
   RxBool note1 = false.obs; //note closest to the amp
@@ -55,7 +56,10 @@ class SheetValues extends GetxController {
       children: [
         Ink(
           decoration: BoxDecoration(
-            color: ut.buttonColor.value,
+            border: Border.all(
+              color: ut.buttonColor.value,
+              width: 3,
+            ),
             borderRadius: BorderRadius.circular(18.r),
           ),
           width: 165.w,
@@ -105,9 +109,10 @@ class SheetValues extends GetxController {
                         },
                         child: Ink(
                           decoration: BoxDecoration(
+                              color: ut.buttonColor.value,
                               borderRadius: BorderRadius.circular(60.r),
-                              border:
-                                  Border.all(color: Colors.white, width: 3)),
+                              border: Border.all(
+                                  color: ut.buttonColor.value, width: 3)),
                           width: 50.w,
                           height: 50.w,
                           child: const Icon(
@@ -128,7 +133,9 @@ class SheetValues extends GetxController {
                         },
                         child: Ink(
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white, width: 3),
+                              color: ut.buttonColor.value,
+                              border: Border.all(
+                                  color: ut.buttonColor.value, width: 3),
                               borderRadius: BorderRadius.circular(60.r)),
                           width: 50.w,
                           height: 50.w,
@@ -148,5 +155,49 @@ class SheetValues extends GetxController {
         )
       ],
     );
+  }
+
+  finished() {
+    matchNum.value = 1;
+    teamName.value = '';
+    teamNum.value = 1;
+
+    posAmp.value = false;
+    posCenter.value = false;
+    posBetween.value = false;
+    posSource.value = false;
+
+    note1.value = false; //note closest to the amp
+    note2.value = false;
+    note3.value = false; //note farthest to the amp
+
+    note4.value = false; //note closest to the amp on the bottom
+    note5.value = false;
+    note6.value = false;
+    note7.value = false;
+    note8.value = false; //note farthest to the amp bottom
+
+    leave.value = false;
+
+    autoAmp.value = 0;
+    teleopAmp.value = 0;
+    ampMissed.value = 0;
+
+    autoSpeaker.value = 0;
+    teleopSpeaker.value = 0;
+    speakerMissed.value = 0;
+
+    trap.value = 0;
+    trapMissed.value = 0;
+
+    leftStage.value = false;
+    centerStage.value = false;
+    rightStage.value = false;
+
+    park.value = false;
+    onstage.value = false;
+    harmony.value = false;
+
+    comments.clear();
   }
 }

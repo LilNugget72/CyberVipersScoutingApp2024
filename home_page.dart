@@ -23,41 +23,50 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: rw.ab(title: 'Home Page'),
       drawer: rw.d(),
-      body: Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          width: 300.w,
-          child: Obx(
-            () => TextField(
-              autocorrect: false,
-              controller: sv.scoutName,
-              textAlign: TextAlign.center,
-              enabled: true,
-              cursorColor: ut.tt.value,
-              style: TextStyle(
-                  color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
-              decoration: InputDecoration(
-                label: const Center(
-                    child: Text(
-                  'First Name Last Initial',
-                  style: TextStyle(
-                      color: Color.fromARGB(85, 255, 255, 255),
-                      fontFamily: 'NotoSans',
-                      fontSize: 20),
-                )),
-                labelStyle: TextStyle(color: ut.tt.value),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: ut.tt.value)),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: ut.tt.value)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: ut.tt.value)),
+      body: Column(
+        children: [
+          rw.line(),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                width: 300.w,
+                child: Obx(
+                  () => TextField(
+                    autocorrect: false,
+                    controller: sv.scoutName,
+                    textAlign: TextAlign.center,
+                    enabled: true,
+                    cursorColor: ut.tt.value,
+                    style: TextStyle(
+                        color: ut.tt.value,
+                        fontFamily: 'NotoSans',
+                        fontSize: 20),
+                    decoration: InputDecoration(
+                      label: const Center(
+                          child: Text(
+                        'First Name Last Initial',
+                        style: TextStyle(
+                            color: Color.fromARGB(85, 255, 255, 255),
+                            fontFamily: 'NotoSans',
+                            fontSize: 20),
+                      )),
+                      labelStyle: TextStyle(color: ut.tt.value),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: ut.tt.value)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide: BorderSide(color: ut.tt.value)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide: BorderSide(color: ut.tt.value)),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
       bottomNavigationBar: rw.bnb(),
     );
