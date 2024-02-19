@@ -1,3 +1,4 @@
+import 'package:cyberviperscoutingapp2024/controllers/google_sheets_api.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/auto_start.dart';
@@ -30,7 +31,8 @@ class ScoutPage extends StatelessWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => const AutoStart());
+                  // Get.to(() => const AutoStart());
+                  GoogleSheetsApi.getAll();
                 },
                 child: Container(
                   decoration: BoxDecoration(

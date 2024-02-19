@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cyberviperscoutingapp2024/controllers/user.dart';
 import 'package:gsheets/gsheets.dart';
 
@@ -49,5 +51,29 @@ class GoogleSheetsApi {
   // It makes a new row then passes the values into the corrisponding spot(column)*/
   static Future sendData(List<Map<String, dynamic>> dataList) async {
     _worksheet!.values.map.appendRows(dataList);
+  }
+
+  static Future<int> getRowCount() async {
+    if (_worksheet == null) return 0;
+
+    final lastRow = await _worksheet!.values.lastRow();
+    return lastRow == null ? 0 : int.tryParse(lastRow.first) ?? 0;
+  }
+
+  static Future<List<User>> getAll() async {
+    if (_worksheet == null) return <User>[];
+    final users = await _worksheet!.values.map.allRows();
+    return users == null ? <User>[] : users.map(User.fromJson).toList();
+  }
+
+  static Future<User?> getById(int id) async {
+    if (_worksheet == null) return null;
+    final json = await _worksheet!.values.map.rowByKey(id, fromColumn: 1);
+    return json == null ? null : User.fromJson(json);
+  }
+
+  static Future insert(List<Map<String, dynamic>> rowList) async {
+    if (_worksheet == null) return;
+    _worksheet!.values.map.appendRows(rowList);
   }
 }

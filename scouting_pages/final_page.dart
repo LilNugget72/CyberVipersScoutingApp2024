@@ -76,6 +76,7 @@ class FinalPage extends StatelessWidget {
                       UserFields.matchNum: sv.matchNum.value,
                       UserFields.posAmp: sv.posAmp.value,
                       UserFields.posCenter: sv.posCenter.value,
+                      UserFields.posBetween: sv.posBetween.value,
                       UserFields.posSource: sv.posSource.value,
                       UserFields.note1: sv.note1.value,
                       UserFields.note2: sv.note2.value,

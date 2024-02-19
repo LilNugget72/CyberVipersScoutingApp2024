@@ -26,6 +26,12 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           rw.line(),
+          Padding(
+              padding: EdgeInsets.only(top: 40.h),
+              child: Image(
+                  height: 500.h,
+                  image:
+                      const AssetImage('lib/assets/Your_paragraph_text.png'))),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,

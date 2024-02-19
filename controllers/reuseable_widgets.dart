@@ -227,15 +227,14 @@ class ReuseWid extends GetxController {
                     color: ut.tt.value,
                     size: 35,
                   ))),
-          drawerWid(
-              title: 'Change Theme',
-              function: () => ut.toggleTheme(),
-              icon: Obx(() => Icon(
-                    Icons.dark_mode_outlined,
-                    color: ut.tt.value,
-                    size: 35,
-                  ))),
-          // This our way of sending all this data to the sheets. Simply match the value with the column of data.
+          // drawerWid(
+          //     title: 'Change Theme',
+          //     function: () => ut.toggleTheme(),
+          //     icon: Obx(() => Icon(
+          //           Icons.dark_mode_outlined,
+          //           color: ut.tt.value,
+          //           size: 35,
+          //         ))),
           drawerWid(
               title: 'Manual',
               function: () => Get.to(() => ManualPage()),
