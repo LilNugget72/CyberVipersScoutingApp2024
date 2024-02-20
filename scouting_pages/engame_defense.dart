@@ -8,19 +8,14 @@ UserTheme ut = Get.put(UserTheme());
 SheetValues sv = Get.put(SheetValues());
 
 class EndgameDefense extends GetxController {
-  RxBool dNone = false.obs;
   Rx<Color> dNoneColor = Colors.transparent.obs;
   Color dNoneTextColor = ut.tt.value;
-  RxBool dSlight = false.obs;
   Rx<Color> dSlightColor = Colors.transparent.obs;
   Color dSlightTextColor = ut.tt.value;
-  RxBool dModerate = false.obs;
   Rx<Color> dModerateColor = Colors.transparent.obs;
   Color dModerateTextColor = ut.tt.value;
-  RxBool dGoodAmount = false.obs;
   Rx<Color> dGoodAmountColor = Colors.transparent.obs;
   Color dGoodAmountTextColor = ut.tt.value;
-  RxBool dAllTheyDo = false.obs;
   Rx<Color> dAllTheyDoColor = Colors.transparent.obs;
   Color dAllTheyDoTextColor = ut.tt.value;
 
@@ -44,11 +39,11 @@ class EndgameDefense extends GetxController {
         fillColor.value = ut.buttonColor.value;
         textColor = ut.tt.value;
 
-        dNone.value = false;
-        dSlight.value = false;
-        dModerate.value = false;
-        dGoodAmount.value = false;
-        dAllTheyDo.value = false;
+        sv.dNone.value = false;
+        sv.dModest.value = false;
+        sv.dGenerous.value = false;
+        sv.dPlenty.value = false;
+        sv.dExclusively.value = false;
 
         defense.value = true;
       },
@@ -79,37 +74,50 @@ class EndgameDefense extends GetxController {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           toggleDefense(
-              defense: dNone,
+              defense: sv.dNone,
               title: 'None',
               width: 50.w,
               fillColor: dNoneColor,
               textColor: dNoneTextColor),
           toggleDefense(
-              defense: dSlight,
-              title: 'Slight',
-              width: 50.w,
+              defense: sv.dModest,
+              title: 'Modest',
+              width: 55.w,
               fillColor: dSlightColor,
               textColor: dSlightTextColor),
           toggleDefense(
-              defense: dModerate,
-              title: 'Moderate',
+              defense: sv.dGenerous,
+              title: 'Generous',
               width: 75.w,
               fillColor: dModerateColor,
               textColor: dModerateTextColor),
           toggleDefense(
-              defense: dGoodAmount,
-              title: 'A Lot',
+              defense: sv.dPlenty,
+              title: 'Plenty',
               width: 50.w,
               fillColor: dGoodAmountColor,
               textColor: dGoodAmountTextColor),
           toggleDefense(
-              defense: dAllTheyDo,
-              title: 'All They Do',
+              defense: sv.dExclusively,
+              title: 'Exclusively',
               width: 81.w,
               fillColor: dAllTheyDoColor,
               textColor: dAllTheyDoTextColor)
         ],
       ),
     );
+  }
+
+  finished() {
+    dNoneColor.value = ut.buttonColor.value;
+    dNoneTextColor = ut.tt.value;
+    dSlightColor.value = Colors.transparent;
+    dSlightTextColor = ut.tt.value;
+    dModerateColor.value = Colors.transparent;
+    dModerateTextColor = ut.tt.value;
+    dGoodAmountColor.value = Colors.transparent;
+    dGoodAmountTextColor = ut.tt.value;
+    dAllTheyDoColor.value = Colors.transparent;
+    dAllTheyDoTextColor = ut.tt.value;
   }
 }

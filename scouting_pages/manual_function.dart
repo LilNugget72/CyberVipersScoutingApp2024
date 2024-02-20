@@ -13,13 +13,12 @@ class ManualPage extends StatelessWidget {
     SheetValues sv = Get.put(SheetValues());
     ReuseWid rw = Get.put(ReuseWid());
 
-    TextEditingController teamNumber = TextEditingController();
-    TextEditingController matchNumber = TextEditingController();
     return Scaffold(
       appBar: rw.ab(title: 'Manual Version'),
       body: Center(
         child: Column(
           children: [
+            rw.line(),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -28,7 +27,7 @@ class ManualPage extends StatelessWidget {
                     width: 120.w,
                     child: TextField(
                       autocorrect: false,
-                      controller: teamNumber,
+                      controller: sv.teamNumber,
                       textAlign: TextAlign.center,
                       enabled: true,
                       cursorColor: ut.tt.value,
@@ -66,7 +65,7 @@ class ManualPage extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       autocorrect: false,
-                      controller: matchNumber,
+                      controller: sv.matchNumber,
                       textAlign: TextAlign.center,
                       enabled: true,
                       cursorColor: ut.tt.value,
@@ -105,7 +104,8 @@ class ManualPage extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 10.h),
               child: GestureDetector(
                 onTap: () {
-                  if (teamNumber.text.isEmpty || matchNumber.text.isEmpty) {
+                  if (sv.teamNumber.text.isEmpty ||
+                      sv.matchNumber.text.isEmpty) {
                     showDialog(
                       context: context,
                       builder: (context) => Dialog(
@@ -128,8 +128,8 @@ class ManualPage extends StatelessWidget {
                   } else {
                     Get.to(() => const AutoStart());
                     rw.manual.value = true;
-                    sv.teamNum.value = int.parse(teamNumber.text);
-                    sv.matchNum.value = int.parse(matchNumber.text);
+                    sv.teamNum.value = int.parse(sv.teamNumber.text);
+                    sv.matchNum.value = int.parse(sv.matchNumber.text);
                   }
                 },
                 child: Container(

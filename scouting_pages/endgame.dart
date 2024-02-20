@@ -33,6 +33,7 @@ class _EndgameState extends State<Endgame> {
       appBar: rw.ab(title: '"Endgame"'),
       body: Column(
         children: [
+          rw.line(),
           Padding(
             padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
             child: rw.teaminfo(),

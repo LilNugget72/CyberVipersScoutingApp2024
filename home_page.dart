@@ -33,39 +33,44 @@ class HomePage extends StatelessWidget {
                   image:
                       const AssetImage('lib/assets/Your_paragraph_text.png'))),
           Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                width: 300.w,
-                child: Obx(
-                  () => TextField(
-                    autocorrect: false,
-                    controller: sv.scoutName,
-                    textAlign: TextAlign.center,
-                    enabled: true,
-                    cursorColor: ut.tt.value,
-                    style: TextStyle(
-                        color: ut.tt.value,
-                        fontFamily: 'NotoSans',
-                        fontSize: 20),
-                    decoration: InputDecoration(
-                      label: Center(
-                          child: Text(
-                        'First Name Last Initial',
-                        style: TextStyle(
-                            color: ut.ts.value,
-                            fontFamily: 'NotoSans',
-                            fontSize: 20),
-                      )),
-                      labelStyle: TextStyle(color: ut.tt.value),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: ut.tt.value)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                          borderSide: BorderSide(color: ut.tt.value, width: 2)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                          borderSide: BorderSide(color: ut.tt.value, width: 2)),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.h),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: 300.w,
+                  child: Obx(
+                    () => TextField(
+                      autocorrect: false,
+                      controller: sv.scoutName,
+                      textAlign: TextAlign.center,
+                      enabled: true,
+                      cursorColor: ut.tt.value,
+                      style: TextStyle(
+                          color: ut.tt.value,
+                          fontFamily: 'NotoSans',
+                          fontSize: 20),
+                      decoration: InputDecoration(
+                        label: Center(
+                            child: Text(
+                          'First Name Last Initial',
+                          style: TextStyle(
+                              color: ut.ts.value,
+                              fontFamily: 'NotoSans',
+                              fontSize: 20),
+                        )),
+                        labelStyle: TextStyle(color: ut.tt.value),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: ut.tt.value)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.r),
+                            borderSide:
+                                BorderSide(color: ut.tt.value, width: 2)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.r),
+                            borderSide:
+                                BorderSide(color: ut.tt.value, width: 2)),
+                      ),
                     ),
                   ),
                 ),

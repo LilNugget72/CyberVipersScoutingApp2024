@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:cyberviperscoutingapp2024/controllers/user.dart';
 import 'package:gsheets/gsheets.dart';
 
 class GoogleSheetsApi {
   // create credential
-  static const String _credentials = r'''
+  static const String _credentials =
+      r'''
 {
   "type": "service_account",
   "project_id": "cyber-vipers-spread-sheet",

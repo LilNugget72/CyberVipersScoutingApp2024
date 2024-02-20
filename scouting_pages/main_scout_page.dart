@@ -1,6 +1,6 @@
-import 'package:cyberviperscoutingapp2024/controllers/google_sheets_api.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
+import 'package:cyberviperscoutingapp2024/data_grabber.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/auto_start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,10 +30,19 @@ class ScoutPage extends StatelessWidget {
           Expanded(
             child: Center(
               child: GestureDetector(
-                onTap: () {
-                  // Get.to(() => const AutoStart());
-                  GoogleSheetsApi.getAll();
-                },
+                //this is the way to get whatever thing you want from the sheet
+                // onTap: () async {
+                //   for (int i = 1; i <= 10; i++) {
+                //     var thing = await getCellValueInColumn(
+                //         rowNumber: i, columnName: 'NOTE 1', team: '3441');
+                //     if (thing == 'empty') {
+                //       break;
+                //     } else {
+                //       print(thing);
+                //     }
+                //   }
+                // },
+                onTap: () => Get.to(() => AutoStart()),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),

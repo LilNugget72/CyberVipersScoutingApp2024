@@ -40,6 +40,12 @@ class SheetValues extends GetxController {
   RxInt trap = 0.obs;
   RxInt trapMissed = 0.obs;
 
+  RxBool dNone = true.obs;
+  RxBool dModest = false.obs;
+  RxBool dGenerous = false.obs;
+  RxBool dPlenty = false.obs;
+  RxBool dExclusively = false.obs;
+
   RxBool leftStage = false.obs;
   RxBool centerStage = false.obs;
   RxBool rightStage = false.obs;
@@ -50,6 +56,9 @@ class SheetValues extends GetxController {
 
   final scoutName = TextEditingController();
   final comments = TextEditingController();
+
+  final teamNumber = TextEditingController();
+  final matchNumber = TextEditingController();
 
   valueCard({required RxInt value, required String title}) {
     return Stack(
@@ -188,6 +197,12 @@ class SheetValues extends GetxController {
     leftStage.value = false;
     centerStage.value = false;
     rightStage.value = false;
+
+    dNone.value = true;
+    dModest.value = false;
+    dGenerous.value = false;
+    dPlenty.value = false;
+    dExclusively.value = false;
 
     park.value = false;
     onstage.value = false;

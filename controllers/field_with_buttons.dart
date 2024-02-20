@@ -45,8 +45,7 @@ class TouchField extends GetxController {
         Ink.image(
           height: 370.h,
           centerSlice: Rect.largest,
-          image:
-              const AssetImage('lib/assets/2160xDarkCroppedFixed - Blue.png'),
+          image: const AssetImage('lib/assets/Field - Blue.png'),
         ),
         Positioned(
           top: 18.h,
@@ -186,7 +185,7 @@ class TouchField extends GetxController {
         Ink.image(
           height: 370.h,
           centerSlice: Rect.largest,
-          image: const AssetImage('lib/assets/2160xDarkCroppedFixed - Red.png'),
+          image: const AssetImage('lib/assets/Field - Red.png'),
         ),
         Positioned(
           left: 42.w,

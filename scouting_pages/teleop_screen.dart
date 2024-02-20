@@ -1,6 +1,8 @@
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
+import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/endgame.dart';
+import 'package:cyberviperscoutingapp2024/scouting_pages/engame_defense.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,12 +14,15 @@ class TeleopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
+    UserTheme ut = Get.find();
+    EndgameDefense ed = Get.put(EndgameDefense());
     return Scaffold(
       appBar: rw.ab(title: 'Teleop'),
       body: Align(
         alignment: Alignment.topCenter,
         child: Column(
           children: [
+            rw.line(),
             rw.teaminfo(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -50,7 +55,10 @@ class TeleopScreen extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => Get.to(() => const Endgame()),
+              onTap: () {
+                Get.to(() => const Endgame());
+                ed.dNoneColor.value = ut.buttonColor.value;
+              },
               child: Container(
                 width: 250.w,
                 height: 50.h,
