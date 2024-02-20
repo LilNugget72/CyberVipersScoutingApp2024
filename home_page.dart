@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
         statusBarColor: ut.bars,
         systemNavigationBarColor: ut.bars,
         statusBarIconBrightness: ut.statbright));
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
       appBar: rw.ab(title: 'Home Page'),
@@ -26,12 +27,14 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: [
           rw.line(),
-          Padding(
-              padding: EdgeInsets.only(top: 40.h),
+          if (!isKeyboard)
+            Padding(
+              padding: EdgeInsets.only(top: 25.h),
               child: Image(
-                  height: 500.h,
-                  image:
-                      const AssetImage('lib/assets/Your_paragraph_text.png'))),
+                height: 500.h,
+                image: const AssetImage('lib/assets/Sponsor_image.png'),
+              ),
+            ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(bottom: 20.h),

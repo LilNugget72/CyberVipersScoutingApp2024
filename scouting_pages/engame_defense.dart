@@ -10,14 +10,14 @@ SheetValues sv = Get.put(SheetValues());
 class EndgameDefense extends GetxController {
   Rx<Color> dNoneColor = Colors.transparent.obs;
   Color dNoneTextColor = ut.tt.value;
-  Rx<Color> dSlightColor = Colors.transparent.obs;
-  Color dSlightTextColor = ut.tt.value;
-  Rx<Color> dModerateColor = Colors.transparent.obs;
-  Color dModerateTextColor = ut.tt.value;
-  Rx<Color> dGoodAmountColor = Colors.transparent.obs;
-  Color dGoodAmountTextColor = ut.tt.value;
-  Rx<Color> dAllTheyDoColor = Colors.transparent.obs;
-  Color dAllTheyDoTextColor = ut.tt.value;
+  Rx<Color> dModestColor = Colors.transparent.obs;
+  Color dModestTextColor = ut.tt.value;
+  Rx<Color> dGenerousColor = Colors.transparent.obs;
+  Color dGenerousTextColor = ut.tt.value;
+  Rx<Color> dPlentyColor = Colors.transparent.obs;
+  Color dPlentyTextColor = ut.tt.value;
+  Rx<Color> dExclusivelyColor = Colors.transparent.obs;
+  Color dExclusivelyTextColor = ut.tt.value;
 
   toggleDefense(
       {required RxBool defense,
@@ -31,10 +31,10 @@ class EndgameDefense extends GetxController {
       borderRadius: BorderRadius.circular(10.r),
       onTap: () {
         dNoneColor.value = Colors.transparent;
-        dSlightColor.value = Colors.transparent;
-        dModerateColor.value = Colors.transparent;
-        dGoodAmountColor.value = Colors.transparent;
-        dAllTheyDoColor.value = Colors.transparent;
+        dModestColor.value = Colors.transparent;
+        dGenerousColor.value = Colors.transparent;
+        dPlentyColor.value = Colors.transparent;
+        dExclusivelyColor.value = Colors.transparent;
 
         fillColor.value = ut.buttonColor.value;
         textColor = ut.tt.value;
@@ -82,27 +82,27 @@ class EndgameDefense extends GetxController {
           toggleDefense(
               defense: sv.dModest,
               title: 'Modest',
-              width: 55.w,
-              fillColor: dSlightColor,
-              textColor: dSlightTextColor),
+              width: 60.w,
+              fillColor: dModestColor,
+              textColor: dModestTextColor),
           toggleDefense(
               defense: sv.dGenerous,
               title: 'Generous',
               width: 75.w,
-              fillColor: dModerateColor,
-              textColor: dModerateTextColor),
+              fillColor: dGenerousColor,
+              textColor: dGenerousTextColor),
           toggleDefense(
               defense: sv.dPlenty,
               title: 'Plenty',
-              width: 50.w,
-              fillColor: dGoodAmountColor,
-              textColor: dGoodAmountTextColor),
+              width: 55.w,
+              fillColor: dPlentyColor,
+              textColor: dPlentyTextColor),
           toggleDefense(
               defense: sv.dExclusively,
               title: 'Exclusively',
               width: 81.w,
-              fillColor: dAllTheyDoColor,
-              textColor: dAllTheyDoTextColor)
+              fillColor: dExclusivelyColor,
+              textColor: dExclusivelyTextColor)
         ],
       ),
     );
@@ -111,13 +111,13 @@ class EndgameDefense extends GetxController {
   finished() {
     dNoneColor.value = ut.buttonColor.value;
     dNoneTextColor = ut.tt.value;
-    dSlightColor.value = Colors.transparent;
-    dSlightTextColor = ut.tt.value;
-    dModerateColor.value = Colors.transparent;
-    dModerateTextColor = ut.tt.value;
-    dGoodAmountColor.value = Colors.transparent;
-    dGoodAmountTextColor = ut.tt.value;
-    dAllTheyDoColor.value = Colors.transparent;
-    dAllTheyDoTextColor = ut.tt.value;
+    dModestColor.value = Colors.transparent;
+    dModestTextColor = ut.tt.value;
+    dGenerousColor.value = Colors.transparent;
+    dGenerousTextColor = ut.tt.value;
+    dPlentyColor.value = Colors.transparent;
+    dPlentyTextColor = ut.tt.value;
+    dExclusivelyColor.value = Colors.transparent;
+    dExclusivelyTextColor = ut.tt.value;
   }
 }

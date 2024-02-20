@@ -42,7 +42,7 @@ class ScoutPage extends StatelessWidget {
                 //     }
                 //   }
                 // },
-                onTap: () => Get.to(() => AutoStart()),
+                onTap: () => Get.to(() => const AutoStart()),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
