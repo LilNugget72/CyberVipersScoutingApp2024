@@ -2,9 +2,9 @@ import 'package:cyberviperscoutingapp2024/admin_auth.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
+import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
-import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,6 +14,17 @@ class ReuseWid extends GetxController {
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
   RxBool manual = false.obs;
+
+  textForGraph({required String name}) {
+    return Text(
+      name,
+      style: TextStyle(
+          fontFamily: 'NotoSans',
+          fontSize: 18,
+          color: ut.tt.value,
+          letterSpacing: 1.6),
+    );
+  }
 
   line() {
     return Container(
@@ -296,7 +307,7 @@ class ReuseWid extends GetxController {
           case 1:
             Get.off(() => const ScoutPage());
           case 2:
-            Get.off(() => const StatsPage());
+            Get.off(() => const Trying());
         }
       },
       items: const [
