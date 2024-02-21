@@ -14,6 +14,7 @@ class ReuseWid extends GetxController {
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
   RxBool manual = false.obs;
+  Map<int, String> teamName = {};
 
   textForGraph({required String name}) {
     return Text(
@@ -43,9 +44,11 @@ class ReuseWid extends GetxController {
         ),
       );
     } else {
+      sv.teamName.value = teamName[sv.teamNum.value]!;
+
       return Center(
         child: Text(
-          'Team ${sv.teamNum.value} - Match ${sv.matchNum.value}',
+          'Team ${sv.teamNum.value} - Match ${sv.teamName.value}',
           style: TextStyle(
               fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 28),
         ),
@@ -248,7 +251,11 @@ class ReuseWid extends GetxController {
           //         ))),
           drawerWid(
               title: 'Manual',
-              function: () => Get.to(() => ManualPage()),
+              function: () async {
+                teamName = await eventTeams('2023nvlv');
+                sv.teamName.value = teamName[8717]!;
+                Get.to(() => ManualPage());
+              },
               icon: Obx(() => Icon(
                     Icons.add_circle_outline_rounded,
                     color: ut.tt.value,

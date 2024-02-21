@@ -1,3 +1,4 @@
+// credit to ChatGPT version 3.5
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -87,7 +88,7 @@ Future<int> countTrueValues(String column, int team) async {
       team: teamString,
     );
     if (value == 'empty') break;
-    if (value.toUpperCase() == 'TRUE') count++;
+    if (value == 'TRUE') count++;
     i++;
   }
   return count;
@@ -111,6 +112,32 @@ Future<int> countTotalValues(String column, int team) async {
   return count;
 }
 
+// except this
+Future<Map<int, String>> eventTeams(String eventKey) async {
+  const String apiKey =
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
+  final String apiUrl =
+      'https://www.thebluealliance.com/api/v3/event/$eventKey/teams';
+  Map<int, String> teamNames = {};
+
+  final response =
+      await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+
+  if (response.statusCode == 200) {
+    final List<dynamic> eventTeams = json.decode(response.body);
+
+    for (var team in eventTeams) {
+      final int teamNumber = team['team_number'];
+      final String teamName = team['nickname'];
+      teamNames[teamNumber] = teamName;
+    }
+    return teamNames;
+  } else {
+    print('Error: ${response.statusCode} - ${response.body}');
+    return {};
+  }
+}
+
 class Trying extends StatelessWidget {
   const Trying({Key? key}) : super(key: key);
 
@@ -119,17 +146,21 @@ class Trying extends StatelessWidget {
     RxInt made = 0.obs;
     RxInt missed = 0.obs;
     RxInt total = 0.obs;
+    RxInt val = 0.obs;
     return Scaffold(
       body: Column(
         children: [
           GestureDetector(
             onTap: () async {
-              int x = await countTotalValues('NOTE 2', 8717);
-              int y = await countTrueValues('NOTE 2', 8717);
+              int x = await countTotalValues('ROBOT AMP POSITION', 8717);
+              int y = await countTrueValues('ROBOT AMP POSITION', 8717);
+              int z = await totalValueInList('AUTO AMP NOTES', 8717);
 
-              made.value = x;
-              missed.value = y;
-              total.value = x + y;
+              made.value = y;
+              missed.value = x - y;
+              total.value = x;
+
+              val.value = z;
             },
             child: Container(
               color: Colors.amber,
@@ -138,6 +169,7 @@ class Trying extends StatelessWidget {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Obx(
                 () => Container(
@@ -173,6 +205,19 @@ class Trying extends StatelessWidget {
                   child: Center(
                     child: Text(
                       total.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              Obx(
+                () => Container(
+                  width: 50.w,
+                  height: 50.h,
+                  color: Colors.red,
+                  child: Center(
+                    child: Text(
+                      val.toString(),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
