@@ -115,7 +115,6 @@ class FinalPage extends StatelessWidget {
                         UserFields.scoutersName: sv.scoutName.text,
                       };
                       await GoogleSheetsApi.sendData([submitData]);
-                      rw.manual.value = false;
                       sv.finished();
                       tf.finished();
                       eg.finished();

@@ -13,7 +13,6 @@ class ReuseWid extends GetxController {
   RxInt selectedIndex = 0.obs;
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
-  RxBool manual = false.obs;
   Map<int, String> teamName = {};
 
   textForGraph({required String name}) {
@@ -35,25 +34,15 @@ class ReuseWid extends GetxController {
   }
 
   teaminfo() {
-    if (manual.isFalse) {
-      return Center(
-        child: Text(
-          '${sv.teamName.value} - ${sv.teamNum.value}',
-          style: TextStyle(
-              fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 28),
-        ),
-      );
-    } else {
-      sv.teamName.value = teamName[sv.teamNum.value]!;
+    sv.teamName.value = teamName[sv.teamNum.value]!;
 
-      return Center(
-        child: Text(
-          'Team ${sv.teamNum.value} - Match ${sv.teamName.value}',
-          style: TextStyle(
-              fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 28),
-        ),
-      );
-    }
+    return Center(
+      child: Text(
+        '${sv.teamNum.value} - ${sv.teamName.value}',
+        style:
+            TextStyle(fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 20),
+      ),
+    );
   }
 
   valueUp({required RxInt value, String? varName}) {

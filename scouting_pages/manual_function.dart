@@ -127,7 +127,6 @@ class ManualPage extends StatelessWidget {
                     );
                   } else {
                     Get.to(() => const AutoStart());
-                    rw.manual.value = true;
                     sv.teamNum.value = int.parse(sv.teamNumber.text);
                     sv.matchNum.value = int.parse(sv.matchNumber.text);
                   }
