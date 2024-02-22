@@ -5,6 +5,7 @@ import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

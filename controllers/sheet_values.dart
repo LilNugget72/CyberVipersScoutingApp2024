@@ -41,9 +41,9 @@ class SheetValues extends GetxController {
   RxInt trapMissed = 0.obs;
 
   RxBool dNone = true.obs;
+  RxBool dSlight = false.obs;
   RxBool dModest = false.obs;
   RxBool dGenerous = false.obs;
-  RxBool dPlenty = false.obs;
   RxBool dExclusively = false.obs;
 
   RxBool leftStage = false.obs;
@@ -199,9 +199,9 @@ class SheetValues extends GetxController {
     rightStage.value = false;
 
     dNone.value = true;
+    dSlight.value = false;
     dModest.value = false;
     dGenerous.value = false;
-    dPlenty.value = false;
     dExclusively.value = false;
 
     park.value = false;

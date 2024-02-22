@@ -1,9 +1,7 @@
 // credit to ChatGPT version 3.5
 import 'dart:convert';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 Future<String> getCellValueInColumn({
   required String columnName,
@@ -48,32 +46,37 @@ Future<String> getCellValueInColumn({
   return 'empty';
 }
 
-// Function to fetch values in batches
-Future<List<String>> fetchValuesInBatches(String column, int team) async {
-  final String teamString = team.toString();
-  List<String> values = [];
-  int i = 1;
-  while (true) {
-    var value = await getCellValueInColumn(
-      rowNumber: i,
-      columnName: column,
-      team: teamString,
-    );
-    if (value == 'empty') break;
-    values.add(value);
-    i++;
-  }
-  return values;
-}
+Future<int> totalValueInList(
+    {required String column, required int team}) async {
+  try {
+    int total = 0;
+    int rowNumber = 1;
 
-// Function to calculate total value in list
-Future<int> totalValueInList(String column, int team) async {
-  List<String> values = await fetchValuesInBatches(column, team);
-  int total = 0;
-  for (String value in values) {
-    total += int.tryParse(value) ?? 0;
+    while (true) {
+      // Fetch the value from the specified column for the current row
+      String value = await getCellValueInColumn(
+        columnName: column,
+        rowNumber: rowNumber,
+        team: team.toString(),
+      );
+
+      // Break the loop if the value is empty
+      if (value == 'empty') {
+        break;
+      }
+
+      // Parse the value to an integer and add it to the total
+      total += int.tryParse(value) ?? 0;
+
+      // Move to the next row
+      rowNumber++;
+    }
+
+    return total;
+  } catch (e) {
+    print('Error: $e'); // Handle any errors
+    return 0; // Return 0 if an error occurs
   }
-  return total;
 }
 
 // Function to count true values in list
@@ -112,6 +115,37 @@ Future<int> countTotalValues(String column, int team) async {
   return count;
 }
 
+Future<Map<String, dynamic>> matchNumAndValue({
+  required int team,
+  required String column,
+}) async {
+  String match = 'MATCH #';
+  String teamString = team.toString();
+  Map<String, dynamic> matchAndValue = {};
+  int i = 1;
+
+  while (true) {
+    String matchNum = await getCellValueInColumn(
+      columnName: match,
+      rowNumber: i,
+      team: teamString,
+    );
+
+    if (matchNum == 'empty') break;
+
+    var value = await getCellValueInColumn(
+      columnName: column,
+      rowNumber: i,
+      team: teamString,
+    );
+    matchAndValue[matchNum] = value;
+    i++;
+  }
+  print(matchAndValue);
+
+  return matchAndValue;
+}
+
 // except this
 Future<Map<int, String>> eventTeams(String eventKey) async {
   const String apiKey =
@@ -139,93 +173,31 @@ Future<Map<int, String>> eventTeams(String eventKey) async {
 }
 
 class Trying extends StatelessWidget {
-  const Trying({Key? key}) : super(key: key);
+  const Trying({super.key});
 
   @override
   Widget build(BuildContext context) {
-    RxInt made = 0.obs;
-    RxInt missed = 0.obs;
-    RxInt total = 0.obs;
-    RxInt val = 0.obs;
+    List keysTest = [];
     return Scaffold(
-      body: Column(
-        children: [
-          GestureDetector(
-            onTap: () async {
-              int x = await countTotalValues('ROBOT AMP POSITION', 8717);
-              int y = await countTrueValues('ROBOT AMP POSITION', 8717);
-              int z = await totalValueInList('AUTO AMP NOTES', 8717);
-
-              made.value = y;
-              missed.value = x - y;
-              total.value = x;
-
-              val.value = z;
-            },
-            child: Container(
-              color: Colors.amber,
-              width: 100,
-              height: 100,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Obx(
-                () => Container(
-                  width: 100.w,
-                  height: 50.h,
-                  color: Colors.purple,
-                  child: Center(
-                    child: Text(
-                      made.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-              Obx(
-                () => Container(
-                  width: 100.w,
-                  height: 50.h,
-                  color: Colors.blueAccent,
-                  child: Center(
-                    child: Text(
-                      missed.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-              Obx(
-                () => Container(
-                  width: 100.w,
-                  height: 50.h,
-                  color: Colors.green,
-                  child: Center(
-                    child: Text(
-                      total.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-              Obx(
-                () => Container(
-                  width: 50.w,
-                  height: 50.h,
-                  color: Colors.red,
-                  child: Center(
-                    child: Text(
-                      val.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
+      appBar: AppBar(
+        title: const Text('API PREFORMANCE TEST'),
+      ),
+      body: GestureDetector(
+        onTap: () async {
+          var x = await countTotalValues('NOTE 1', 8717);
+          var y = await countTrueValues('NOTE 1', 8717);
+          var z = await matchNumAndValue(column: 'NOTE 1', team: 8717);
+          var a = await totalValueInList(column: 'AUTO AMP NOTES', team: 8717);
+          keysTest = z.keys.toList();
+          print(
+              'total in note is $x total true is $y match 1 note is ${z['1']} and finally the total amp notes is $a');
+          print(keysTest);
+        },
+        child: Container(
+          color: Colors.blue,
+          width: 90,
+          height: 90,
+        ),
       ),
     );
   }

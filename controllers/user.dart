@@ -37,9 +37,9 @@ class UserFields {
   static const String rightStage = 'RIGHT STAGE';
 
   static const String dNone = 'NONE';
+  static const String dSlight = 'SLIGHT';
   static const String dModest = 'MODEST';
   static const String dGenerous = 'GENEROUS';
-  static const String dPlenty = 'PLENTY';
   static const String dExclusively = 'EXCLUSIVELY';
 
   static const String onstage = 'ONSTAGE';
@@ -78,9 +78,9 @@ class UserFields {
         centerStage,
         rightStage,
         dNone,
+        dSlight,
         dModest,
         dGenerous,
-        dPlenty,
         dExclusively,
         onstage,
         park,

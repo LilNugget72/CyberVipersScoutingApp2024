@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                     decoration: InputDecoration(
                       label: Center(
                           child: Text(
-                        'First Name Last Initial',
+                        'First Name and Team Number',
                         style: TextStyle(
                             color: ut.ts.value,
                             fontFamily: 'NotoSans',
