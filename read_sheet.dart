@@ -172,32 +172,115 @@ Future<Map<int, String>> eventTeams(String eventKey) async {
   }
 }
 
+Future<Map<int, List<int>>> fetchRedAllianceTeams(String eventKey) async {
+  const String apiKey =
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
+  final String apiUrl =
+      'https://www.thebluealliance.com/api/v3/event/$eventKey/matches';
+  Map<int, List<int>> redAllianceTeamsMap = {};
+
+  try {
+    final response =
+        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+    if (response.statusCode == 200) {
+      final List<dynamic> matchesData = json.decode(response.body);
+      for (var match in matchesData) {
+        if (match['comp_level'] == 'qm') {
+          int matchNumber = match['match_number'];
+          List<int> redTeams = match['alliances']['red']['team_keys']
+              .map<int>((teamKey) => int.parse(teamKey.substring(3)))
+              .toList();
+          redAllianceTeamsMap[matchNumber] = redTeams;
+        }
+      }
+      return redAllianceTeamsMap;
+    } else {
+      print('Error: ${response.statusCode} - ${response.body}');
+      return {};
+    }
+  } catch (e) {
+    print('Error fetching data: $e');
+    return {};
+  }
+}
+
+Future<Map<int, List<String>>> fetchBlueAllianceTeams(
+    {required String eventKey}) async {
+  const String apiKey =
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
+  final String apiUrl =
+      'https://www.thebluealliance.com/api/v3/event/$eventKey/matches';
+  Map<int, List<String>> redAllianceTeamsMap = {};
+
+  try {
+    final response =
+        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+    if (response.statusCode == 200) {
+      final List<dynamic> matchesData = json.decode(response.body);
+      for (var match in matchesData) {
+        if (match['comp_level'] == 'qm') {
+          int matchNumber = match['match_number'];
+          List<String> redTeams =
+              match['alliances']['red']['team_keys'].cast<String>();
+          redAllianceTeamsMap[matchNumber] = redTeams;
+        }
+      }
+      return redAllianceTeamsMap;
+    } else {
+      print('Error: ${response.statusCode} - ${response.body}');
+      return {};
+    }
+  } catch (e) {
+    print('Error fetching data: $e');
+    return {};
+  }
+}
+
 class Trying extends StatelessWidget {
   const Trying({super.key});
 
   @override
   Widget build(BuildContext context) {
+    int match = 11;
     List keysTest = [];
     return Scaffold(
       appBar: AppBar(
         title: const Text('API PREFORMANCE TEST'),
       ),
-      body: GestureDetector(
-        onTap: () async {
-          var x = await countTotalValues('NOTE 1', 8717);
-          var y = await countTrueValues('NOTE 1', 8717);
-          var z = await matchNumAndValue(column: 'NOTE 1', team: 8717);
-          var a = await totalValueInList(column: 'AUTO AMP NOTES', team: 8717);
-          keysTest = z.keys.toList();
-          print(
-              'total in note is $x total true is $y match 1 note is ${z['1']} and finally the total amp notes is $a');
-          print(keysTest);
-        },
-        child: Container(
-          color: Colors.blue,
-          width: 90,
-          height: 90,
-        ),
+      body: Row(
+        children: [
+          GestureDetector(
+            onTap: () async {
+              // var x = await countTotalValues('NOTE 1', 8717);
+              // var y = await countTrueValues('NOTE 1', 8717);
+              // var z = await matchNumAndValue(column: 'NOTE 1', team: 8717);
+              // var a = await totalValueInList(column: 'AUTO AMP NOTES', team: 8717);
+              var test = await fetchRedAllianceTeams('2023nvlv');
+              // keysTest = z.keys.toList();
+              var bruh = test[match];
+              // print(
+              //     'total in note is $x total true is $y match 1 note is ${z['1']} and finally the total amp notes is $a');
+              // print(keysTest);
+              print(test[match]);
+              print(bruh![0]);
+            },
+            child: Container(
+              color: Colors.blue,
+              width: 90,
+              height: 90,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              match++;
+            },
+            child: Container(
+              color: Colors.red,
+              width: 90,
+              height: 90,
+            ),
+          ),
+        ],
       ),
     );
   }
