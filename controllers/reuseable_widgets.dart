@@ -134,100 +134,76 @@ class ReuseWid extends GetxController {
           drawerWid(
               title: 'About',
               function: () => print('about'),
-              icon: Obx(() => Icon(
+              icon: Icon(
                     Icons.info_outline,
                     color: ut.tt.value,
                     size: 35,
-                  ))),
+                  ),
           drawerWid(
               title: 'Admin',
               function: () => Get.to(() => const AdminAuth()),
-              icon: Obx(() => Icon(
+              icon: Icon(
                     Icons.person,
                     color: ut.tt.value,
                     size: 35,
-                  ))),
+                  ),
           drawerWid(
               title: 'Manual',
               function: () {
                 Get.to(() => const ManualPage());
               },
-              icon: Obx(() => Icon(
+              icon: Icon(
                     Icons.add_circle_outline_rounded,
                     color: ut.tt.value,
                     size: 35,
-                  ))),
+                  ),
           drawerWid(
               title: 'Update?',
               function: () => print('update'),
-              icon: Obx(() => Icon(
+              icon: Icon(
                     Icons.update,
                     color: ut.tt.value,
                     size: 35,
-                  ))),
+                  ),
           Padding(
               padding: EdgeInsets.only(left: 35.w, top: 20.h),
-              child: Obx(
-                () => SizedBox(
+              child:  SizedBox(
                   height: 50.h,
-                  child: DropdownMenu(
-                    trailingIcon: const Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'NotoSans',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1),
-                    onSelected: (value) async {
-                      sv.eventKey.value = sv.regionalEvents[value];
-                      sv.eventTeams.value = await eventTeams();
-                      sv.teamListHint.value = 'Select a Team';
-                    },
-                    inputDecorationTheme: InputDecorationTheme(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18.r),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(18.r),
-                            borderSide: const BorderSide(
-                                color: Colors.white, width: 2))),
-                    menuStyle: MenuStyle(
-                        minimumSize:
-                            MaterialStatePropertyAll(Size(100.w, 10.h)),
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.white)),
-                    width: 200.w,
-                    controller: event,
-                    leadingIcon: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    dropdownMenuEntries:
-                        sv.regionalEventsKeys.map<DropdownMenuEntry<dynamic>>(
-                      (dynamic value) {
-                        return DropdownMenuEntry(
-                          value: value,
-                          label: value,
-                          labelWidget: Text(
-                            value,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'NotoSans',
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1),
-                          ),
-                        );
-                      },
-                    ).toList(),
+                  child:Obx(
+            () => DropdownButton2(
+              isExpanded: true,
+              hint: Obx(
+                () => Text(
+                  sv.regionalListHint.value,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'NotoSans',
+                    fontSize: 15,
                   ),
                 ),
-              )),
+              ),
+              onChanged: (value) {
+                sv.eventKey.value = sv.regionalEvents[value];
+                sv.regionalListHint.value = value;
+              },
+              items: sv.match
+                  .map((dynamic event) => DropdownMenuItem<String>(
+                        value: event,
+                        child: Text(
+                          event,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'NotoSans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1),
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ),
+                ),
+              ),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
