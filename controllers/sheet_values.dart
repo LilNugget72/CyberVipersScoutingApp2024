@@ -64,13 +64,17 @@ class SheetValues extends GetxController {
 
   RxString teamListHint = 'Select A Team To View'.obs;
   RxString regionalListHint = 'Select The Regional You\'re At'.obs;
-  RxString districtListHint = 'Select The District Event You\'re At'.obs;
+  RxBool isDistrict = false.obs;
+  String districtListHint = 'Select The District Event You\'re At'.obs;
 
   RxString eventKey = ''.obs;
   RxList teamXList = [].obs;
 
   RxMap regionalEvents = {}.obs;
   RxList regionalEventsKeys = [].obs;
+
+  RxMap districtEvents = {}.obs;
+  RxList districtEventKeys = [].obs;
 
   valueCard({required RxInt value, required String title}) {
     return Stack(
