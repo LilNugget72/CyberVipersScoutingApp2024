@@ -1,6 +1,5 @@
 // credit to ChatGPT version 3.5
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<String> getCellValueInColumn({
@@ -221,7 +220,7 @@ Future<Map<int, List<String>>> fetchBlueAllianceTeams(
         if (match['comp_level'] == 'qm') {
           int matchNumber = match['match_number'];
           List<String> redTeams =
-              match['alliances']['red']['team_keys'].cast<String>();
+              match['alliances']['blue']['team_keys'].cast<String>();
           redAllianceTeamsMap[matchNumber] = redTeams;
         }
       }
@@ -233,55 +232,5 @@ Future<Map<int, List<String>>> fetchBlueAllianceTeams(
   } catch (e) {
     print('Error fetching data: $e');
     return {};
-  }
-}
-
-class Trying extends StatelessWidget {
-  const Trying({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    int match = 11;
-    List keysTest = [];
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('API PREFORMANCE TEST'),
-      ),
-      body: Row(
-        children: [
-          GestureDetector(
-            onTap: () async {
-              // var x = await countTotalValues('NOTE 1', 8717);
-              // var y = await countTrueValues('NOTE 1', 8717);
-              // var z = await matchNumAndValue(column: 'NOTE 1', team: 8717);
-              // var a = await totalValueInList(column: 'AUTO AMP NOTES', team: 8717);
-              var test = await fetchRedAllianceTeams('2023nvlv');
-              // keysTest = z.keys.toList();
-              var bruh = test[match];
-              // print(
-              //     'total in note is $x total true is $y match 1 note is ${z['1']} and finally the total amp notes is $a');
-              // print(keysTest);
-              print(test[match]);
-              print(bruh![0]);
-            },
-            child: Container(
-              color: Colors.blue,
-              width: 90,
-              height: 90,
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              match++;
-            },
-            child: Container(
-              color: Colors.red,
-              width: 90,
-              height: 90,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

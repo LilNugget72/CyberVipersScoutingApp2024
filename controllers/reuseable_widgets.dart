@@ -296,7 +296,7 @@ class ReuseWid extends GetxController {
       iconSize: 28,
       elevation: 0,
       currentIndex: selectedIndex.value,
-      onTap: (index) {
+      onTap: (index) async {
         selectedIndex.value = index;
         switch (index) {
           case 0:
@@ -304,7 +304,10 @@ class ReuseWid extends GetxController {
           case 1:
             Get.off(() => const ScoutPage());
           case 2:
-            Get.off(() => const Trying());
+            var thing = await eventTeams('2023nvlv');
+            sv.teamXList.value = thing.keys.toList();
+            print(sv.teamXList);
+            Get.off(() => const StatsPage());
         }
       },
       items: const [

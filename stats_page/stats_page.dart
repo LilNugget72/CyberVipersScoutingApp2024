@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
+import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
+import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,13 +16,65 @@ class StatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
     UserTheme ut = Get.find();
+    SheetValues sv = Get.find();
+
+    List testList = [];
+    List thing = sv.teamXList;
+    testList = thing;
+    TextEditingController dropTeam = TextEditingController();
     return Scaffold(
       appBar: rw.ab(title: 'Stats Page'),
       drawer: rw.d(),
-      body: Center(
+      body: ListView(
+        children: [
+          DropdownMenu(
+            menuStyle: MenuStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.white)),
+            enableSearch: true,
+            width: 200.w,
+            leadingIcon: const Icon(Icons.search),
+            controller: dropTeam,
+            dropdownMenuEntries: testList.map<DropdownMenuEntry<dynamic>>(
+              (dynamic value) {
+                return DropdownMenuEntry(
+                  value: value,
+                  label: '$value',
+                );
+              },
+            ).toList(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 50.w,
+                height: 50.w,
+                color: Colors.red,
+              ),
+              Container(
+                width: 50.w,
+                height: 50.w,
+                color: Colors.blue,
+              ),
+              Container(
+                width: 50.w,
+                height: 50.w,
+                color: Colors.pink,
+              ),
+            ],
+          )
+        ],
+      ),
+      bottomNavigationBar: rw.bnb(),
+    );
+  }
+}
+/*
+Center(
         child: Center(
           child: LineChart(
             LineChartData(
+              backgroundColor: Colors.white,
               lineTouchData: const LineTouchData(enabled: false),
               lineBarsData: [
                 LineChartBarData(
@@ -38,9 +94,9 @@ class StatsPage extends StatelessWidget {
               borderData: FlBorderData(
                   border: Border.all(color: ut.tt.value, width: 3)),
               minX: 1,
-              maxX: 12,
+              maxX: 10,
               minY: 0,
-              maxY: 20,
+              maxY: 10,
               titlesData: FlTitlesData(
                 rightTitles: AxisTitles(
                   sideTitles: SideTitles(
@@ -69,7 +125,4 @@ class StatsPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: rw.bnb(),
-    );
-  }
-}
+      */ 
