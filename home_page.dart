@@ -14,11 +14,6 @@ class HomePage extends StatelessWidget {
     ReuseWid rw = Get.put(ReuseWid());
     UserTheme ut = Get.put(UserTheme());
     SheetValues sv = Get.find();
-//Color.fromARGB(255, 57, 57, 57)
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ut.bars,
-        systemNavigationBarColor: ut.bars,
-        statusBarIconBrightness: ut.statbright));
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
@@ -31,8 +26,8 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 25.h),
               child: Image(
-                height: 500.h,
-                image: const AssetImage('lib/assets/Sponsor_image.jpeg'),
+                height: 530.h,
+                image: const AssetImage('lib/assets/Sponsor_image.png'),
               ),
             ),
           Expanded(

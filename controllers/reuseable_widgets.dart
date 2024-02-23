@@ -6,6 +6,7 @@ import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class ReuseWid extends GetxController {
   RxInt selectedIndex = 0.obs;
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
-  Map<int, String> teamName = {};
+  TextEditingController event = TextEditingController();
 
   textForGraph({required String name}) {
     return Text(
@@ -29,13 +30,13 @@ class ReuseWid extends GetxController {
 
   line() {
     return Container(
-      height: 2,
+      height: 1.5,
       color: ut.tt.value,
     );
   }
 
   teaminfo() {
-    sv.teamName.value = teamName[sv.teamNum.value]!;
+    sv.teamName.value = sv.eventTeams[sv.teamNum.value]!;
 
     return Center(
       child: Text(
@@ -43,73 +44,6 @@ class ReuseWid extends GetxController {
         style:
             TextStyle(fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 20),
       ),
-    );
-  }
-
-  valueUp({required RxInt value, String? varName}) {
-    return GestureDetector(
-      onTap: () {
-        value++;
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(60.r), color: Colors.white),
-        width: 75,
-        height: 75,
-        child: const Icon(
-          Icons.add,
-          color: Colors.blue,
-          size: 40,
-        ),
-      ),
-    );
-  }
-
-  valueDown({required RxInt value}) {
-    return GestureDetector(
-        onTap: () {
-          value--;
-          if (value < 0) {
-            value.value = 0;
-          }
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(60.r),
-            color: Colors.white,
-          ),
-          width: 75,
-          height: 75,
-          child: const Icon(
-            Icons.remove,
-            color: Colors.blue,
-            size: 40,
-          ),
-        ));
-  }
-
-  valueRow({required value}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        valueDown(value: value),
-        const SizedBox(
-          width: 40,
-        ),
-        valueUp(value: value)
-      ],
-    );
-  }
-
-  showValue({required show}) {
-    return Text(
-      show.toString(),
-      style: const TextStyle(
-          color: Colors.white,
-          fontSize: 60,
-          fontFamily: 'NotoSans',
-          fontWeight: FontWeight.bold),
     );
   }
 
@@ -142,23 +76,6 @@ class ReuseWid extends GetxController {
           )
         ],
       ),
-    );
-  }
-
-  valueChanger({required value}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        valueDown(value: value),
-        const SizedBox(
-          width: 25,
-        ),
-        Obx(() => showValue(show: value)),
-        const SizedBox(
-          width: 25,
-        ),
-        valueUp(value: value),
-      ],
     );
   }
 
@@ -222,7 +139,6 @@ class ReuseWid extends GetxController {
                     color: ut.tt.value,
                     size: 35,
                   ))),
-
           drawerWid(
               title: 'Admin',
               function: () => Get.to(() => const AdminAuth()),
@@ -231,20 +147,10 @@ class ReuseWid extends GetxController {
                     color: ut.tt.value,
                     size: 35,
                   ))),
-          // drawerWid(
-          //     title: 'Change Theme',
-          //     function: () => ut.toggleTheme(),
-          //     icon: Obx(() => Icon(
-          //           Icons.dark_mode_outlined,
-          //           color: ut.tt.value,
-          //           size: 35,
-          //         ))),
           drawerWid(
               title: 'Manual',
-              function: () async {
-                teamName = await eventTeams('2023nvlv');
-                sv.teamName.value = teamName[8717]!;
-                Get.to(() => ManualPage());
+              function: () {
+                Get.to(() => const ManualPage());
               },
               icon: Obx(() => Icon(
                     Icons.add_circle_outline_rounded,
@@ -259,7 +165,69 @@ class ReuseWid extends GetxController {
                     color: ut.tt.value,
                     size: 35,
                   ))),
-
+          Padding(
+              padding: EdgeInsets.only(left: 35.w, top: 20.h),
+              child: Obx(
+                () => SizedBox(
+                  height: 50.h,
+                  child: DropdownMenu(
+                    trailingIcon: const Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      color: Colors.white,
+                    ),
+                    textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'NotoSans',
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1),
+                    onSelected: (value) async {
+                      sv.eventKey.value = sv.regionalEvents[value];
+                      sv.eventTeams.value = await eventTeams();
+                      sv.teamListHint.value = 'Select a Team';
+                    },
+                    inputDecorationTheme: InputDecorationTheme(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18.r),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 2),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18.r),
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2))),
+                    menuStyle: MenuStyle(
+                        minimumSize:
+                            MaterialStatePropertyAll(Size(100.w, 10.h)),
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colors.white)),
+                    width: 200.w,
+                    controller: event,
+                    leadingIcon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    dropdownMenuEntries:
+                        sv.regionalEventsKeys.map<DropdownMenuEntry<dynamic>>(
+                      (dynamic value) {
+                        return DropdownMenuEntry(
+                          value: value,
+                          label: value,
+                          labelWidget: Text(
+                            value,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'NotoSans',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
+              )),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -304,9 +272,10 @@ class ReuseWid extends GetxController {
           case 1:
             Get.off(() => const ScoutPage());
           case 2:
-            var thing = await eventTeams('2023nvlv');
-            sv.teamXList.value = thing.keys.toList();
-            print(sv.teamXList);
+            var thing = await eventTeams();
+            var sortTeamList = thing.keys.toList();
+            sortTeamList.sort();
+            sv.teamXList.value = sortTeamList;
             Get.off(() => const StatsPage());
         }
       },

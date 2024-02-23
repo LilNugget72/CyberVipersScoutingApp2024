@@ -3,7 +3,6 @@ import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/auto_start.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class ScoutPage extends StatelessWidget {
@@ -13,11 +12,6 @@ class ScoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
     UserTheme ut = Get.find();
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ut.bars,
-        systemNavigationBarColor: ut.bars,
-        statusBarBrightness: ut.statbright));
 
     return Scaffold(
       drawer: rw.d(),
@@ -31,10 +25,9 @@ class ScoutPage extends StatelessWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () async {
-                  final thing = await totalValueInList(
-                      team: 8717, column: 'AUTO AMP NOTES');
+                  final thing = await getAllDistrictEvents();
                   // Get.to(() => const AutoStart());
-                  print('the thing is $thing');
+                  print('${thing}');
                 },
                 child: Container(
                   decoration: BoxDecoration(

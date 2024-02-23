@@ -5,7 +5,7 @@ class UserTheme extends GetxController {
   final RxBool userThemeState = true.obs;
 
   final Rx<Color> tt = Colors.white.obs;
-  final Rx<Color> ts = Color.fromARGB(85, 255, 255, 255).obs;
+  final Rx<Color> ts = const Color.fromARGB(85, 255, 255, 255).obs;
 
   Rx<Color> buttonColor = const Color.fromARGB(255, 237, 52, 52).obs;
   // Color.fromARGB(255, 237, 52, 52).obs is red

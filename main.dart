@@ -1,9 +1,12 @@
 import 'package:cyberviperscoutingapp2024/controllers/google_sheets_api.dart';
+import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
+import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
@@ -19,15 +22,36 @@ void main() async {
 }
 
 UserTheme ut = Get.put(UserTheme());
+SheetValues sv = Get.put(SheetValues());
+
+class Loading extends GetxController {
+  loadingScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('HI'),
+      ),
+      body: LoadingAnimationWidget.beat(color: Colors.white, size: 100),
+    );
+  }
+}
+
+loadRegionalEvents() async {
+  List listOfRegionals = [];
+  var regtionalEvents = await getAllRegionalEvents();
+  sv.regionalEvents.value = regtionalEvents;
+  listOfRegionals = regtionalEvents.keys.toList();
+  sv.regionalEventsKeys.value = listOfRegionals;
+}
 
 class ScoutingApp extends StatelessWidget {
   const ScoutingApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    loadRegionalEvents();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: ut.bars,
-        systemNavigationBarColor: ut.tt.value,
+        systemNavigationBarColor: Colors.grey[850],
         statusBarBrightness: ut.statbright));
     return ScreenUtilInit(
       builder: (_, child) => Obx(

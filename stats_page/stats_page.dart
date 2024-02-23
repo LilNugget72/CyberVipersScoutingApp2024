@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -21,27 +20,71 @@ class StatsPage extends StatelessWidget {
     List testList = [];
     List thing = sv.teamXList;
     testList = thing;
-    TextEditingController dropTeam = TextEditingController();
     return Scaffold(
       appBar: rw.ab(title: 'Stats Page'),
       drawer: rw.d(),
       body: ListView(
+        //  items: sv.teamXList
+        //           .map((dynamic teamNumber) => DropdownMenuItem<String>(
+        //                 value: teamNumber.toString(),
+        //                 child: Text(
+        //                   teamNumber.toString(),
+        //                   style: TextStyle(
+        //                       color: Colors.black,
+        //                       fontFamily: 'NotoSans',
+        //                       fontSize: 15,
+        //                       fontWeight: FontWeight.bold,
+        //                       letterSpacing: 1),
+        //                 ),
+        //               ))
+        //           .toList(),
         children: [
-          DropdownMenu(
-            menuStyle: MenuStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.white)),
-            enableSearch: true,
-            width: 200.w,
-            leadingIcon: const Icon(Icons.search),
-            controller: dropTeam,
-            dropdownMenuEntries: testList.map<DropdownMenuEntry<dynamic>>(
-              (dynamic value) {
-                return DropdownMenuEntry(
-                  value: value,
-                  label: '$value',
-                );
+          Obx(
+            () => DropdownButton2(
+              isExpanded: true,
+              hint: Obx(
+                () => Text(
+                  sv.teamListHint.value,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'NotoSans',
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+              onChanged: (value) {
+                sv.matchNum.value = value!;
+                sv.teamListHint.value = value.toString();
               },
-            ).toList(),
+              items: sv.teamXList
+                  .map((dynamic teamNumber) => DropdownMenuItem<int>(
+                        value: teamNumber,
+                        child: Text(
+                          teamNumber.toString(),
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'NotoSans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1),
+                        ),
+                      ))
+                  .toList(),
+              // dropdownStyleData: DropdownStyleData(
+              //   maxHeight: 200.h,
+              //   width: 200.w,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(14),
+              //     color: Colors.redAccent,
+              //   ),
+              //   offset: const Offset(-20, 0),
+              //   scrollbarTheme: ScrollbarThemeData(
+              //     radius: const Radius.circular(40),
+              //     thickness: MaterialStateProperty.all(6),
+              //     thumbVisibility: MaterialStateProperty.all(true),
+              //   ),
+              // ),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

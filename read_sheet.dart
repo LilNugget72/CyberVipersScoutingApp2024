@@ -1,6 +1,10 @@
 // credit to ChatGPT version 3.5
 import 'dart:convert';
+import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+SheetValues sv = Get.find();
 
 Future<String> getCellValueInColumn({
   required String columnName,
@@ -145,12 +149,12 @@ Future<Map<String, dynamic>> matchNumAndValue({
   return matchAndValue;
 }
 
-// except this
-Future<Map<int, String>> eventTeams(String eventKey) async {
+// except these functions
+Future<Map<int, String>> eventTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/$eventKey/teams';
+      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/teams/simple';
   Map<int, String> teamNames = {};
 
   final response =
@@ -171,11 +175,11 @@ Future<Map<int, String>> eventTeams(String eventKey) async {
   }
 }
 
-Future<Map<int, List<int>>> fetchRedAllianceTeams(String eventKey) async {
+Future<Map<int, List<int>>> fetchRedAllianceTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/$eventKey/matches';
+      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches';
   Map<int, List<int>> redAllianceTeamsMap = {};
 
   try {
@@ -203,13 +207,12 @@ Future<Map<int, List<int>>> fetchRedAllianceTeams(String eventKey) async {
   }
 }
 
-Future<Map<int, List<String>>> fetchBlueAllianceTeams(
-    {required String eventKey}) async {
+Future<Map<int, List<String>>> fetchBlueAllianceTeams() async {
   const String apiKey =
-      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/$eventKey/matches';
-  Map<int, List<String>> redAllianceTeamsMap = {};
+      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches';
+  Map<int, List<String>> blueAllianceTeamsMap = {};
 
   try {
     final response =
@@ -221,10 +224,72 @@ Future<Map<int, List<String>>> fetchBlueAllianceTeams(
           int matchNumber = match['match_number'];
           List<String> redTeams =
               match['alliances']['blue']['team_keys'].cast<String>();
-          redAllianceTeamsMap[matchNumber] = redTeams;
+          blueAllianceTeamsMap[matchNumber] = redTeams;
         }
       }
-      return redAllianceTeamsMap;
+      return blueAllianceTeamsMap;
+    } else {
+      print('Error: ${response.statusCode} - ${response.body}');
+      return {};
+    }
+  } catch (e) {
+    print('Error fetching data: $e');
+    return {};
+  }
+}
+
+Future<Map<String, String>> getAllRegionalEvents() async {
+  const String apiKey =
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
+  final String apiUrl =
+      'https://www.thebluealliance.com/api/v3/events/2024/simple';
+  Map<String, String> allEventsMap = {};
+
+  try {
+    final response =
+        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+    if (response.statusCode == 200) {
+      final List<dynamic> events = json.decode(response.body);
+      for (var events in events) {
+        final String eventName = events['name'];
+        final String eventKey = events['event_code'];
+        final int eventType = events['event_type'];
+        if (eventType == 0) {
+          allEventsMap[eventName] = eventKey;
+        }
+      }
+      return allEventsMap;
+    } else {
+      print('Error: ${response.statusCode} - ${response.body}');
+      return {};
+    }
+  } catch (e) {
+    print('Error fetching data: $e');
+    return {};
+  }
+}
+
+Future<Map<String, String>> getAllDistrictEvents() async {
+  const String apiKey =
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
+  final String apiUrl =
+      'https://www.thebluealliance.com/api/v3/events/2024/simple';
+  Map<String, String> allEventsMap = {};
+
+  try {
+    final response =
+        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+    if (response.statusCode == 200) {
+      final List<dynamic> events = json.decode(response.body);
+      for (var events in events) {
+        final String eventName = events['name'];
+        final String eventKey = events['event_code'];
+        final int eventType = events['event_type'];
+        if (eventType == 1 || eventType == 2) {
+          allEventsMap[eventName] = eventKey;
+        }
+      }
+      return allEventsMap;
     } else {
       print('Error: ${response.statusCode} - ${response.body}');
       return {};
