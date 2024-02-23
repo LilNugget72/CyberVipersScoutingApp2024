@@ -62,7 +62,9 @@ class SheetValues extends GetxController {
 
   RxMap eventTeams = {}.obs;
 
-  RxString teamListHint = 'Select a team'.obs;
+  RxString teamListHint = 'Select A Team To View'.obs;
+  RxString regionalListHint = 'Select The Regional You\'re At'.obs;
+  RxString districtListHint = 'Select The District Event You\'re At'.obs;
 
   RxString eventKey = ''.obs;
   RxList teamXList = [].obs;
