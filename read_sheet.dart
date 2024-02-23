@@ -285,7 +285,7 @@ Future<Map<String, String>> getAllDistrictEvents() async {
         final String eventName = events['name'];
         final String eventKey = events['event_code'];
         final int eventType = events['event_type'];
-        if (eventType == 1 || eventType == 2) {
+        if (eventType == 1) {
           allEventsMap[eventName] = eventKey;
         }
       }
