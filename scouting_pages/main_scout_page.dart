@@ -25,9 +25,7 @@ class ScoutPage extends StatelessWidget {
             child: Center(
               child: GestureDetector(
                 onTap: () async {
-                  final thing = await getAllDistrictEvents();
-                  // Get.to(() => const AutoStart());
-                  print('${thing}');
+                  final thing = await getAllValuesFromAMatch();
                 },
                 child: Container(
                   decoration: BoxDecoration(

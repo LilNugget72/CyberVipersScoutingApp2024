@@ -37,10 +37,15 @@ class Loading extends GetxController {
 
 loadRegionalEvents() async {
   List listOfRegionals = [];
+  List listOfDistricts = [];
   var regtionalEvents = await getAllRegionalEvents();
+  var districtEvents = await getAllDistrictEvents();
   sv.regionalEvents.value = regtionalEvents;
+  sv.districtEvents.value = districtEvents;
   listOfRegionals = regtionalEvents.keys.toList();
+  listOfDistricts = districtEvents.keys.toList();
   sv.regionalEventsKeys.value = listOfRegionals;
+  sv.districtEventKeys.value = listOfDistricts;
 }
 
 class ScoutingApp extends StatelessWidget {

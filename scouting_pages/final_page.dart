@@ -106,6 +106,7 @@ class FinalPage extends StatelessWidget {
                         UserFields.rightStage: sv.rightStage.value,
                         UserFields.dNone: sv.dNone.value,
                         UserFields.dSlight: sv.dSlight.value,
+                        UserFields.dModest: sv.dModest.value,
                         UserFields.dGenerous: sv.dGenerous.value,
                         UserFields.dExclusively: sv.dExclusively.value,
                         UserFields.park: sv.park.value,

@@ -150,6 +150,70 @@ Future<Map<String, dynamic>> matchNumAndValue({
 }
 
 // except these functions
+Future<List> getAllValuesFromAMatch() async {
+  List<String> column = [
+    'MATCH #', // value is 0
+    'ROBOT AMP POSITION', // value is 1
+    'ROBOT CENTER POSITION', // value is 2
+    'ROBOT BETWEEN POSITION', // value is 3
+    'ROBOT SOURCE POSITION', // value is 4
+    'NOTE 1', // value is 5
+    'NOTE 2', // value is 6
+    'NOTE 3', // value is 7
+    'NOTE 4', // value is 8
+    'NOTE 5', // value is 9
+    'NOTE 6', // value is 10
+    'NOTE 7', // value is 11
+    'NOTE 8', // value is 12
+    'LEAVE', // value is 13
+    'AUTO AMP NOTES', // value is 14
+    'AUTO SPEAKER NOTES', // value is 15
+    'TELEOP AMP NOTES', // value is 16
+    'TELEOP AMP MISSED', // value is 17
+    'TELEOP SPEAKER NOTES', // value is 18
+    'TELEOP SPEAKER MISSED', // value is 19
+    'NOTES IN TRAP', // value is 20
+    'MISSED TRAP', // value is 21
+    'LEFT STAGE', // value is 22
+    'CENTER STAGE', // value is 23
+    'RIGHT STAGE', // value is 24
+    'NONE', // value is 25
+    'SLIGHT', // value is 26
+    'MODEST', // value is 27
+    'GENEROUS', // value is 28
+    'EXCLUSIVELY', // value is 29
+    'ONSTAGE', // value is 30
+    'PARK', // value is 31
+    'HARMONY', // value is 32
+    'COMMENTS', // value is 33
+  ];
+
+  int team = sv.teamNum.value;
+  List listAllValuesInMatch = [];
+
+  int row = 1;
+
+  for (int i = 0; i < column.length; i++) {
+    String value = await getCellValueInColumn(
+      columnName: column[i],
+      rowNumber: row,
+      team: "8717",
+    );
+    if (value != 'empty') {
+      listAllValuesInMatch.add(value);
+    }
+  }
+  String comments = await getCellValueInColumn(
+    columnName: column[33],
+    rowNumber: row,
+    team: sv.selectedTeamValue.toString(),
+  );
+
+  listAllValuesInMatch.add(comments);
+
+  return listAllValuesInMatch;
+}
+
 Future<Map<int, String>> eventTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
@@ -285,7 +349,7 @@ Future<Map<String, String>> getAllDistrictEvents() async {
         final String eventName = events['name'];
         final String eventKey = events['event_code'];
         final int eventType = events['event_type'];
-        if (eventType == 1 || eventType == 2) {
+        if (eventType == 1) {
           allEventsMap[eventName] = eventKey;
         }
       }

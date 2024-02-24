@@ -7,6 +7,7 @@ import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/test.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -122,6 +123,47 @@ class ReuseWid extends GetxController {
     );
   }
 
+  toggleEventType() {
+    sv.events.value = sv.regionalEventsKeys;
+    String tapForDistricts = 'Tap to see District Events';
+    String tapForRegionals = 'Tap to see Regional Events';
+    RxString eventHint = 'Tap to see District Events'.obs;
+    String regionalListHint = 'Select Regional';
+    String districtListHint = 'Select District ';
+
+    return ElevatedButton(
+      onPressed: () {
+        if (sv.isDistrict.isFalse) {
+          sv.isDistrict.value = true;
+          eventHint.value = tapForRegionals;
+          sv.events.value = sv.districtEventKeys;
+          sv.eventListHint.value = districtListHint;
+        } else {
+          sv.isDistrict.value = false;
+          eventHint.value = tapForDistricts;
+          sv.events.value = sv.regionalEventsKeys;
+          sv.eventListHint.value = regionalListHint;
+        }
+      },
+      style: const ButtonStyle(
+          padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 16, 0, 16)),
+          backgroundColor: MaterialStatePropertyAll(Color(0x00FFFFFF)),
+          splashFactory: InkSplash.splashFactory,
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(225, 176, 171, 171)),
+          elevation: MaterialStatePropertyAll(0)),
+      child: Obx(
+        () => Center(
+          child: Text(
+            eventHint.value,
+            style: const TextStyle(
+                color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
+          ),
+        ),
+      ),
+    );
+  }
+
   d() {
     return Drawer(
       child: Column(
@@ -132,102 +174,97 @@ class ReuseWid extends GetxController {
             height: 10.h,
           ),
           drawerWid(
-              title: 'About',
-              function: () => print('about'),
-              icon: Obx(() => Icon(
-                    Icons.info_outline,
-                    color: ut.tt.value,
-                    size: 35,
-                  ))),
+            title: 'About',
+            function: () => print('about'),
+            icon: Icon(
+              Icons.info_outline,
+              color: ut.tt.value,
+              size: 35,
+            ),
+          ),
           drawerWid(
-              title: 'Admin',
-              function: () => Get.to(() => const AdminAuth()),
-              icon: Obx(() => Icon(
-                    Icons.person,
-                    color: ut.tt.value,
-                    size: 35,
-                  ))),
+            title: 'Admin',
+            function: () => Get.to(() => const AdminAuth()),
+            icon: Icon(
+              Icons.person,
+              color: ut.tt.value,
+              size: 35,
+            ),
+          ),
           drawerWid(
-              title: 'Manual',
-              function: () {
-                Get.to(() => const ManualPage());
-              },
-              icon: Obx(() => Icon(
-                    Icons.add_circle_outline_rounded,
-                    color: ut.tt.value,
-                    size: 35,
-                  ))),
+            title: 'Manual',
+            function: () {
+              Get.to(() => const ManualPage());
+            },
+            icon: Icon(
+              Icons.add_circle_outline_rounded,
+              color: ut.tt.value,
+              size: 35,
+            ),
+          ),
           drawerWid(
-              title: 'Update?',
-              function: () => print('update'),
-              icon: Obx(() => Icon(
-                    Icons.update,
-                    color: ut.tt.value,
-                    size: 35,
-                  ))),
-          Padding(
-              padding: EdgeInsets.only(left: 35.w, top: 20.h),
-              child: Obx(
-                () => SizedBox(
-                  height: 50.h,
-                  child: DropdownMenu(
-                    trailingIcon: const Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'NotoSans',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1),
-                    onSelected: (value) async {
-                      sv.eventKey.value = sv.regionalEvents[value];
-                      sv.eventTeams.value = await eventTeams();
-                      sv.teamListHint.value = 'Select a Team';
-                    },
-                    inputDecorationTheme: InputDecorationTheme(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18.r),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 2),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(18.r),
-                            borderSide: const BorderSide(
-                                color: Colors.white, width: 2))),
-                    menuStyle: MenuStyle(
-                        minimumSize:
-                            MaterialStatePropertyAll(Size(100.w, 10.h)),
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.white)),
-                    width: 200.w,
-                    controller: event,
-                    leadingIcon: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    dropdownMenuEntries:
-                        sv.regionalEventsKeys.map<DropdownMenuEntry<dynamic>>(
-                      (dynamic value) {
-                        return DropdownMenuEntry(
-                          value: value,
-                          label: value,
-                          labelWidget: Text(
-                            value,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'NotoSans',
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1),
-                          ),
-                        );
-                      },
-                    ).toList(),
+            title: 'Update?',
+            function: () => print('update'),
+            icon: Icon(
+              Icons.update,
+              color: ut.tt.value,
+              size: 35,
+            ),
+          ),
+          line(),
+          toggleEventType(),
+          Obx(
+            () => DropdownButton2(
+              underline: const SizedBox(),
+              isExpanded: true,
+              hint: Obx(
+                () => Text(
+                  sv.eventListHint.value,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'NotoSans',
+                    fontSize: 15,
                   ),
                 ),
-              )),
+              ),
+              onChanged: (value) {
+                sv.eventListHint.value = value!;
+                if (sv.isDistrict.isFalse) {
+                  sv.eventKey.value = sv.regionalEvents[value];
+                } else {
+                  sv.eventKey.value = sv.districtEvents[value];
+                }
+              },
+              items: sv.events
+                  .map((dynamic event) => DropdownMenuItem<String>(
+                        value: event,
+                        child: Text(
+                          event,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'NotoSans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1),
+                        ),
+                      ))
+                  .toList(),
+              alignment: Alignment.center,
+              iconStyleData:
+                  const IconStyleData(iconEnabledColor: Colors.white),
+              dropdownStyleData: DropdownStyleData(
+                scrollbarTheme: ScrollbarThemeData(
+                    thumbColor: MaterialStatePropertyAll(Colors.grey)),
+                maxHeight: 400.h,
+                decoration: const BoxDecoration(color: Colors.white),
+              ),
+              buttonStyleData: ButtonStyleData(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -276,6 +313,7 @@ class ReuseWid extends GetxController {
             var sortTeamList = thing.keys.toList();
             sortTeamList.sort();
             sv.teamXList.value = sortTeamList;
+
             Get.off(() => const StatsPage());
         }
       },

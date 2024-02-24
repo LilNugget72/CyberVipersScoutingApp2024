@@ -20,41 +20,35 @@ class StatsPage extends StatelessWidget {
     List testList = [];
     List thing = sv.teamXList;
     testList = thing;
+
+    RxString ampAverage = ''.obs;
+
     return Scaffold(
       appBar: rw.ab(title: 'Stats Page'),
       drawer: rw.d(),
       body: ListView(
-        //  items: sv.teamXList
-        //           .map((dynamic teamNumber) => DropdownMenuItem<String>(
-        //                 value: teamNumber.toString(),
-        //                 child: Text(
-        //                   teamNumber.toString(),
-        //                   style: TextStyle(
-        //                       color: Colors.black,
-        //                       fontFamily: 'NotoSans',
-        //                       fontSize: 15,
-        //                       fontWeight: FontWeight.bold,
-        //                       letterSpacing: 1),
-        //                 ),
-        //               ))
-        //           .toList(),
         children: [
           Obx(
             () => DropdownButton2(
+              underline: const SizedBox(),
               isExpanded: true,
               hint: Obx(
                 () => Text(
                   sv.teamListHint.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'NotoSans',
                     fontSize: 15,
                   ),
                 ),
               ),
-              onChanged: (value) {
-                sv.matchNum.value = value!;
+              onChanged: (value) async {
+                sv.selectedTeamNumber.value = value!;
                 sv.teamListHint.value = value.toString();
+
+                var test = await getAllValuesFromAMatch();
+                sv.selectedTeamValue.value = test;
+                ampAverage.value = '${test[33]}';
               },
               items: sv.teamXList
                   .map((dynamic teamNumber) => DropdownMenuItem<int>(
@@ -70,20 +64,20 @@ class StatsPage extends StatelessWidget {
                         ),
                       ))
                   .toList(),
-              // dropdownStyleData: DropdownStyleData(
-              //   maxHeight: 200.h,
-              //   width: 200.w,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(14),
-              //     color: Colors.redAccent,
-              //   ),
-              //   offset: const Offset(-20, 0),
-              //   scrollbarTheme: ScrollbarThemeData(
-              //     radius: const Radius.circular(40),
-              //     thickness: MaterialStateProperty.all(6),
-              //     thumbVisibility: MaterialStateProperty.all(true),
-              //   ),
-              // ),
+              alignment: Alignment.center,
+              iconStyleData:
+                  const IconStyleData(iconEnabledColor: Colors.white),
+              dropdownStyleData: DropdownStyleData(
+                scrollbarTheme: ScrollbarThemeData(
+                    thumbColor: MaterialStatePropertyAll(Colors.grey)),
+                maxHeight: 400.h,
+                decoration: const BoxDecoration(color: Colors.white),
+              ),
+              buttonStyleData: ButtonStyleData(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+              ),
             ),
           ),
           Row(
@@ -93,6 +87,7 @@ class StatsPage extends StatelessWidget {
                 width: 50.w,
                 height: 50.w,
                 color: Colors.red,
+                child: Obx(() => Text(ampAverage.value)),
               ),
               Container(
                 width: 50.w,
@@ -113,6 +108,29 @@ class StatsPage extends StatelessWidget {
   }
 }
 /*
+ onChanged: (value) async {
+                sv.selectedTeamNumber.value = value!;
+                sv.teamListHint.value = value.toString();
+
+                var test = await getAllValuesFromAMatch();
+                sv.selectedTeamValue.value = test;
+                ampAverage.value = '${test[33]}';
+              },
+sv.teamXList
+                  .map((dynamic teamNumber) => DropdownMenuItem<int>(
+                        value: teamNumber,
+                        child: Text(
+                          teamNumber.toString(),
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'NotoSans',
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1),
+                        ),
+                      ))
+                  .toList(),
+
 Center(
         child: Center(
           child: LineChart(
