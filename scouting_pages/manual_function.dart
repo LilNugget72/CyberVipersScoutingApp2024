@@ -1,5 +1,6 @@
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
+import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/auto_start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,9 @@ class ManualPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SheetValues sv = Get.put(SheetValues());
     ReuseWid rw = Get.put(ReuseWid());
+
+    final teamNumber = TextEditingController();
+    final matchNumber = TextEditingController();
 
     return Scaffold(
       appBar: rw.ab(title: 'Manual Version'),
@@ -27,7 +31,7 @@ class ManualPage extends StatelessWidget {
                     width: 120.w,
                     child: TextField(
                       autocorrect: false,
-                      controller: sv.teamNumber,
+                      controller: teamNumber,
                       textAlign: TextAlign.center,
                       enabled: true,
                       cursorColor: ut.tt.value,
@@ -65,7 +69,7 @@ class ManualPage extends StatelessWidget {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       autocorrect: false,
-                      controller: sv.matchNumber,
+                      controller: matchNumber,
                       textAlign: TextAlign.center,
                       enabled: true,
                       cursorColor: ut.tt.value,
@@ -103,9 +107,8 @@ class ManualPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 10.h),
               child: GestureDetector(
-                onTap: () {
-                  if (sv.teamNumber.text.isEmpty ||
-                      sv.matchNumber.text.isEmpty) {
+                onTap: () async {
+                  if (teamNumber.text.isEmpty || matchNumber.text.isEmpty) {
                     showDialog(
                       context: context,
                       builder: (context) => Dialog(
@@ -126,9 +129,12 @@ class ManualPage extends StatelessWidget {
                       ),
                     );
                   } else {
-                    Get.to(() => const AutoStart());
-                    sv.teamNum.value = int.parse(sv.teamNumber.text);
-                    sv.matchNum.value = int.parse(sv.matchNumber.text);
+                    Map<int, String> teamNumAndName = await eventTeams();
+                    sv.eventTeams.value = teamNumAndName;
+                    sv.teamNum.value = int.parse(teamNumber.text);
+                    sv.matchNum.value = int.parse(matchNumber.text);
+                    sv.teamName.value = sv.eventTeams[sv.teamNum.value];
+                    Get.off(() => const AutoStart());
                   }
                 },
                 child: Container(

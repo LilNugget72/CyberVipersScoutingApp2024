@@ -57,9 +57,6 @@ class SheetValues extends GetxController {
   final scoutName = TextEditingController();
   final comments = TextEditingController();
 
-  final teamNumber = TextEditingController();
-  final matchNumber = TextEditingController();
-
   RxMap eventTeams = {}.obs;
 
   RxString teamListHint = 'Select A Team To View'.obs;
@@ -78,9 +75,11 @@ class SheetValues extends GetxController {
   RxMap districtEvents = {}.obs;
   RxList districtEventKeys = [].obs;
 
-  RxString eventListHint = 'Select the Regional You\'re At'.obs;
+  RxString eventListHint = 'Select Regional'.obs;
 
   RxList events = [].obs;
+
+  RxList matchValues = [].obs;
 
   valueCard({required RxInt value, required String title}) {
     return Stack(

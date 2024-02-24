@@ -1,7 +1,4 @@
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
-import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
-import 'package:cyberviperscoutingapp2024/read_sheet.dart';
-import 'package:cyberviperscoutingapp2024/scouting_pages/auto_start.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +8,6 @@ class ScoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
-    UserTheme ut = Get.find();
 
     return Scaffold(
       drawer: rw.d(),
@@ -24,9 +20,7 @@ class ScoutPage extends StatelessWidget {
           Expanded(
             child: Center(
               child: GestureDetector(
-                onTap: () async {
-                  final thing = await getAllValuesFromAMatch();
-                },
+                onTap: () async {},
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),

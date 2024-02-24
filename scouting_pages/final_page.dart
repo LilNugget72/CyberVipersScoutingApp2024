@@ -118,7 +118,7 @@ class FinalPage extends StatelessWidget {
                       sv.finished();
                       tf.finished();
                       eg.finished();
-                      Get.to(() => const HomePage());
+                      Get.offAll(() => const HomePage());
                     },
                     child: Container(
                       width: 280.w,

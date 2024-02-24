@@ -44,8 +44,11 @@ loadRegionalEvents() async {
   sv.districtEvents.value = districtEvents;
   listOfRegionals = regtionalEvents.keys.toList();
   listOfDistricts = districtEvents.keys.toList();
+  listOfRegionals.sort();
+  listOfDistricts.sort();
   sv.regionalEventsKeys.value = listOfRegionals;
   sv.districtEventKeys.value = listOfDistricts;
+  sv.events.value = sv.regionalEventsKeys;
 }
 
 class ScoutingApp extends StatelessWidget {
