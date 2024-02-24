@@ -150,7 +150,7 @@ Future<Map<String, dynamic>> matchNumAndValue({
 }
 
 // except these functions
-Future<List> getAllValuesFromAMatch() async {
+Future<List<dynamic>> getAllValuesFromAMatch() async {
   List<String> column = [
     'MATCH #', // value is 0
     'ROBOT AMP POSITION', // value is 1
@@ -188,30 +188,43 @@ Future<List> getAllValuesFromAMatch() async {
     'COMMENTS', // value is 33
   ];
 
-  int team = sv.teamNum.value;
-  List listAllValuesInMatch = [];
+  int team = sv.selectedTeamNumber.value;
+  List<dynamic> listAllValuesInMatch = [];
 
-  int row = 1;
+  int row = 2;
 
   for (int i = 0; i < column.length; i++) {
     String value = await getCellValueInColumn(
-      columnName: column[i],
-      rowNumber: row,
-      team: "8717",
+      columnName: column[i], rowNumber: row, team: team.toString(),
+      // team: team.toString(),
     );
     if (value != 'empty') {
       listAllValuesInMatch.add(value);
     }
   }
-  String comments = await getCellValueInColumn(
-    columnName: column[33],
-    rowNumber: row,
-    team: sv.selectedTeamValue.toString(),
-  );
+  // String comments = await getCellValueInColumn(
+  //   columnName: column[33],
+  //   rowNumber: row,
+  //   team: sv.selectedTeamValue.toString(),
+  // );
 
-  listAllValuesInMatch.add(comments);
+  // listAllValuesInMatch.add(comments);
+  sv.matchValues.value = listAllValuesInMatch;
 
   return listAllValuesInMatch;
+}
+
+getMatchAverage({required int made, required int missed}) async {
+  var values = sv.matchValues;
+  print(values);
+  String item1 = values[made];
+  String item2 = values[missed];
+  double average;
+  int topMade = int.parse(item1);
+  int bottomMissed = int.parse(item2);
+  average = topMade / bottomMissed;
+  print(average);
+  return average.toPrecision(3);
 }
 
 Future<Map<int, String>> eventTeams() async {

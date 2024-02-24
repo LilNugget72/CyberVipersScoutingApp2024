@@ -6,7 +6,6 @@ import 'package:cyberviperscoutingapp2024/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
-import 'package:cyberviperscoutingapp2024/stats_page/test.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,8 +36,6 @@ class ReuseWid extends GetxController {
   }
 
   teaminfo() {
-    sv.teamName.value = sv.eventTeams[sv.teamNum.value]!;
-
     return Center(
       child: Text(
         '${sv.teamNum.value} - ${sv.teamName.value}',
@@ -124,7 +121,6 @@ class ReuseWid extends GetxController {
   }
 
   toggleEventType() {
-    sv.events.value = sv.regionalEventsKeys;
     String tapForDistricts = 'Tap to see District Events';
     String tapForRegionals = 'Tap to see Regional Events';
     RxString eventHint = 'Tap to see District Events'.obs;
@@ -144,6 +140,7 @@ class ReuseWid extends GetxController {
           sv.events.value = sv.regionalEventsKeys;
           sv.eventListHint.value = regionalListHint;
         }
+        sv.teamListHint.value = 'Select A Team To View';
       },
       style: const ButtonStyle(
           padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 16, 0, 16)),
@@ -219,7 +216,7 @@ class ReuseWid extends GetxController {
               isExpanded: true,
               hint: Obx(
                 () => Text(
-                  sv.eventListHint.value,
+                  '      ${sv.eventListHint}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'NotoSans',
@@ -227,13 +224,21 @@ class ReuseWid extends GetxController {
                   ),
                 ),
               ),
-              onChanged: (value) {
+              onChanged: (value) async {
                 sv.eventListHint.value = value!;
                 if (sv.isDistrict.isFalse) {
                   sv.eventKey.value = sv.regionalEvents[value];
                 } else {
                   sv.eventKey.value = sv.districtEvents[value];
                 }
+
+                var thing = await eventTeams();
+                var sortTeamList = thing.keys.toList();
+                sortTeamList.sort();
+                sv.teamXList.value = sortTeamList;
+                sv.eventTeams.value = thing;
+
+                sv.teamListHint.value = 'Select A Team To View';
               },
               items: sv.events
                   .map((dynamic event) => DropdownMenuItem<String>(
@@ -253,7 +258,7 @@ class ReuseWid extends GetxController {
               iconStyleData:
                   const IconStyleData(iconEnabledColor: Colors.white),
               dropdownStyleData: DropdownStyleData(
-                scrollbarTheme: ScrollbarThemeData(
+                scrollbarTheme: const ScrollbarThemeData(
                     thumbColor: MaterialStatePropertyAll(Colors.grey)),
                 maxHeight: 400.h,
                 decoration: const BoxDecoration(color: Colors.white),
@@ -287,6 +292,7 @@ class ReuseWid extends GetxController {
 
   ab({required String title}) {
     return AppBar(
+      surfaceTintColor: Colors.transparent,
       centerTitle: true,
       title: Text(
         title,
@@ -309,11 +315,6 @@ class ReuseWid extends GetxController {
           case 1:
             Get.off(() => const ScoutPage());
           case 2:
-            var thing = await eventTeams();
-            var sortTeamList = thing.keys.toList();
-            sortTeamList.sort();
-            sv.teamXList.value = sortTeamList;
-
             Get.off(() => const StatsPage());
         }
       },
