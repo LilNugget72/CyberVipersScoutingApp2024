@@ -140,6 +140,52 @@ class TouchField extends GetxController {
           image: const AssetImage('lib/assets/Stage - Blue.png'),
         ),
         Positioned(
+          left: 20.w,
+          top: 60.h,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Text(
+                'Source',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+          right: 30.w,
+          top: 60.h,
+          child: Row(
+            children: [
+              const Text(
+                'Amp',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+        Positioned(
           right: 55.w,
           bottom: 130.h,
           child: Transform.rotate(
@@ -275,6 +321,52 @@ class TouchField extends GetxController {
           width: 360.w,
           centerSlice: Rect.largest,
           image: const AssetImage('lib/assets/Stage - Red.png'),
+        ),
+        Positioned(
+          left: 20.w,
+          top: 60.w,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Text(
+                'Amp',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+          right: 10.w,
+          top: 60.w,
+          child: Row(
+            children: [
+              const Text(
+                'Source',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Colors.white,
+              ),
+            ],
+          ),
         ),
         Positioned(
           right: 55.w,
