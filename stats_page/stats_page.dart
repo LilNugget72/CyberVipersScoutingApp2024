@@ -85,6 +85,7 @@ class StatsPage extends StatelessWidget {
                 var first = await getMatchAverage(made: 16, missed: 17);
                 var second = await getMatchAverage(made: 18, missed: 19);
                 var third = await getMatchAverage(made: 20, missed: 21);
+                await matchAndRowNum();
 
                 firstAverage.value = first.toString();
                 secondAverage.value = second.toString();
@@ -176,13 +177,53 @@ class StatsPage extends StatelessWidget {
               ),
             ),
           ),
-          const Center(
-            child: Text(
-              'Averages',
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'NotoSans',
-                fontSize: 25,
+          Center(
+            child: Obx(
+              () => SizedBox(
+                width: 150.w,
+                child: DropdownButton2(
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  hint: Obx(
+                    () => Text(
+                      ' ${sv.selectMatch}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'NotoSans',
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                  onChanged: (value) async {},
+                  items: sv.matchAndRowNum
+                      .map((dynamic matchNum) => DropdownMenuItem<dynamic>(
+                            value: matchNum,
+                            child: Text(
+                              'Match ${matchNum.toString()}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'NotoSans',
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1),
+                            ),
+                          ))
+                      .toList(),
+                  alignment: Alignment.center,
+                  iconStyleData:
+                      const IconStyleData(iconEnabledColor: Colors.white),
+                  dropdownStyleData: DropdownStyleData(
+                    scrollbarTheme: const ScrollbarThemeData(
+                        thumbColor: MaterialStatePropertyAll(Colors.grey)),
+                    maxHeight: 400.h,
+                    decoration: const BoxDecoration(color: Colors.white),
+                  ),
+                  buttonStyleData: ButtonStyleData(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),

@@ -144,7 +144,6 @@ Future<Map<String, dynamic>> matchNumAndValue({
     matchAndValue[matchNum] = value;
     i++;
   }
-  print(matchAndValue);
 
   return matchAndValue;
 }
@@ -214,7 +213,28 @@ Future<List<dynamic>> getAllValuesFromAMatch() async {
   return listAllValuesInMatch;
 }
 
-getMatchAverage({required int made, required int missed}) async {
+matchAndRowNum() async {
+  Map matchAndRowNum = {};
+  int i = 1;
+
+  int team = sv.selectedTeamNumber.value;
+  String teamToString = team.toString();
+  while (true) {
+    var value = await getCellValueInColumn(
+        columnName: 'MATCH #', rowNumber: i, team: '8717');
+    if (value == "empty") {
+      break;
+    } else {
+      matchAndRowNum[value] = i;
+      i++;
+    }
+  }
+  sv.matchNumAndValue.value = matchAndRowNum;
+  sv.matchAndRowNum.value = matchAndRowNum.keys.toList();
+  print(matchAndRowNum);
+}
+
+getMatchAverage({required int made, required int missed}) {
   var values = sv.matchValues;
   print(values);
   String item1 = values[made];

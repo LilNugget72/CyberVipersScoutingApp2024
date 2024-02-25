@@ -81,6 +81,12 @@ class SheetValues extends GetxController {
 
   RxList matchValues = [].obs;
 
+  RxList matchAndRowNum = [].obs;
+
+  RxMap matchNumAndValue = {}.obs;
+
+  RxString selectMatch = 'Select a Match'.obs;
+
   valueCard({required RxInt value, required String title}) {
     return Stack(
       children: [
