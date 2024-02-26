@@ -17,15 +17,16 @@ class SheetValues extends GetxController {
   RxBool posBetween = false.obs;
   RxBool posSource = false.obs;
 
-  RxBool note1 = false.obs; //note closest to the amp
-  RxBool note2 = false.obs;
-  RxBool note3 = false.obs; //note farthest to the amp
+  RxInt gloablNote = 0.obs;
+  RxInt note1 = 0.obs; //note closest to the amp
+  RxInt note2 = 0.obs;
+  RxInt note3 = 0.obs; //note farthest to the amp
 
-  RxBool note4 = false.obs; //note closest to the amp on the bottom
-  RxBool note5 = false.obs;
-  RxBool note6 = false.obs;
-  RxBool note7 = false.obs;
-  RxBool note8 = false.obs; //note farthest to the amp bottom
+  RxInt note4 = 0.obs; //note closest to the amp on the bottom
+  RxInt note5 = 0.obs;
+  RxInt note6 = 0.obs;
+  RxInt note7 = 0.obs;
+  RxInt note8 = 0.obs; //note farthest to the amp bottom
 
   RxBool leave = false.obs;
 
@@ -54,6 +55,9 @@ class SheetValues extends GetxController {
   RxBool onstage = false.obs;
   RxBool harmony = false.obs;
 
+  RxBool isOnBlueAlliance = false.obs;
+  RxBool selectedAnEvent = false.obs;
+
   final scoutName = TextEditingController();
   final comments = TextEditingController();
 
@@ -79,12 +83,9 @@ class SheetValues extends GetxController {
 
   RxList events = [].obs;
 
-  RxList matchValues = [].obs;
-
   RxList matchAndRowNum = [].obs;
 
   RxMap matchNumAndValue = {}.obs;
-
   RxString selectMatch = 'Select a Match'.obs;
 
   valueCard({required RxInt value, required String title}) {
@@ -162,6 +163,7 @@ class SheetValues extends GetxController {
                         splashColor: Colors.grey[300],
                         onTap: () {
                           value++;
+                          if (trap > 3) trap.value = 3;
                         },
                         child: Ink(
                           decoration: BoxDecoration(
@@ -198,15 +200,16 @@ class SheetValues extends GetxController {
     posBetween.value = false;
     posSource.value = false;
 
-    note1.value = false; //note closest to the amp
-    note2.value = false;
-    note3.value = false; //note farthest to the amp
+    gloablNote.value = 0;
+    note1.value = 0; //note closest to the amp
+    note2.value = 0;
+    note3.value = 0; //note farthest to the amp
 
-    note4.value = false; //note closest to the amp on the bottom
-    note5.value = false;
-    note6.value = false;
-    note7.value = false;
-    note8.value = false; //note farthest to the amp bottom
+    note4.value = 0; //note closest to the amp on the bottom
+    note5.value = 0;
+    note6.value = 0;
+    note7.value = 0;
+    note8.value = 0; //note farthest to the amp bottom
 
     leave.value = false;
 
