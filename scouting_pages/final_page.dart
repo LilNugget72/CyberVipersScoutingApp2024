@@ -86,7 +86,7 @@ class FinalPage extends StatelessWidget {
                         UserFields.note1: sv.note1.value,
                         UserFields.note2: sv.note2.value,
                         UserFields.note3: sv.note3.value,
-                        UserFields.note4: sv.note1.value,
+                        UserFields.note4: sv.note4.value,
                         UserFields.note5: sv.note5.value,
                         UserFields.note6: sv.note6.value,
                         UserFields.note7: sv.note7.value,
