@@ -1,4 +1,3 @@
-// credit to ChatGPT version 3.5
 import 'dart:convert';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:get/get.dart';
@@ -6,151 +5,16 @@ import 'package:http/http.dart' as http;
 
 SheetValues sv = Get.find();
 
-Future<String> getCellValueInColumn({
-  required String columnName,
-  required int rowNumber,
+// credit to read the sheet to ChatGPT version 3.5
+Future<Map<String, List<String>>> getDataForMatchNumber({
   required String team,
 }) async {
   const String sheetId = '1LguA3zZWvRQslDV3DPmQYuCyK7wlquIiPx8Gkq_XoA4';
   const String apiKey = 'AIzaSyBpYucL1FQXNeAQQLvR0msikxLP0-sWS6k';
   final Uri uri = Uri.parse(
-      'https://sheets.googleapis.com/v4/spreadsheets/$sheetId/values/$team?key=$apiKey');
+      'https://sheets.googleapis.com/v4/spreadsheets/$sheetId/values/$team?majorDimension=ROWS&key=$apiKey');
 
-  try {
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic>? data = json.decode(response.body);
-      final List? values = data?['values'];
-
-      if (values == null || values.isEmpty) {
-        return 'empty';
-      }
-
-      final List<String>? headers = values[0]?.cast<String>();
-      final int columnIndex = headers?.indexOf(columnName) ?? -1;
-
-      if (columnIndex == -1 || rowNumber < 1 || rowNumber >= values.length) {
-        return 'empty';
-      }
-
-      final List<dynamic> row = values[rowNumber];
-
-      if (columnIndex >= row.length || row[columnIndex] == null) {
-        return 'empty';
-      }
-
-      return row[columnIndex].toString();
-    }
-  } catch (e) {
-    print('Error fetching data: $e'); // Log the error for debugging
-  }
-
-  return 'empty';
-}
-
-Future<int> totalValueInList(
-    {required String column, required int team}) async {
-  try {
-    int total = 0;
-    int rowNumber = 1;
-
-    while (true) {
-      // Fetch the value from the specified column for the current row
-      String value = await getCellValueInColumn(
-        columnName: column,
-        rowNumber: rowNumber,
-        team: team.toString(),
-      );
-
-      // Break the loop if the value is empty
-      if (value == 'empty') {
-        break;
-      }
-
-      // Parse the value to an integer and add it to the total
-      total += int.tryParse(value) ?? 0;
-
-      // Move to the next row
-      rowNumber++;
-    }
-
-    return total;
-  } catch (e) {
-    print('Error: $e'); // Handle any errors
-    return 0; // Return 0 if an error occurs
-  }
-}
-
-// Function to count true values in list
-Future<int> countTrueValues(String column, int team) async {
-  final String teamString = team.toString();
-  int count = 0;
-  int i = 1;
-  while (true) {
-    var value = await getCellValueInColumn(
-      rowNumber: i,
-      columnName: column,
-      team: teamString,
-    );
-    if (value == 'empty') break;
-    if (value == 'TRUE') count++;
-    i++;
-  }
-  return count;
-}
-
-// Function to count total values in list
-Future<int> countTotalValues(String column, int team) async {
-  final String teamString = team.toString();
-  int count = 0;
-  int i = 1;
-  while (true) {
-    var value = await getCellValueInColumn(
-      rowNumber: i,
-      columnName: column,
-      team: teamString,
-    );
-    if (value == 'empty') break;
-    count++;
-    i++;
-  }
-  return count;
-}
-
-Future<Map<String, dynamic>> matchNumAndValue({
-  required int team,
-  required String column,
-}) async {
-  String match = 'MATCH #';
-  String teamString = team.toString();
-  Map<String, dynamic> matchAndValue = {};
-  int i = 1;
-
-  while (true) {
-    String matchNum = await getCellValueInColumn(
-      columnName: match,
-      rowNumber: i,
-      team: teamString,
-    );
-
-    if (matchNum == 'empty') break;
-
-    var value = await getCellValueInColumn(
-      columnName: column,
-      rowNumber: i,
-      team: teamString,
-    );
-    matchAndValue[matchNum] = value;
-    i++;
-  }
-
-  return matchAndValue;
-}
-
-// except these functions
-Future<List<dynamic>> getAllValuesFromAMatch() async {
-  List<String> column = [
+  /*
     'MATCH #', // value is 0
     'ROBOT AMP POSITION', // value is 1
     'ROBOT CENTER POSITION', // value is 2
@@ -185,66 +49,114 @@ Future<List<dynamic>> getAllValuesFromAMatch() async {
     'PARK', // value is 31
     'HARMONY', // value is 32
     'COMMENTS', // value is 33
-  ];
+       */
 
-  int team = sv.selectedTeamNumber.value;
-  List<dynamic> listAllValuesInMatch = [];
+  try {
+    final response = await http.get(uri);
 
-  int row = 2;
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      final List? values = data['values'];
 
-  for (int i = 0; i < column.length; i++) {
-    String value = await getCellValueInColumn(
-      columnName: column[i], rowNumber: row, team: team.toString(),
-      // team: team.toString(),
-    );
-    if (value != 'empty') {
-      listAllValuesInMatch.add(value);
+      if (values == null || values.isEmpty) {
+        return {};
+      }
+
+      // Initialize the map to store match number and associated data
+      Map<String, List<String>> matchDataMap = {};
+
+      // Iterate through each row of data (starting from the second row)
+      for (int i = 1; i < values.length; i++) {
+        // Extract match number from the third value in the row
+        String matchNumber = values[i][2].toString();
+
+        // Retrieve the list of data associated with the match number
+        List<String> rowData = values[i]
+            .sublist(2)
+            .map<String>((value) => value == null || value.toString().isEmpty
+                ? 'NO VALUE PRESENT'
+                : value.toString())
+            .toList();
+
+        // Store the data in the map
+        matchDataMap[matchNumber] = rowData;
+      }
+      sv.matchNumAndValue.value = matchDataMap;
+      List row = matchDataMap.keys.toList();
+      sv.matchAndRowNum.value = row;
+      return matchDataMap;
     }
+  } catch (e) {
+    print('Error fetching data: $e');
   }
-  // String comments = await getCellValueInColumn(
-  //   columnName: column[33],
-  //   rowNumber: row,
-  //   team: sv.selectedTeamValue.toString(),
-  // );
 
-  // listAllValuesInMatch.add(comments);
-  sv.matchValues.value = listAllValuesInMatch;
-
-  return listAllValuesInMatch;
+  return {};
 }
 
-matchAndRowNum() async {
-  Map matchAndRowNum = {};
-  int i = 1;
-
-  int team = sv.selectedTeamNumber.value;
-  String teamToString = team.toString();
-  while (true) {
-    var value = await getCellValueInColumn(
-        columnName: 'MATCH #', rowNumber: i, team: '8717');
-    if (value == "empty") {
-      break;
-    } else {
-      matchAndRowNum[value] = i;
-      i++;
-    }
+// except these functions below
+String getAllAverageTrue({required int column}) {
+  List matches = sv.matchAndRowNum;
+  int listLength = sv.matchNumAndValue.length;
+  int allTrue = 0;
+  int total = 0;
+  for (int i = 0; i < listLength; i++) {
+    List values = sv.matchNumAndValue[matches[i]];
+    String wantedValue = values[column];
+    total++;
+    if (wantedValue != '0' && wantedValue != 'FALSE') allTrue++;
   }
-  sv.matchNumAndValue.value = matchAndRowNum;
-  sv.matchAndRowNum.value = matchAndRowNum.keys.toList();
-  print(matchAndRowNum);
+  return '$allTrue / $total';
 }
 
-getMatchAverage({required int made, required int missed}) {
-  var values = sv.matchValues;
-  print(values);
-  String item1 = values[made];
-  String item2 = values[missed];
+String getMatchBool({required int column, required String match}) {
+  List value = sv.matchNumAndValue[match];
+  String wantedValue = value[column];
+  return wantedValue;
+}
+
+double getAllAverageNumbers({required int made, required int missed}) {
+  List allMatchNumbers = sv.matchAndRowNum;
+  int totalMatches = sv.matchNumAndValue.length;
+  int top = 0;
+  int total = 0;
   double average;
-  int topMade = int.parse(item1);
-  int bottomMissed = int.parse(item2);
-  average = topMade / bottomMissed;
+  if (sv.matchNumAndValue.isNotEmpty) {
+    for (int i = 0; i < totalMatches; i++) {
+      var currentRow = sv.matchNumAndValue[allMatchNumbers[i]];
+      int over = int.parse(currentRow[made]);
+      int under = int.parse(currentRow[missed]);
+      top += over;
+      total += over + under;
+    }
+  }
+  average = top / total;
+  if (average.isNaN) {
+    average = 0;
+    return average;
+  } else {
+    return average.toPrecision(3);
+  }
+}
+
+double getMatchAverageNumbers(
+    {required int made, required int missed, required String match}) {
+  int top = 0;
+  int total = 0;
+  double average;
+  if (sv.matchNumAndValue.isNotEmpty) {
+    var currentRow = sv.matchNumAndValue[match];
+    int over = int.parse(currentRow[made]);
+    int under = int.parse(currentRow[missed]);
+    top += over;
+    total += over + under;
+  }
+  average = top / total;
   print(average);
-  return average.toPrecision(3);
+  if (average.isNaN) {
+    return 0.0;
+  } else {
+    return average.toPrecision(3);
+  }
 }
 
 Future<Map<int, String>> eventTeams() async {
@@ -338,8 +250,7 @@ Future<Map<int, List<String>>> fetchBlueAllianceTeams() async {
 Future<Map<String, String>> getAllRegionalEvents() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
-  final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/events/2024/simple';
+  final String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
   Map<String, String> allEventsMap = {};
 
   try {
@@ -348,7 +259,7 @@ Future<Map<String, String>> getAllRegionalEvents() async {
     if (response.statusCode == 200) {
       final List<dynamic> events = json.decode(response.body);
       for (var events in events) {
-        final String eventName = events['name'];
+        final String eventName = events['short_name'];
         final String eventKey = events['event_code'];
         final int eventType = events['event_type'];
         if (eventType == 0) {
@@ -369,8 +280,7 @@ Future<Map<String, String>> getAllRegionalEvents() async {
 Future<Map<String, String>> getAllDistrictEvents() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
-  final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/events/2024/simple';
+  final String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
   Map<String, String> allEventsMap = {};
 
   try {
@@ -379,7 +289,7 @@ Future<Map<String, String>> getAllDistrictEvents() async {
     if (response.statusCode == 200) {
       final List<dynamic> events = json.decode(response.body);
       for (var events in events) {
-        final String eventName = events['name'];
+        final String eventName = events['short_name'];
         final String eventKey = events['event_code'];
         final int eventType = events['event_type'];
         if (eventType == 1) {
