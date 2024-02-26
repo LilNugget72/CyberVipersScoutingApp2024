@@ -56,8 +56,8 @@ class TeleopScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                if (sv.dNone.isTrue) ed.dNoneColor.value = ut.buttonColor.value;
                 Get.to(() => const Endgame());
-                ed.dNoneColor.value = ut.buttonColor.value;
               },
               child: Container(
                 width: 250.w,
