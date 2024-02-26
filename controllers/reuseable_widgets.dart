@@ -141,6 +141,7 @@ class ReuseWid extends GetxController {
           sv.eventListHint.value = regionalListHint;
         }
         sv.teamListHint.value = 'Select A Team To View';
+        sv.selectedAnEvent.value = false;
       },
       style: const ButtonStyle(
           padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 16, 0, 16)),
@@ -162,7 +163,9 @@ class ReuseWid extends GetxController {
   }
 
   d() {
+    Rx<Color> noEvent = Colors.white.obs;
     return Drawer(
+      backgroundColor: Colors.grey[800],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +184,13 @@ class ReuseWid extends GetxController {
           ),
           drawerWid(
             title: 'Admin',
-            function: () => Get.to(() => const AdminAuth()),
+            function: () {
+              if (sv.selectedAnEvent.isTrue) {
+                Get.to(() => const AdminAuth());
+              } else {
+                noEvent.value = Colors.red;
+              }
+            },
             icon: Icon(
               Icons.person,
               color: ut.tt.value,
@@ -191,7 +200,11 @@ class ReuseWid extends GetxController {
           drawerWid(
             title: 'Manual',
             function: () {
-              Get.to(() => const ManualPage());
+              if (sv.selectedAnEvent.isTrue) {
+                Get.to(() => const ManualPage());
+              } else {
+                noEvent.value = Colors.red;
+              }
             },
             icon: Icon(
               Icons.add_circle_outline_rounded,
@@ -231,6 +244,8 @@ class ReuseWid extends GetxController {
                 } else {
                   sv.eventKey.value = sv.districtEvents[value];
                 }
+                noEvent.value = Colors.white;
+                sv.selectedAnEvent.value = true;
 
                 var thing = await eventTeams();
                 var sortTeamList = thing.keys.toList();
@@ -265,7 +280,7 @@ class ReuseWid extends GetxController {
               ),
               buttonStyleData: ButtonStyleData(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2),
+                  border: Border.all(color: noEvent.value, width: 2),
                 ),
               ),
             ),
@@ -307,7 +322,7 @@ class ReuseWid extends GetxController {
       iconSize: 28,
       elevation: 0,
       currentIndex: selectedIndex.value,
-      onTap: (index) async {
+      onTap: (index) {
         selectedIndex.value = index;
         switch (index) {
           case 0:
@@ -315,7 +330,9 @@ class ReuseWid extends GetxController {
           case 1:
             Get.off(() => const ScoutPage());
           case 2:
-            Get.off(() => const StatsPage());
+            if (sv.selectedAnEvent.isTrue) {
+              Get.off(() => const StatsPage());
+            }
         }
       },
       items: const [
