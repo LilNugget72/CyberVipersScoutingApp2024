@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 class UserTheme extends GetxController {
   final RxBool userThemeState = true.obs;
 
+  final Rx<Color> tfc = Colors.white.obs;
+
   final Rx<Color> tt = Colors.white.obs;
   final Rx<Color> ts = const Color.fromARGB(85, 255, 255, 255).obs;
 

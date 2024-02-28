@@ -32,40 +32,83 @@ class HomePage extends StatelessWidget {
           Expanded(
             child: Align(
               alignment: Alignment.center,
-              child: SizedBox(
-                width: 300.w,
-                child: Obx(
-                  () => TextField(
-                    autocorrect: false,
-                    controller: sv.scoutName,
-                    textAlign: TextAlign.center,
-                    enabled: true,
-                    cursorColor: ut.tt.value,
-                    style: TextStyle(
-                        color: ut.tt.value,
-                        fontFamily: 'NotoSans',
-                        fontSize: 20),
-                    decoration: InputDecoration(
-                      label: Center(
-                          child: Text(
-                        'First Name and Team Number',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: 190.w,
+                    child: Obx(
+                      () => TextField(
+                        autocorrect: false,
+                        controller: sv.scoutName,
+                        textAlign: TextAlign.center,
+                        enabled: true,
+                        cursorColor: ut.tt.value,
                         style: TextStyle(
-                            color: ut.ts.value,
+                            color: ut.tt.value,
                             fontFamily: 'NotoSans',
                             fontSize: 20),
-                      )),
-                      labelStyle: TextStyle(color: ut.tt.value),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: ut.tt.value)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                          borderSide: BorderSide(color: ut.tt.value, width: 2)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                          borderSide: BorderSide(color: ut.tt.value, width: 2)),
+                        decoration: InputDecoration(
+                          label: Center(
+                              child: Text(
+                            'Name',
+                            style: TextStyle(
+                                color: ut.ts.value,
+                                fontFamily: 'NotoSans',
+                                fontSize: 20),
+                          )),
+                          labelStyle: TextStyle(color: ut.tt.value),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.r),
+                              borderSide:
+                                  BorderSide(color: ut.tfc.value, width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.r),
+                              borderSide:
+                                  BorderSide(color: ut.tfc.value, width: 2)),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: 100.w,
+                    child: Obx(
+                      () => TextField(
+                        autocorrect: false,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            signed: false, decimal: false),
+                        controller: sv.scoutersTeam,
+                        textAlign: TextAlign.center,
+                        enabled: true,
+                        cursorColor: ut.tt.value,
+                        style: TextStyle(
+                            color: ut.tt.value,
+                            fontFamily: 'NotoSans',
+                            fontSize: 20),
+                        decoration: InputDecoration(
+                          label: Center(
+                            child: Text(
+                              'Team #',
+                              style: TextStyle(
+                                  color: ut.ts.value,
+                                  fontFamily: 'NotoSans',
+                                  fontSize: 20),
+                            ),
+                          ),
+                          labelStyle: TextStyle(color: ut.tt.value),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.r),
+                              borderSide:
+                                  BorderSide(color: ut.tfc.value, width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.r),
+                              borderSide:
+                                  BorderSide(color: ut.tfc.value, width: 2)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

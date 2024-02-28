@@ -7,15 +7,11 @@ import 'package:cyberviperscoutingapp2024/scouting_pages/final_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
-class Endgame extends StatefulWidget {
+class Endgame extends StatelessWidget {
   const Endgame({super.key});
 
-  @override
-  State<Endgame> createState() => _EndgameState();
-}
-
-class _EndgameState extends State<Endgame> {
   @override
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
@@ -25,7 +21,6 @@ class _EndgameState extends State<Endgame> {
     EndgameDefense ed = Get.put(EndgameDefense());
 
     Rx<Color> parkedColor = Colors.transparent.obs;
-    Color parkedTextColor = ut.tt.value;
     Rx<Color> harmonyColor = Colors.transparent.obs;
     Color harmonyTextColor = ut.tt.value;
 
@@ -43,23 +38,98 @@ class _EndgameState extends State<Endgame> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                rw.valueToggle(
-                    value: sv.park,
-                    title: 'Parked',
-                    width: 120.w,
-                    height: 60.h,
-                    fillColor: parkedColor,
-                    textColor: parkedTextColor),
+                InkWell(
+                  splashFactory: InkSplash.splashFactory,
+                  splashColor: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(18.r),
+                  onTap: () {
+                    if (sv.harmony.isTrue ||
+                        sv.leftStage.isTrue ||
+                        sv.centerStage.isTrue ||
+                        sv.rightStage.isTrue) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.grey[800],
+                          showCloseIcon: true,
+                          content: const Text(
+                            'Cant Select Parked',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'NotoSans',
+                                fontSize: 25),
+                          ),
+                        ),
+                      );
+                    } else {
+                      if (sv.park.isFalse) {
+                        sv.park.value = true;
+                        parkedColor.value = ut.buttonColor.value;
+                      } else {
+                        sv.park.value = false;
+                        parkedColor.value = Colors.transparent;
+                      }
+                    }
+                  },
+                  child: Obx(
+                    () => Ink(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18.r),
+                          border: Border.all(
+                              color: ut.buttonColor.value, width: 4.w),
+                          color: parkedColor.value),
+                      width: 120.w,
+                      height: 60.h,
+                      child: const Center(
+                        child: Text(
+                          'Parked',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontFamily: 'NotoSans'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   width: 25.w,
                 ),
-                rw.valueToggle(
-                    value: sv.harmony,
-                    title: 'Harmony',
-                    width: 135.w,
-                    height: 60.h,
-                    fillColor: harmonyColor,
-                    textColor: harmonyTextColor),
+                InkWell(
+                  splashFactory: InkSplash.splashFactory,
+                  splashColor: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(18.r),
+                  onTap: () {
+                    sv.park.value = false;
+                    parkedColor.value = Colors.transparent;
+                    if (sv.harmony.isFalse) {
+                      sv.harmony.value = true;
+                      harmonyColor.value = ut.buttonColor.value;
+                    } else {
+                      sv.harmony.value = false;
+                      harmonyColor.value = Colors.transparent;
+                    }
+                  },
+                  child: Obx(
+                    () => Ink(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18.r),
+                          border: Border.all(
+                              color: ut.buttonColor.value, width: 4.w),
+                          color: harmonyColor.value),
+                      width: 120.w,
+                      height: 60.h,
+                      child: const Center(
+                        child: Text(
+                          'Harmony',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontFamily: 'NotoSans'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -73,9 +143,9 @@ class _EndgameState extends State<Endgame> {
           ),
           ed.defenseRow(),
           Padding(
-            padding: EdgeInsets.only(top: 40.h, bottom: 25.h),
-            child: tf.redStage(),
-          ),
+              padding: EdgeInsets.only(top: 40.h, bottom: 25.h),
+              child:
+                  sv.alliance.value == 'Blue' ? tf.blueStage() : tf.redStage()),
           Padding(
             padding: EdgeInsets.only(bottom: 10.h),
             child: Align(

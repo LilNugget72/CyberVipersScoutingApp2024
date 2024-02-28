@@ -4,8 +4,8 @@ import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
-import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/engame_defense.dart';
+import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -77,7 +77,7 @@ class FinalPage extends StatelessWidget {
                     onTap: () async {
                       final submitData = {
                         UserFields.teamNum: sv.teamNum.value,
-                        UserFields.teamName: sv.teamName.value,
+                        UserFields.alliance: sv.alliance.value,
                         UserFields.matchNum: sv.matchNum.value,
                         UserFields.posAmp: sv.posAmp.value,
                         UserFields.posCenter: sv.posCenter.value,
@@ -113,12 +113,13 @@ class FinalPage extends StatelessWidget {
                         UserFields.harmony: sv.harmony.value,
                         UserFields.comments: sv.comments.text,
                         UserFields.scoutersName: sv.scoutName.text,
+                        UserFields.scoutersTeam: sv.scoutersTeam.text,
                       };
                       await GoogleSheetsApi.sendData([submitData]);
                       sv.finished();
                       tf.finished();
                       eg.finished();
-                      Get.offAll(() => const HomePage());
+                      Get.offAll(() => const ManualPage());
                     },
                     child: Container(
                       width: 280.w,

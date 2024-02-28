@@ -29,7 +29,7 @@ class AutoStart extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 5.h),
             child: rw.teaminfo(),
           ),
-          tf.redSide(),
+          sv.alliance.value == 'Blue' ? tf.blueSide() : tf.redSide(),
           Padding(
             padding: EdgeInsets.only(top: 8.h),
             child: Row(

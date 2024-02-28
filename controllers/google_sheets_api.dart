@@ -3,8 +3,7 @@ import 'package:gsheets/gsheets.dart';
 
 class GoogleSheetsApi {
   // create credential
-  static const String _credentials =
-      r'''
+  static const String _credentials = r'''
 {
   "type": "service_account",
   "project_id": "cyber-vipers-spread-sheet",
@@ -57,18 +56,6 @@ class GoogleSheetsApi {
 
     final lastRow = await _worksheet!.values.lastRow();
     return lastRow == null ? 0 : int.tryParse(lastRow.first) ?? 0;
-  }
-
-  static Future<List<User>> getAll() async {
-    if (_worksheet == null) return <User>[];
-    final users = await _worksheet!.values.map.allRows();
-    return users == null ? <User>[] : users.map(User.fromJson).toList();
-  }
-
-  static Future<User?> getById(int id) async {
-    if (_worksheet == null) return null;
-    final json = await _worksheet!.values.map.rowByKey(id, fromColumn: 1);
-    return json == null ? null : User.fromJson(json);
   }
 
   static Future insert(List<Map<String, dynamic>> rowList) async {

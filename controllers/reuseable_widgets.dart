@@ -2,8 +2,7 @@ import 'package:cyberviperscoutingapp2024/admin_auth.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
-import 'package:cyberviperscoutingapp2024/read_sheet.dart';
-import 'package:cyberviperscoutingapp2024/scouting_pages/main_scout_page.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -38,9 +37,9 @@ class ReuseWid extends GetxController {
   teaminfo() {
     return Center(
       child: Text(
-        '${sv.teamNum.value} - ${sv.teamName.value}',
+        'Team ${sv.teamNum} - Match ${sv.matchNum}',
         style:
-            TextStyle(fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 20),
+            TextStyle(fontFamily: 'NotoSans', color: ut.tt.value, fontSize: 25),
       ),
     );
   }
@@ -175,52 +174,52 @@ class ReuseWid extends GetxController {
           ),
           drawerWid(
             title: 'About',
-            function: () => print('about'),
+            function: () async {},
             icon: Icon(
               Icons.info_outline,
               color: ut.tt.value,
               size: 35,
             ),
           ),
-          drawerWid(
-            title: 'Admin',
-            function: () {
-              if (sv.selectedAnEvent.isTrue) {
-                Get.to(() => const AdminAuth());
-              } else {
-                noEvent.value = Colors.red;
-              }
-            },
-            icon: Icon(
-              Icons.person,
-              color: ut.tt.value,
-              size: 35,
-            ),
-          ),
-          drawerWid(
-            title: 'Manual',
-            function: () {
-              if (sv.selectedAnEvent.isTrue) {
-                Get.to(() => const ManualPage());
-              } else {
-                noEvent.value = Colors.red;
-              }
-            },
-            icon: Icon(
-              Icons.add_circle_outline_rounded,
-              color: ut.tt.value,
-              size: 35,
-            ),
-          ),
-          drawerWid(
-            title: 'Update?',
-            function: () => print('update'),
-            icon: Icon(
-              Icons.update,
-              color: ut.tt.value,
-              size: 35,
-            ),
-          ),
+          // drawerWid(
+          //   title: 'Admin',
+          //   function: () {
+          //     if (sv.selectedAnEvent.isTrue) {
+          //       Get.to(() => const AdminAuth());
+          //     } else {
+          //       noEvent.value = Colors.red;
+          //     }
+          //   },
+          //   icon: Icon(
+          //     Icons.person,
+          //     color: ut.tt.value,
+          //     size: 35,
+          //   ),
+          // ),
+          // drawerWid(
+          //   title: 'Manual',
+          //   function: () {
+          //     if (sv.selectedAnEvent.isTrue) {
+          //       Get.to(() => const ManualPage());
+          //     } else {
+          //       noEvent.value = Colors.red;
+          //     }
+          //   },
+          //   icon: Icon(
+          //     Icons.add_circle_outline_rounded,
+          //     color: ut.tt.value,
+          //     size: 35,
+          //   ),
+          // ),
+          // drawerWid(
+          //   title: 'Update?',
+          //   function: () => print('update'),
+          //   icon: Icon(
+          //     Icons.update,
+          //     color: ut.tt.value,
+          //     size: 35,
+          //   ),
+          // ),
           line(),
           toggleEventType(),
           Obx(
@@ -246,6 +245,18 @@ class ReuseWid extends GetxController {
                 }
                 noEvent.value = Colors.white;
                 sv.selectedAnEvent.value = true;
+
+                var blueMatches = await blueAllianceTeams();
+                var sortedBlue = blueMatches.keys.toList();
+                sortedBlue.sort();
+                sv.blueAllianceMatchesKeys.value = sortedBlue;
+                sv.blueAllianceMatches.value = blueMatches;
+
+                var redMatches = await redAllianceTeams();
+                var sortedRed = redMatches.keys.toList();
+                sortedRed.sort();
+                sv.redAllianceMatchesKeys.value = sortedRed;
+                sv.redAllianceMatches.value = redMatches;
 
                 var thing = await eventTeams();
                 var sortTeamList = thing.keys.toList();
@@ -276,11 +287,14 @@ class ReuseWid extends GetxController {
                 scrollbarTheme: const ScrollbarThemeData(
                     thumbColor: MaterialStatePropertyAll(Colors.grey)),
                 maxHeight: 400.h,
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.r)),
               ),
               buttonStyleData: ButtonStyleData(
                 decoration: BoxDecoration(
                   border: Border.all(color: noEvent.value, width: 2),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
               ),
             ),
@@ -322,32 +336,42 @@ class ReuseWid extends GetxController {
       iconSize: 28,
       elevation: 0,
       currentIndex: selectedIndex.value,
-      onTap: (index) {
+      onTap: (index) async {
         selectedIndex.value = index;
         switch (index) {
           case 0:
             Get.off(() => const HomePage());
           case 1:
-            Get.off(() => const ScoutPage());
+            if (sv.scoutName.text.isBlank! || sv.scoutersTeam.isBlank!) {
+              ut.tfc.value = Colors.red;
+              await Future.delayed(const Duration(milliseconds: 250));
+              ut.tfc.value = Colors.white;
+              await Future.delayed(const Duration(milliseconds: 250));
+              ut.tfc.value = Colors.red;
+              await Future.delayed(const Duration(milliseconds: 250));
+              ut.tfc.value = Colors.white;
+            } else {
+              Get.off(() => const ManualPage());
+            }
           case 2:
             if (sv.selectedAnEvent.isTrue) {
               Get.off(() => const StatsPage());
             }
         }
       },
-      items: const [
+      items: [
         BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
+            icon: const Icon(Icons.home_rounded),
             label: 'Home',
-            backgroundColor: Colors.transparent),
+            backgroundColor: Colors.grey[850]),
         BottomNavigationBarItem(
-            icon: Icon(Icons.content_paste),
+            icon: const Icon(Icons.content_paste),
             label: 'Scout',
-            backgroundColor: Colors.transparent),
+            backgroundColor: Colors.grey[850]),
         BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_outlined),
+            icon: const Icon(Icons.bar_chart_outlined),
             label: 'Stats',
-            backgroundColor: Colors.transparent),
+            backgroundColor: Colors.grey[850]),
       ],
     );
   }

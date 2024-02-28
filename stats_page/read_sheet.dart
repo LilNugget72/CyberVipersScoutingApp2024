@@ -15,40 +15,43 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
       'https://sheets.googleapis.com/v4/spreadsheets/$sheetId/values/$team?majorDimension=ROWS&key=$apiKey');
 
   /*
-    'MATCH #', // value is 0
-    'ROBOT AMP POSITION', // value is 1
-    'ROBOT CENTER POSITION', // value is 2
-    'ROBOT BETWEEN POSITION', // value is 3
-    'ROBOT SOURCE POSITION', // value is 4
-    'NOTE 1', // value is 5
-    'NOTE 2', // value is 6
-    'NOTE 3', // value is 7
-    'NOTE 4', // value is 8
-    'NOTE 5', // value is 9
-    'NOTE 6', // value is 10
-    'NOTE 7', // value is 11
-    'NOTE 8', // value is 12
-    'LEAVE', // value is 13
-    'AUTO AMP NOTES', // value is 14
-    'AUTO SPEAKER NOTES', // value is 15
-    'TELEOP AMP NOTES', // value is 16
-    'TELEOP AMP MISSED', // value is 17
-    'TELEOP SPEAKER NOTES', // value is 18
-    'TELEOP SPEAKER MISSED', // value is 19
-    'NOTES IN TRAP', // value is 20
-    'MISSED TRAP', // value is 21
-    'LEFT STAGE', // value is 22
-    'CENTER STAGE', // value is 23
-    'RIGHT STAGE', // value is 24
-    'NONE', // value is 25
-    'SLIGHT', // value is 26
-    'MODEST', // value is 27
-    'GENEROUS', // value is 28
-    'EXCLUSIVELY', // value is 29
-    'ONSTAGE', // value is 30
-    'PARK', // value is 31
-    'HARMONY', // value is 32
-    'COMMENTS', // value is 33
+  'ALLIANCE', // value is 0
+    'MATCH #', // value is 1
+    'ROBOT AMP POSITION', // value is 2
+    'ROBOT CENTER POSITION', // value is 3
+    'ROBOT BETWEEN POSITION', // value is 4
+    'ROBOT SOURCE POSITION', // value is 5
+    'NOTE 1', // value is 6
+    'NOTE 2', // value is 7
+    'NOTE 3', // value is 8
+    'NOTE 4', // value is 10
+    'NOTE 5', // value is 11
+    'NOTE 6', // value is 12
+    'NOTE 7', // value is 13
+    'NOTE 8', // value is 14
+    'LEAVE', // value is 15
+    'AUTO AMP NOTES', // value is 16
+    'AUTO SPEAKER NOTES', // value is 17
+    'TELEOP AMP NOTES', // value is 18
+    'TELEOP AMP MISSED', // value is 19
+    'TELEOP SPEAKER NOTES', // value is 20
+    'TELEOP SPEAKER MISSED', // value is 21
+    'NOTES IN TRAP', // value is 22
+    'MISSED TRAP', // value is 23
+    'LEFT STAGE', // value is 24
+    'CENTER STAGE', // value is 25
+    'RIGHT STAGE', // value is 26
+    'NONE', // value is 27
+    'SLIGHT', // value is 28
+    'MODEST', // value is 29
+    'GENEROUS', // value is 30
+    'EXCLUSIVELY', // value is 31
+    'ONSTAGE', // value is 32
+    'PARK', // value is 33
+    'HARMONY', // value is 34
+    'COMMENTS', // value is 35
+    'SCOUTER'S NAME', // value is 36
+    'SCOUTER'S TEAM', // value is 37
        */
 
   try {
@@ -72,7 +75,7 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
 
         // Retrieve the list of data associated with the match number
         List<String> rowData = values[i]
-            .sublist(2)
+            .sublist(1)
             .map<String>((value) => value == null || value.toString().isEmpty
                 ? 'NO VALUE PRESENT'
                 : value.toString())
@@ -163,7 +166,7 @@ Future<Map<int, String>> eventTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/teams/simple';
+      'https://www.thebluealliance.com/api/v3/event/2023${sv.eventKey}/teams/simple';
   Map<int, String> teamNames = {};
 
   final response =
@@ -184,65 +187,54 @@ Future<Map<int, String>> eventTeams() async {
   }
 }
 
-Future<Map<int, List<int>>> fetchRedAllianceTeams() async {
+Future<Map<int, List<int>>> redAllianceTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches';
-  Map<int, List<int>> redAllianceTeamsMap = {};
+      'https://www.thebluealliance.com/api/v3/event/2023${sv.eventKey}/matches/simple';
+  Map<int, List<int>> redAllianceTeams = {};
 
-  try {
-    final response =
-        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
-    if (response.statusCode == 200) {
-      final List<dynamic> matchesData = json.decode(response.body);
-      for (var match in matchesData) {
-        if (match['comp_level'] == 'qm') {
-          int matchNumber = match['match_number'];
-          List<int> redTeams = match['alliances']['red']['team_keys']
-              .map<int>((teamKey) => int.parse(teamKey.substring(3)))
-              .toList();
-          redAllianceTeamsMap[matchNumber] = redTeams;
-        }
+  final response =
+      await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+  if (response.statusCode == 200) {
+    final List<dynamic> matchesData = json.decode(response.body);
+    for (var match in matchesData) {
+      if (match['comp_level'] == 'qm') {
+        int matchNumber = match['match_number'];
+        List<int> redTeams = match['alliances']['red']['team_keys']
+            .map<int>((teamKey) => int.parse(teamKey.substring(3)))
+            .toList();
+        redAllianceTeams[matchNumber] = redTeams;
       }
-      return redAllianceTeamsMap;
-    } else {
-      print('Error: ${response.statusCode} - ${response.body}');
-      return {};
     }
-  } catch (e) {
-    print('Error fetching data: $e');
+    return redAllianceTeams;
+  } else {
     return {};
   }
 }
 
-Future<Map<int, List<String>>> fetchBlueAllianceTeams() async {
+Future<Map<int, List<int>>> blueAllianceTeams() async {
   const String apiKey =
-      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
+      'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches';
-  Map<int, List<String>> blueAllianceTeamsMap = {};
+      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches/simple';
+  Map<int, List<int>> blueAllianceTeams = {};
 
-  try {
-    final response =
-        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
-    if (response.statusCode == 200) {
-      final List<dynamic> matchesData = json.decode(response.body);
-      for (var match in matchesData) {
-        if (match['comp_level'] == 'qm') {
-          int matchNumber = match['match_number'];
-          List<String> redTeams =
-              match['alliances']['blue']['team_keys'].cast<String>();
-          blueAllianceTeamsMap[matchNumber] = redTeams;
-        }
+  final response =
+      await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+  if (response.statusCode == 200) {
+    final List<dynamic> matchesData = json.decode(response.body);
+    for (var match in matchesData) {
+      if (match['comp_level'] == 'qm') {
+        int matchNumber = match['match_number'];
+        List<int> redTeams = match['alliances']['blue']['team_keys']
+            .map<int>((teamKey) => int.parse(teamKey.substring(3)))
+            .toList();
+        blueAllianceTeams[matchNumber] = redTeams;
       }
-      return blueAllianceTeamsMap;
-    } else {
-      print('Error: ${response.statusCode} - ${response.body}');
-      return {};
     }
-  } catch (e) {
-    print('Error fetching data: $e');
+    return blueAllianceTeams;
+  } else {
     return {};
   }
 }

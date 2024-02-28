@@ -2,14 +2,20 @@ import 'package:cyberviperscoutingapp2024/controllers/google_sheets_api.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
-import 'package:cyberviperscoutingapp2024/read_sheet.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() async {
+void main() {
+  runApp(const ScoutingApp());
+}
+
+UserTheme ut = Get.put(UserTheme());
+SheetValues sv = Get.put(SheetValues());
+
+loadAllEvents({required RxBool finished}) async {
   // makes sure you have a connection with the sheet
   //calls for the initialization meathod for the sheet
   await GoogleSheetsApi().init();
@@ -18,24 +24,6 @@ void main() async {
   //the line under this waits for the screen size to be init
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ScoutingApp());
-}
-
-UserTheme ut = Get.put(UserTheme());
-SheetValues sv = Get.put(SheetValues());
-
-class Loading extends GetxController {
-  loadingScreen() {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('HI'),
-      ),
-      body: LoadingAnimationWidget.beat(color: Colors.white, size: 100),
-    );
-  }
-}
-
-loadRegionalEvents() async {
   List listOfRegionals = [];
   List listOfDistricts = [];
   var regtionalEvents = await getAllRegionalEvents();
@@ -49,6 +37,46 @@ loadRegionalEvents() async {
   sv.regionalEventsKeys.value = listOfRegionals;
   sv.districtEventKeys.value = listOfDistricts;
   sv.events.value = sv.regionalEventsKeys;
+  Future.delayed(const Duration(seconds: 2));
+  Get.to(() => const HomePage());
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    RxBool finished = false.obs;
+    loadAllEvents(finished: finished);
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.only(top: 220.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image(
+                height: 200.h,
+                image:
+                    const AssetImage("lib/assets/Cyber Vipers Logo 2023.png"),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 25.h),
+                child: const Text(
+                  "Cyber Vipers Scouring App",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'NotoSans',
+                      fontSize: 25),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class ScoutingApp extends StatelessWidget {
@@ -56,7 +84,6 @@ class ScoutingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    loadRegionalEvents();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: ut.bars,
         systemNavigationBarColor: Colors.grey[850],
@@ -66,7 +93,7 @@ class ScoutingApp extends StatelessWidget {
         () => SafeArea(
           child: GetMaterialApp(
             theme: ut.currentTheme.value,
-            home: const HomePage(),
+            home: const SplashScreen(),
             debugShowCheckedModeBanner: false,
           ),
         ),

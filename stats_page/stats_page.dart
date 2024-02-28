@@ -2,8 +2,9 @@ import 'package:cyberviperscoutingapp2024/controllers/field_with_buttons.dart';
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/stats_fields.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:cyberviperscoutingapp2024/read_sheet.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,10 +48,10 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ReuseWid rw = Get.find();
+    ReuseWid rw = Get.put(ReuseWid());
     UserTheme ut = Get.find();
     SheetValues sv = Get.find();
-    TouchField tf = Get.put(TouchField());
+    StatsFields sf = Get.put(StatsFields());
 
     RxString firstAverage = ''.obs;
     RxString secondAverage = ''.obs;
@@ -155,7 +156,7 @@ class StatsPage extends StatelessWidget {
                   onChanged: (value) async {
                     bool startedInAuto = false;
                     sv.selectMatch.value = 'Match $value';
-                    tf.clearView();
+                    sf.clearView();
 
                     if (sv.matchNumAndValue.isNotEmpty) {
                       double first = getMatchAverageNumbers(
@@ -171,25 +172,25 @@ class StatsPage extends StatelessWidget {
                         switch (i) {
                           case 1:
                             if (position != 'FALSE') {
-                              tf.viewZone1.value = ut.buttonColor.value;
+                              sf.viewZone1.value = ut.buttonColor.value;
                               startedInAuto = true;
                               break;
                             }
                           case 2:
                             if (position != 'FALSE') {
-                              tf.viewZone2.value = ut.buttonColor.value;
+                              sf.viewZone2.value = ut.buttonColor.value;
                               startedInAuto = true;
                               break;
                             }
                           case 3:
                             if (position != 'FALSE') {
-                              tf.viewZone3.value = ut.buttonColor.value;
+                              sf.viewZone3.value = ut.buttonColor.value;
                               startedInAuto = true;
                               break;
                             }
                           case 4:
                             if (position != 'FALSE') {
-                              tf.viewZone4.value = ut.buttonColor.value;
+                              sf.viewZone4.value = ut.buttonColor.value;
                               startedInAuto = true;
                               break;
                             }
@@ -207,43 +208,43 @@ class StatsPage extends StatelessWidget {
                           switch (i) {
                             case 5:
                               if (whenSelected != '0') {
-                                tf.viewNote1.value = whenSelected;
+                                sf.viewNote1.value = whenSelected;
                                 break;
                               }
                             case 6:
                               if (whenSelected != '0') {
-                                tf.viewNote2.value = whenSelected;
+                                sf.viewNote2.value = whenSelected;
                                 break;
                               }
                             case 7:
                               if (whenSelected != '0') {
-                                tf.viewNote3.value = whenSelected;
+                                sf.viewNote3.value = whenSelected;
                                 break;
                               }
                             case 8:
                               if (whenSelected != '0') {
-                                tf.viewNote4.value = whenSelected;
+                                sf.viewNote4.value = whenSelected;
                                 break;
                               }
                             case 9:
                               if (whenSelected != '0') {
-                                tf.viewNote5.value = whenSelected;
+                                sf.viewNote5.value = whenSelected;
                                 break;
                               }
 
                             case 10:
                               if (whenSelected != '0') {
-                                tf.viewNote6.value = whenSelected;
+                                sf.viewNote6.value = whenSelected;
                                 break;
                               }
                             case 11:
                               if (whenSelected != '0') {
-                                tf.viewNote7.value = whenSelected;
+                                sf.viewNote7.value = whenSelected;
                                 break;
                               }
                             case 12:
                               if (whenSelected != '0') {
-                                tf.viewNote8.value = whenSelected;
+                                sf.viewNote8.value = whenSelected;
                                 break;
                               }
                           }
@@ -304,7 +305,7 @@ class StatsPage extends StatelessWidget {
               showAverage(value: thirdAverage)
             ],
           ),
-          tf.statsBlueAuto()
+          sf.statsBlueAuto()
         ],
       ),
       bottomNavigationBar: rw.bnb(),

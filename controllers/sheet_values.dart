@@ -8,9 +8,10 @@ ReuseWid rw = Get.find();
 UserTheme ut = Get.find();
 
 class SheetValues extends GetxController {
-  RxInt matchNum = 1.obs;
+  RxInt matchNum = 0.obs;
   RxString teamName = ''.obs;
-  RxInt teamNum = 1.obs;
+  RxString alliance = ''.obs;
+  RxInt teamNum = 0.obs;
 
   RxBool posAmp = false.obs;
   RxBool posCenter = false.obs;
@@ -58,6 +59,7 @@ class SheetValues extends GetxController {
   RxBool isOnBlueAlliance = false.obs;
   RxBool selectedAnEvent = false.obs;
 
+  final scoutersTeam = TextEditingController();
   final scoutName = TextEditingController();
   final comments = TextEditingController();
 
@@ -79,6 +81,12 @@ class SheetValues extends GetxController {
   RxMap districtEvents = {}.obs;
   RxList districtEventKeys = [].obs;
 
+  RxMap blueAllianceMatches = {}.obs;
+  RxList blueAllianceMatchesKeys = [].obs;
+
+  RxMap redAllianceMatches = {}.obs;
+  RxList redAllianceMatchesKeys = [].obs;
+
   RxString eventListHint = 'Select Regional'.obs;
 
   RxList events = [].obs;
@@ -87,6 +95,8 @@ class SheetValues extends GetxController {
 
   RxMap matchNumAndValue = {}.obs;
   RxString selectMatch = 'Select a Match'.obs;
+
+  RxBool statsWantsBlue = true.obs;
 
   valueCard({required RxInt value, required String title}) {
     return Stack(
