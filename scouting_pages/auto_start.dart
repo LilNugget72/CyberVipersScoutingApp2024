@@ -18,7 +18,6 @@ class AutoStart extends StatelessWidget {
     TouchField tf = Get.put(TouchField());
 
     Rx<Color> leaveColor = Colors.transparent.obs;
-    Color leaveTextColor = ut.tt.value;
     return Scaffold(
       appBar: rw.ab(title: 'Auto'),
       body: Column(
@@ -36,12 +35,12 @@ class AutoStart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 rw.valueToggle(
-                    title: 'Leave',
-                    value: sv.leave,
-                    width: 160.w,
-                    height: 75.h,
-                    fillColor: leaveColor,
-                    textColor: leaveTextColor),
+                  title: 'Leave',
+                  value: sv.leave,
+                  width: 160.w,
+                  height: 75.h,
+                  fillColor: leaveColor,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(

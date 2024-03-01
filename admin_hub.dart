@@ -1,6 +1,5 @@
 import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
-import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +11,6 @@ class AdminHub extends StatelessWidget {
   Widget build(BuildContext context) {
     ReuseWid rw = Get.find();
     SheetValues sv = Get.find();
-    UserTheme ut = Get.find();
     return Scaffold(
       appBar: rw.ab(title: 'Admin Hub'),
       body: Column(
@@ -21,20 +19,20 @@ class AdminHub extends StatelessWidget {
           Center(
             child: Padding(
               padding: EdgeInsets.only(top: 10.h),
-              child: Text(
+              child: const Text(
                 '0/6 in Lobby',
                 style: TextStyle(
-                    color: ut.tt.value, fontSize: 45, fontFamily: 'NotoSans'),
+                    color: Colors.white, fontSize: 45, fontFamily: 'NotoSans'),
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Text(
                 'Match',
                 style: TextStyle(
-                    color: ut.tt.value, fontSize: 45, fontFamily: 'NotoSans'),
+                    color: Colors.white, fontSize: 45, fontFamily: 'NotoSans'),
               ),
             ),
           ),
@@ -57,12 +55,12 @@ class AdminHub extends StatelessWidget {
                       width: 70.w,
                       height: 70.w,
                       decoration: BoxDecoration(
-                        border: Border.all(color: ut.tt.value, width: 2),
+                        border: Border.all(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.subdirectory_arrow_left_rounded,
-                        color: ut.tt.value,
+                        color: Colors.white,
                         size: 35,
                       ),
                     ),
@@ -74,8 +72,8 @@ class AdminHub extends StatelessWidget {
                   Obx(
                     () => Text(
                       sv.matchNum.value.toString(),
-                      style: TextStyle(
-                          color: ut.tt.value,
+                      style: const TextStyle(
+                          color: Colors.white,
                           fontFamily: 'NotoSans',
                           fontSize: 70),
                     ),
@@ -92,12 +90,12 @@ class AdminHub extends StatelessWidget {
                       width: 70.w,
                       height: 70.w,
                       decoration: BoxDecoration(
-                        border: Border.all(color: ut.tt.value, width: 2),
+                        border: Border.all(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.subdirectory_arrow_right_rounded,
-                        color: ut.tt.value,
+                        color: Colors.white,
                         size: 35,
                       ),
                     ),

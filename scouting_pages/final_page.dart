@@ -39,9 +39,11 @@ class FinalPage extends StatelessWidget {
                   controller: sv.comments,
                   textAlign: TextAlign.center,
                   enabled: true,
-                  cursorColor: ut.tt.value,
-                  style: TextStyle(
-                      color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 20),
+                  cursorColor: Colors.white,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'NotoSans',
+                      fontSize: 20),
                   decoration: InputDecoration(
                     label: Center(
                         child: Text(
@@ -52,15 +54,17 @@ class FinalPage extends StatelessWidget {
                           fontSize: 20),
                     )),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
-                    labelStyle: TextStyle(color: ut.tt.value),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: ut.tt.value)),
+                    labelStyle: const TextStyle(color: Colors.white),
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.r),
-                        borderSide: BorderSide(color: ut.tt.value, width: 2)),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.r),
-                        borderSide: BorderSide(color: ut.tt.value, width: 2)),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2)),
                   ),
                 ),
               ),
@@ -100,7 +104,6 @@ class FinalPage extends StatelessWidget {
                         UserFields.teleopSpeakerMissed: sv.speakerMissed.value,
                         UserFields.trap: sv.trap.value,
                         UserFields.trapMissed: sv.trapMissed.value,
-                        UserFields.onstage: sv.onstage.value,
                         UserFields.leftStage: sv.leftStage.value,
                         UserFields.centerStage: sv.centerStage.value,
                         UserFields.rightStage: sv.rightStage.value,

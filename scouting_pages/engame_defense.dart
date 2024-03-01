@@ -9,22 +9,16 @@ SheetValues sv = Get.put(SheetValues());
 
 class EndgameDefense extends GetxController {
   Rx<Color> dNoneColor = Colors.transparent.obs;
-  Color dNoneTextColor = ut.tt.value;
   Rx<Color> dSlightColor = Colors.transparent.obs;
-  Color dSlightTextColor = ut.tt.value;
   Rx<Color> dModestColor = Colors.transparent.obs;
-  Color dModestTextColor = ut.tt.value;
   Rx<Color> dGenerousColor = Colors.transparent.obs;
-  Color dGenerousTextColor = ut.tt.value;
   Rx<Color> dExclusivelyColor = Colors.transparent.obs;
-  Color dExclusivelyTextColor = ut.tt.value;
 
   toggleDefense(
       {required RxBool defense,
       required String title,
       required double width,
-      required Rx<Color> fillColor,
-      required Color textColor}) {
+      required Rx<Color> fillColor}) {
     return InkWell(
       splashFactory: InkSplash.splashFactory,
       splashColor: Colors.grey[300],
@@ -37,11 +31,10 @@ class EndgameDefense extends GetxController {
         dExclusivelyColor.value = Colors.transparent;
 
         fillColor.value = ut.buttonColor.value;
-        textColor = ut.tt.value;
 
         sv.dNone.value = false;
         sv.dSlight.value = false;
-        sv.dModest.value;
+        sv.dModest.value = false;
         sv.dGenerous.value = false;
         sv.dExclusively.value = false;
 
@@ -58,8 +51,8 @@ class EndgameDefense extends GetxController {
           child: Center(
             child: Text(
               title,
-              style: TextStyle(
-                  color: textColor, fontSize: 15, fontFamily: 'NotoSans'),
+              style: const TextStyle(
+                  color: Colors.white, fontSize: 15, fontFamily: 'NotoSans'),
             ),
           ),
         ),
@@ -74,35 +67,35 @@ class EndgameDefense extends GetxController {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           toggleDefense(
-              defense: sv.dNone,
-              title: 'None',
-              width: 50.w,
-              fillColor: dNoneColor,
-              textColor: dNoneTextColor),
+            defense: sv.dNone,
+            title: 'None',
+            width: 50.w,
+            fillColor: dNoneColor,
+          ),
           toggleDefense(
-              defense: sv.dSlight,
-              title: 'Slight',
-              width: 55.w,
-              fillColor: dSlightColor,
-              textColor: dSlightTextColor),
+            defense: sv.dSlight,
+            title: 'Slight',
+            width: 55.w,
+            fillColor: dSlightColor,
+          ),
           toggleDefense(
-              defense: sv.dModest,
-              title: 'Modest',
-              width: 63.w,
-              fillColor: dModestColor,
-              textColor: dModestTextColor),
+            defense: sv.dModest,
+            title: 'Modest',
+            width: 63.w,
+            fillColor: dModestColor,
+          ),
           toggleDefense(
-              defense: sv.dGenerous,
-              title: 'Generous',
-              width: 70.w,
-              fillColor: dGenerousColor,
-              textColor: dGenerousTextColor),
+            defense: sv.dGenerous,
+            title: 'Generous',
+            width: 70.w,
+            fillColor: dGenerousColor,
+          ),
           toggleDefense(
-              defense: sv.dExclusively,
-              title: 'Exclusively',
-              width: 81.w,
-              fillColor: dExclusivelyColor,
-              textColor: dExclusivelyTextColor)
+            defense: sv.dExclusively,
+            title: 'Exclusively',
+            width: 81.w,
+            fillColor: dExclusivelyColor,
+          )
         ],
       ),
     );
@@ -110,14 +103,9 @@ class EndgameDefense extends GetxController {
 
   finished() {
     dNoneColor.value = ut.buttonColor.value;
-    dNoneTextColor = ut.tt.value;
     dSlightColor.value = Colors.transparent;
-    dSlightTextColor = ut.tt.value;
     dModestColor.value = Colors.transparent;
-    dModestTextColor = ut.tt.value;
     dGenerousColor.value = Colors.transparent;
-    dGenerousTextColor = ut.tt.value;
     dExclusivelyColor.value = Colors.transparent;
-    dExclusivelyTextColor = ut.tt.value;
   }
 }

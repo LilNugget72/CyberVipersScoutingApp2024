@@ -495,17 +495,19 @@ class TouchField extends GetxController {
       splashColor: Colors.grey[300],
       borderRadius: BorderRadius.circular(12.r),
       onTap: () {
-        if (stage.isFalse) {
-          toggleStage(stage: stage, color: color);
-        } else {
-          stage1.value = Colors.transparent;
-          stage2.value = Colors.transparent;
-          stage3.value = Colors.transparent;
+        if (sv.park.isFalse) {
+          if (stage.isFalse) {
+            toggleStage(stage: stage, color: color);
+          } else {
+            stage1.value = Colors.transparent;
+            stage2.value = Colors.transparent;
+            stage3.value = Colors.transparent;
 
-          sv.leftStage.value = false;
-          sv.centerStage.value = false;
-          sv.rightStage.value = false;
-        }
+            sv.leftStage.value = false;
+            sv.centerStage.value = false;
+            sv.rightStage.value = false;
+          }
+        } else {}
       },
       child: Obx(
         () => Ink(
@@ -531,6 +533,7 @@ class TouchField extends GetxController {
 
     stage.value = true;
     color.value = ut.buttonColor.value;
+    print(sv.leftStage);
   }
 
   finished() {

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,14 +7,22 @@ import 'package:flutter/material.dart';
 
 class StatsFields extends GetxController {
   UserTheme ut = Get.find();
-  RxString viewNote1 = '1'.obs;
-  RxString viewNote2 = '2'.obs;
-  RxString viewNote3 = '3'.obs;
-  RxString viewNote4 = '4'.obs;
-  RxString viewNote5 = '5'.obs;
-  RxString viewNote6 = '6'.obs;
-  RxString viewNote7 = '7'.obs;
-  RxString viewNote8 = '8'.obs;
+
+  RxString stats1 = ''.obs;
+  RxString stats2 = ''.obs;
+  RxString stats3 = ''.obs;
+
+  RxString autoAmp = ''.obs;
+  RxString autoSpeak = ''.obs;
+
+  RxString viewNote1 = ''.obs;
+  RxString viewNote2 = ''.obs;
+  RxString viewNote3 = ''.obs;
+  RxString viewNote4 = ''.obs;
+  RxString viewNote5 = ''.obs;
+  RxString viewNote6 = ''.obs;
+  RxString viewNote7 = ''.obs;
+  RxString viewNote8 = ''.obs;
 
   Rx<Color> viewZone1 = Colors.transparent.obs; //near amp
   Rx<Color> viewZone2 = Colors.transparent.obs; //middle of speaker
@@ -26,6 +36,22 @@ class StatsFields extends GetxController {
   Rx<Color> note6InStats = Colors.transparent.obs;
   Rx<Color> note7InStats = Colors.transparent.obs;
   Rx<Color> note8InStats = Colors.transparent.obs;
+
+  Rx<Color> stage1 = Colors.transparent.obs; //left
+  Rx<Color> stage2 = Colors.transparent.obs; //center
+  Rx<Color> stage3 = Colors.transparent.obs; //right
+
+  Rx<Color> none = Colors.transparent.obs;
+  Rx<Color> slight = Colors.transparent.obs;
+  Rx<Color> modest = Colors.transparent.obs;
+  Rx<Color> generous = Colors.transparent.obs;
+  Rx<Color> exclusively = Colors.transparent.obs;
+
+  RxString parked = ''.obs;
+  RxString harmony = ''.obs;
+
+  RxString comments = ''.obs;
+  RxString scouter = ''.obs;
 
   statsAutoZone({
     required double width,
@@ -241,7 +267,7 @@ class StatsFields extends GetxController {
           ),
         ),
         Positioned.fill(
-          left: 51.w,
+          left: 51.5.w,
           bottom: 138.h,
           child: Row(
             children: [
@@ -258,69 +284,325 @@ class StatsFields extends GetxController {
           ),
         ),
         Positioned(
-            right: 220.w,
-            top: 105.h,
+            left: 63.w, top: 135.h, child: statsNoteTimeline(value: viewNote1)),
+        Positioned(
+          top: 135.h,
+          left: 125.w,
+          child: statsNoteTimeline(value: viewNote2),
+        ),
+        Positioned(
+            top: 99.h,
+            right: 115.w,
             child: statsNoteTimeline(value: viewNote3)),
-        Positioned(
-          top: 150.h,
-          right: 62.w,
-          child: Row(
-            children: [
-              statsNoteTimeline(value: viewNote2),
-              SizedBox(
-                width: 47.w,
-              ),
-              statsNoteTimeline(value: viewNote1),
-            ],
-          ),
-        ),
         Positioned.fill(
-          top: 283.h,
-          left: 16.5.w,
+          top: 300.h,
+          left: 32.w,
           child: Row(
             children: [
-              statsButton(noteColor: note8InStats),
+              statsButton(
+                noteColor: note4InStats,
+              ),
               Padding(
-                  padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note7InStats)),
+                padding: EdgeInsets.only(left: 37.w),
+                child: statsButton(
+                  noteColor: note5InStats,
+                ),
+              ),
               Padding(
-                  padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note6InStats)),
+                padding: EdgeInsets.only(left: 37.5.w),
+                child: statsButton(
+                  noteColor: note6InStats,
+                ),
+              ),
               Padding(
-                  padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note5InStats)),
+                padding: EdgeInsets.only(left: 37.w),
+                child: statsButton(
+                  noteColor: note7InStats,
+                ),
+              ),
               Padding(
-                  padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note4InStats)),
+                padding: EdgeInsets.only(left: 37.w),
+                child: statsButton(
+                  noteColor: note8InStats,
+                ),
+              ),
             ],
           ),
         ),
         Positioned(
-          bottom: 65.h,
-          left: 28.w,
-          child: statsNoteTimeline(value: viewNote8),
+          bottom: 62.h,
+          left: 40.w,
+          child: statsNoteTimeline(value: viewNote4),
         ),
         Positioned(
-          bottom: 65.h,
-          left: 97.w,
-          child: statsNoteTimeline(value: viewNote7),
-        ),
-        Positioned(
-          bottom: 65.h,
-          left: 165.w,
-          child: statsNoteTimeline(value: viewNote6),
-        ),
-        Positioned(
-          bottom: 65.h,
-          left: 235.w,
+          bottom: 62.h,
+          left: 114.w,
           child: statsNoteTimeline(value: viewNote5),
         ),
         Positioned(
-          bottom: 65.h,
-          left: 304.w,
-          child: statsNoteTimeline(value: viewNote4),
+          bottom: 62.h,
+          left: 186.w,
+          child: statsNoteTimeline(value: viewNote6),
+        ),
+        Positioned(
+          bottom: 62.h,
+          left: 258.w,
+          child: statsNoteTimeline(value: viewNote7),
+        ),
+        Positioned(
+          bottom: 62.h,
+          left: 330.w,
+          child: statsNoteTimeline(value: viewNote8),
         ),
       ],
+    );
+  }
+
+  statsEndStages({
+    required double width,
+    required double height,
+    required Rx<Color> color,
+  }) {
+    return Obx(
+      () => Ink(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: ut.buttonColor.value, width: 4.w),
+            color: color.value),
+        width: width,
+        height: height,
+      ),
+    );
+  }
+
+  statsRedStage() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Ink.image(
+          height: 300.h,
+          width: 360.w,
+          centerSlice: Rect.largest,
+          image: const AssetImage('lib/assets/Stage - Red.png'),
+        ),
+        Positioned(
+          left: 20.w,
+          top: 60.w,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Text(
+                'Amp',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+          right: 10.w,
+          top: 60.w,
+          child: Row(
+            children: [
+              const Text(
+                'Source',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          right: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (55 * pi / 180),
+            child: statsEndStages(
+              width: 120.w,
+              height: 50.h,
+              color: stage1,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 22.h,
+          right: 116.w,
+          child: statsEndStages(
+            width: 130.w,
+            height: 50.h,
+            color: stage2,
+          ),
+        ),
+        Positioned(
+          left: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (-55 * pi / 180),
+            child: statsEndStages(
+              width: 120.w,
+              height: 50.h,
+              color: stage3,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  statsBlueStage() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Ink.image(
+          height: 300.h,
+          width: 360.w,
+          centerSlice: Rect.largest,
+          image: const AssetImage('lib/assets/Stage - Blue.png'),
+        ),
+        Positioned(
+          left: 20.w,
+          top: 60.h,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Text(
+                'Source',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              )
+            ],
+          ),
+        ),
+        Positioned(
+          right: 30.w,
+          top: 60.h,
+          child: Row(
+            children: [
+              const Text(
+                'Amp',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          right: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (55 * pi / 180),
+            child: statsEndStages(
+              width: 120.w,
+              height: 50.h,
+              color: stage1,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 22.h,
+          right: 116.w,
+          child: statsEndStages(
+            width: 130.w,
+            height: 50.h,
+            color: stage2,
+          ),
+        ),
+        Positioned(
+          left: 55.w,
+          bottom: 130.h,
+          child: Transform.rotate(
+            angle: (-55 * pi / 180),
+            child: statsEndStages(
+              width: 120.w,
+              height: 50.h,
+              color: stage3,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  defenseButtons({
+    required String title,
+    required double width,
+    required Rx<Color> fillColor,
+  }) {
+    return Obx(
+      () => Ink(
+        width: width,
+        height: 35.h,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(color: ut.buttonColor.value, width: 2.w),
+            color: fillColor.value),
+        child: Center(
+          child: Text(
+            title,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 15, fontFamily: 'NotoSans'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  defenseRow() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          defenseButtons(
+            title: 'None',
+            width: 50.w,
+            fillColor: none,
+          ),
+          defenseButtons(title: 'Slight', width: 55.w, fillColor: slight),
+          defenseButtons(title: 'Modest', width: 63.w, fillColor: modest),
+          defenseButtons(title: 'Generous', width: 70.w, fillColor: generous),
+          defenseButtons(
+              title: 'Exclusively', width: 81.w, fillColor: exclusively)
+        ],
+      ),
     );
   }
 
@@ -346,5 +628,15 @@ class StatsFields extends GetxController {
     note6InStats.value = Colors.transparent;
     note7InStats.value = Colors.transparent;
     note8InStats.value = Colors.transparent;
+
+    stage1.value = Colors.transparent;
+    stage2.value = Colors.transparent;
+    stage3.value = Colors.transparent;
+
+    none.value = Colors.transparent;
+    slight.value = Colors.transparent;
+    modest.value = Colors.transparent;
+    generous.value = Colors.transparent;
+    exclusively.value = Colors.transparent;
   }
 }

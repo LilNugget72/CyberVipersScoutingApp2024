@@ -30,8 +30,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           Expanded(
-            child: Align(
-              alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 15.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -43,9 +43,9 @@ class HomePage extends StatelessWidget {
                         controller: sv.scoutName,
                         textAlign: TextAlign.center,
                         enabled: true,
-                        cursorColor: ut.tt.value,
-                        style: TextStyle(
-                            color: ut.tt.value,
+                        cursorColor: Colors.white,
+                        style: const TextStyle(
+                            color: Colors.white,
                             fontFamily: 'NotoSans',
                             fontSize: 20),
                         decoration: InputDecoration(
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                                 fontFamily: 'NotoSans',
                                 fontSize: 20),
                           )),
-                          labelStyle: TextStyle(color: ut.tt.value),
+                          labelStyle: const TextStyle(color: Colors.white),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.r),
                               borderSide:
@@ -80,9 +80,9 @@ class HomePage extends StatelessWidget {
                         controller: sv.scoutersTeam,
                         textAlign: TextAlign.center,
                         enabled: true,
-                        cursorColor: ut.tt.value,
-                        style: TextStyle(
-                            color: ut.tt.value,
+                        cursorColor: Colors.white,
+                        style: const TextStyle(
+                            color: Colors.white,
                             fontFamily: 'NotoSans',
                             fontSize: 20),
                         decoration: InputDecoration(
@@ -95,7 +95,7 @@ class HomePage extends StatelessWidget {
                                   fontSize: 20),
                             ),
                           ),
-                          labelStyle: TextStyle(color: ut.tt.value),
+                          labelStyle: const TextStyle(color: Colors.white),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.r),
                               borderSide:

@@ -269,7 +269,7 @@ class ManualPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 20.h),
+                padding: EdgeInsets.only(top: 25.h),
                 child: Obx(
                   () => Text(
                     'Alliance: $localAlliacne',
@@ -282,7 +282,7 @@ class ManualPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.h),
+                padding: EdgeInsets.only(top: 25.h),
                 child: Obx(
                   () => Text(
                     'Match: $localMatch',
@@ -297,7 +297,7 @@ class ManualPage extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(top: 25.h),
+            padding: EdgeInsets.only(top: 35.h),
             child: Center(
               child: Obx(
                 () => Text(
@@ -312,7 +312,7 @@ class ManualPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 20.h),
+            padding: EdgeInsets.only(top: 25.h),
             child: Obx(
               () => Text(
                 'Team Name: ${sv.teamName}',
@@ -325,70 +325,68 @@ class ManualPage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 30.h),
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  if (localTeam.isNotEmpty) {
-                    matchHint.value = 'Select a Match';
-                    matches.value = [];
-                    team1.value = '';
-                    team2.value = '';
-                    team3.value = '';
+          SizedBox(
+            height: 80.h,
+          ),
+          GestureDetector(
+            onTap: () {
+              if (localTeam.isNotEmpty) {
+                matchHint.value = 'Select a Match';
+                matches.value = [];
+                team1.value = '';
+                team2.value = '';
+                team3.value = '';
 
-                    localAlliacne.value = '';
-                    localMatch.value = '';
-                    localTeam.value = '';
-                    sv.teamName.value = '';
+                localAlliacne.value = '';
+                localMatch.value = '';
+                localTeam.value = '';
+                sv.teamName.value = '';
 
-                    Get.to(() => const AutoStart());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        showCloseIcon: true,
-                        backgroundColor: Colors.grey[800],
-                        content: const Text(
-                          'No Team Selected',
-                          style: TextStyle(
-                            fontFamily: 'NotoSans',
-                            fontSize: 20,
-                          ),
-                        ),
+                Get.to(() => const AutoStart());
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    showCloseIcon: true,
+                    backgroundColor: Colors.grey[800],
+                    content: const Text(
+                      'No Team Selected',
+                      style: TextStyle(
+                        fontFamily: 'NotoSans',
+                        fontSize: 20,
                       ),
-                    );
-                  }
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 13.h),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadiusDirectional.circular(25.r)),
-                    width: 180.w,
-                    height: 45.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Auto',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'NotoSans',
-                              fontSize: 28),
-                        ),
-                        SizedBox(
-                          width: 12.w,
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_rounded,
-                          color: Colors.white,
-                          size: 28,
-                        )
-                      ],
                     ),
                   ),
+                );
+              }
+            },
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadiusDirectional.circular(25.r)),
+                width: 180.w,
+                height: 45.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Auto',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'NotoSans',
+                          fontSize: 28),
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: 28,
+                    )
+                  ],
                 ),
               ),
             ),

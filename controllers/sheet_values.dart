@@ -53,7 +53,6 @@ class SheetValues extends GetxController {
   RxBool rightStage = false.obs;
 
   RxBool park = false.obs;
-  RxBool onstage = false.obs;
   RxBool harmony = false.obs;
 
   RxBool isOnBlueAlliance = false.obs;
@@ -245,7 +244,6 @@ class SheetValues extends GetxController {
     dExclusively.value = false;
 
     park.value = false;
-    onstage.value = false;
     harmony.value = false;
 
     comments.clear();

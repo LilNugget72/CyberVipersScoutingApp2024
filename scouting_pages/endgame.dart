@@ -7,7 +7,6 @@ import 'package:cyberviperscoutingapp2024/scouting_pages/final_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class Endgame extends StatelessWidget {
   const Endgame({super.key});
@@ -22,7 +21,6 @@ class Endgame extends StatelessWidget {
 
     Rx<Color> parkedColor = Colors.transparent.obs;
     Rx<Color> harmonyColor = Colors.transparent.obs;
-    Color harmonyTextColor = ut.tt.value;
 
     return Scaffold(
       appBar: rw.ab(title: '"Endgame"'),
@@ -135,10 +133,10 @@ class Endgame extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(top: 30.h),
-            child: Text(
+            child: const Text(
               'Defense',
               style: TextStyle(
-                  color: ut.tt.value, fontFamily: 'NotoSans', fontSize: 35),
+                  color: Colors.white, fontFamily: 'NotoSans', fontSize: 35),
             ),
           ),
           ed.defenseRow(),

@@ -6,7 +6,6 @@ class UserTheme extends GetxController {
 
   final Rx<Color> tfc = Colors.white.obs;
 
-  final Rx<Color> tt = Colors.white.obs;
   final Rx<Color> ts = const Color.fromARGB(85, 255, 255, 255).obs;
 
   Rx<Color> buttonColor = const Color.fromARGB(255, 0, 101, 179).obs;
@@ -17,11 +16,12 @@ class UserTheme extends GetxController {
     canvasColor: Colors.grey,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       elevation: 0,
-      titleTextStyle: TextStyle(color: Colors.white, fontFamily: 'NotoSans'),
-      backgroundColor: Colors.transparent,
-      iconTheme: IconThemeData(color: Colors.white),
+      titleTextStyle:
+          const TextStyle(color: Colors.white, fontFamily: 'NotoSans'),
+      backgroundColor: Colors.grey[850],
+      iconTheme: const IconThemeData(color: Colors.white),
     ),
     drawerTheme: DrawerThemeData(
         backgroundColor: Colors.grey[850], shadowColor: Colors.grey[850]),

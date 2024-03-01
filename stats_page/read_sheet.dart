@@ -24,34 +24,33 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
     'NOTE 1', // value is 6
     'NOTE 2', // value is 7
     'NOTE 3', // value is 8
-    'NOTE 4', // value is 10
-    'NOTE 5', // value is 11
-    'NOTE 6', // value is 12
-    'NOTE 7', // value is 13
-    'NOTE 8', // value is 14
-    'LEAVE', // value is 15
-    'AUTO AMP NOTES', // value is 16
-    'AUTO SPEAKER NOTES', // value is 17
-    'TELEOP AMP NOTES', // value is 18
-    'TELEOP AMP MISSED', // value is 19
-    'TELEOP SPEAKER NOTES', // value is 20
-    'TELEOP SPEAKER MISSED', // value is 21
-    'NOTES IN TRAP', // value is 22
-    'MISSED TRAP', // value is 23
-    'LEFT STAGE', // value is 24
-    'CENTER STAGE', // value is 25
-    'RIGHT STAGE', // value is 26
-    'NONE', // value is 27
-    'SLIGHT', // value is 28
-    'MODEST', // value is 29
-    'GENEROUS', // value is 30
-    'EXCLUSIVELY', // value is 31
-    'ONSTAGE', // value is 32
-    'PARK', // value is 33
-    'HARMONY', // value is 34
-    'COMMENTS', // value is 35
-    'SCOUTER'S NAME', // value is 36
-    'SCOUTER'S TEAM', // value is 37
+    'NOTE 4', // value is 9
+    'NOTE 5', // value is 10
+    'NOTE 6', // value is 11
+    'NOTE 7', // value is 12
+    'NOTE 8', // value is 13
+    'LEAVE', // value is 14
+    'AUTO AMP NOTES', // value is 15
+    'AUTO SPEAKER NOTES', // value is 16
+    'TELEOP AMP NOTES', // value is 17
+    'TELEOP AMP MISSED', // value is 18
+    'TELEOP SPEAKER NOTES', // value is 19
+    'TELEOP SPEAKER MISSED', // value is 20
+    'NOTES IN TRAP', // value is 21
+    'MISSED TRAP', // value is 22
+    'LEFT STAGE', // value is 23
+    'CENTER STAGE', // value is 24
+    'RIGHT STAGE', // value is 25
+    'NONE', // value is 26
+    'SLIGHT', // value is 27
+    'MODEST', // value is 28
+    'GENEROUS', // value is 29
+    'EXCLUSIVELY', // value is 30
+    'PARK', // value is 31
+    'HARMONY', // value is 32
+    'COMMENTS', // value is 33
+    'SCOUTER'S NAME', // value is 34
+    'SCOUTER'S TEAM', // value is 35
        */
 
   try {
@@ -117,7 +116,7 @@ String getMatchBool({required int column, required String match}) {
   return wantedValue;
 }
 
-double getAllAverageNumbers({required int made, required int missed}) {
+double getAllAverageNumbers({required int made}) {
   List allMatchNumbers = sv.matchAndRowNum;
   int totalMatches = sv.matchNumAndValue.length;
   int top = 0;
@@ -127,9 +126,8 @@ double getAllAverageNumbers({required int made, required int missed}) {
     for (int i = 0; i < totalMatches; i++) {
       var currentRow = sv.matchNumAndValue[allMatchNumbers[i]];
       int over = int.parse(currentRow[made]);
-      int under = int.parse(currentRow[missed]);
       top += over;
-      total += over + under;
+      total++;
     }
   }
   average = top / total;
@@ -141,11 +139,10 @@ double getAllAverageNumbers({required int made, required int missed}) {
   }
 }
 
-double getMatchAverageNumbers(
+String getMatchAverageNumbers(
     {required int made, required int missed, required String match}) {
   int top = 0;
   int total = 0;
-  double average;
   if (sv.matchNumAndValue.isNotEmpty) {
     var currentRow = sv.matchNumAndValue[match];
     int over = int.parse(currentRow[made]);
@@ -153,20 +150,14 @@ double getMatchAverageNumbers(
     top += over;
     total += over + under;
   }
-  average = top / total;
-  print(average);
-  if (average.isNaN) {
-    return 0.0;
-  } else {
-    return average.toPrecision(3);
-  }
+  return '$top/$total';
 }
 
 Future<Map<int, String>> eventTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/2023${sv.eventKey}/teams/simple';
+      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/teams/simple';
   Map<int, String> teamNames = {};
 
   final response =
@@ -191,7 +182,7 @@ Future<Map<int, List<int>>> redAllianceTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
   final String apiUrl =
-      'https://www.thebluealliance.com/api/v3/event/2023${sv.eventKey}/matches/simple';
+      'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches/simple';
   Map<int, List<int>> redAllianceTeams = {};
 
   final response =
@@ -242,7 +233,7 @@ Future<Map<int, List<int>>> blueAllianceTeams() async {
 Future<Map<String, String>> getAllRegionalEvents() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
-  final String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
+  const String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
   Map<String, String> allEventsMap = {};
 
   try {
@@ -272,7 +263,7 @@ Future<Map<String, String>> getAllRegionalEvents() async {
 Future<Map<String, String>> getAllDistrictEvents() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
-  final String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
+  const String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
   Map<String, String> allEventsMap = {};
 
   try {

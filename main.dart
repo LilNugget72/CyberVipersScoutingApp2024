@@ -63,7 +63,7 @@ class SplashScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 25.h),
                 child: const Text(
-                  "Cyber Vipers Scouring App",
+                  "Cyber Vipers Scouting App",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,

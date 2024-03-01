@@ -34,16 +34,16 @@ class AdminAuth extends StatelessWidget {
                       )),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.r),
-                        borderSide: BorderSide(color: ut.tt.value, width: 2.w),
+                        borderSide: BorderSide(color: Colors.white, width: 2.w),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.r),
-                        borderSide: BorderSide(color: ut.tt.value, width: 2.w),
+                        borderSide: BorderSide(color: Colors.white, width: 2.w),
                       ),
                     ),
-                    cursorColor: ut.tt.value,
-                    style:
-                        TextStyle(color: ut.tt.value, fontFamily: 'NotoSans'),
+                    cursorColor: Colors.white,
+                    style: const TextStyle(
+                        color: Colors.white, fontFamily: 'NotoSans'),
                     onSubmitted: (value) {
                       if (value != '8717') {
                         showDialog(
