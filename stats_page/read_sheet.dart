@@ -50,46 +50,55 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
     'HARMONY', // value is 32
     'COMMENTS', // value is 33
     'SCOUTER'S NAME', // value is 34
-    'SCOUTER'S TEAM', // value is 35
+    'SCOUTER'S TEAM', // value is 35 / 36 for some reason
        */
 
-  try {
-    final response = await http.get(uri);
+  final response = await http.get(uri);
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      final List? values = data['values'];
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = json.decode(response.body);
+    final List? values = data['values'];
 
-      if (values == null || values.isEmpty) {
-        return {};
-      }
+    if (values == null || values.isEmpty) {
+      return {};
+    }
 
-      // Initialize the map to store match number and associated data
-      Map<String, List<String>> matchDataMap = {};
+    // Initialize the map to store match number and associated data
+    Map<String, List<String>> matchDataMap = {};
+    // Iterate through each row of data (starting from the second row)
+    for (int i = 1; i < values.length; i++) {
+      // Extract match number from the third value in the row
+      String matchNumber = values[i][2].toString();
 
-      // Iterate through each row of data (starting from the second row)
-      for (int i = 1; i < values.length; i++) {
-        // Extract match number from the third value in the row
-        String matchNumber = values[i][2].toString();
-
-        // Retrieve the list of data associated with the match number
+      // Retrieve the list of data associated with the match number
+      // List<String> rowData = values[i]
+      //     .sublist(1)
+      //     .map<String>((value) => value == null || value.toString().isEmpty
+      //         ? 'NO VALUE PRESENT'
+      //         : value.toString())
+      //     .toList();
+      if (values[i][36] == sv.scoutersTeam.text) {
         List<String> rowData = values[i]
             .sublist(1)
             .map<String>((value) => value == null || value.toString().isEmpty
                 ? 'NO VALUE PRESENT'
                 : value.toString())
             .toList();
-
         // Store the data in the map
+
         matchDataMap[matchNumber] = rowData;
       }
-      sv.matchNumAndValue.value = matchDataMap;
-      List row = matchDataMap.keys.toList();
-      sv.matchAndRowNum.value = row;
-      return matchDataMap;
+
+      // // Store the data in the map
+
+      // matchDataMap[matchNumber] = rowData;
     }
-  } catch (e) {
-    print('Error fetching data: $e');
+
+    List row = matchDataMap.keys.toList();
+
+    sv.matchNumAndValue.value = matchDataMap;
+    sv.matchAndRowNum.value = row;
+    return matchDataMap;
   }
 
   return {};
@@ -173,7 +182,6 @@ Future<Map<int, String>> eventTeams() async {
     }
     return teamNames;
   } else {
-    print('Error: ${response.statusCode} - ${response.body}');
     return {};
   }
 }
@@ -251,11 +259,9 @@ Future<Map<String, String>> getAllRegionalEvents() async {
       }
       return allEventsMap;
     } else {
-      print('Error: ${response.statusCode} - ${response.body}');
       return {};
     }
   } catch (e) {
-    print('Error fetching data: $e');
     return {};
   }
 }
@@ -281,11 +287,9 @@ Future<Map<String, String>> getAllDistrictEvents() async {
       }
       return allEventsMap;
     } else {
-      print('Error: ${response.statusCode} - ${response.body}');
       return {};
     }
   } catch (e) {
-    print('Error fetching data: $e');
     return {};
   }
 }

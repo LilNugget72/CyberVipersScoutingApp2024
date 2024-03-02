@@ -3,6 +3,7 @@ import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
+import 'package:cyberviperscoutingapp2024/stats_page/stats_fields.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class ReuseWid extends GetxController {
   RxInt selectedIndex = 0.obs;
   UserTheme ut = Get.find();
   SheetValues sv = Get.put(SheetValues());
+  StatsFields sf = Get.put(StatsFields());
   TextEditingController event = TextEditingController();
 
   textForGraph({required String name}) {
@@ -137,6 +139,7 @@ class ReuseWid extends GetxController {
           }
           sv.teamListHint.value = 'Select A Team To View';
           sv.selectedAnEvent.value = false;
+          sv.firstBoot.write('selected event?', sv.selectedAnEvent.value);
         },
         style: const ButtonStyle(
             padding:
@@ -216,7 +219,6 @@ class ReuseWid extends GetxController {
           //     size: 35,
           //   ),
           // ),
-          line(),
           toggleEventType(),
           Center(
             child: SizedBox(
@@ -236,7 +238,10 @@ class ReuseWid extends GetxController {
                     ),
                   ),
                   onChanged: (value) async {
+                    sv.matchAndRowNum.value = [];
                     sv.eventListHint.value = value!;
+                    sv.selectMatch.value = 'Select a Match';
+                    sf.clearView();
                     if (sv.isDistrict.isFalse) {
                       sv.eventKey.value = sv.regionalEvents[value];
                     } else {
@@ -244,6 +249,12 @@ class ReuseWid extends GetxController {
                     }
                     noEvent.value = Colors.white;
                     sv.selectedAnEvent.value = true;
+
+                    sv.firstBoot.write('event key', sv.eventKey.value);
+                    sv.firstBoot
+                        .write('selected event?', sv.selectedAnEvent.value);
+                    sv.firstBoot
+                        .write('selected event name', sv.eventListHint.value);
 
                     var blueMatches = await blueAllianceTeams();
                     var sortedBlue = blueMatches.keys.toList();
@@ -356,6 +367,7 @@ class ReuseWid extends GetxController {
             }
           case 2:
             if (sv.selectedAnEvent.isTrue) {
+              sv.statsWantsBlue.value = true;
               ut.buttonColor.value = const Color.fromARGB(255, 0, 101, 179);
               Get.off(() => const StatsPage());
             }

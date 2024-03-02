@@ -87,13 +87,13 @@ class EndgameDefense extends GetxController {
           toggleDefense(
             defense: sv.dGenerous,
             title: 'Generous',
-            width: 70.w,
+            width: 78.w,
             fillColor: dGenerousColor,
           ),
           toggleDefense(
             defense: sv.dExclusively,
             title: 'Exclusively',
-            width: 81.w,
+            width: 83.w,
             fillColor: dExclusivelyColor,
           )
         ],

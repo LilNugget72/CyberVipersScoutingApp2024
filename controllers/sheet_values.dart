@@ -3,6 +3,7 @@ import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 ReuseWid rw = Get.find();
 UserTheme ut = Get.find();
@@ -96,6 +97,8 @@ class SheetValues extends GetxController {
   RxString selectMatch = 'Select a Match'.obs;
 
   RxBool statsWantsBlue = true.obs;
+
+  final firstBoot = GetStorage();
 
   valueCard({required RxInt value, required String title}) {
     return Stack(

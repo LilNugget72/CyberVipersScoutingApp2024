@@ -598,9 +598,9 @@ class StatsFields extends GetxController {
           ),
           defenseButtons(title: 'Slight', width: 55.w, fillColor: slight),
           defenseButtons(title: 'Modest', width: 63.w, fillColor: modest),
-          defenseButtons(title: 'Generous', width: 70.w, fillColor: generous),
+          defenseButtons(title: 'Generous', width: 78.w, fillColor: generous),
           defenseButtons(
-              title: 'Exclusively', width: 81.w, fillColor: exclusively)
+              title: 'Exclusively', width: 83.w, fillColor: exclusively)
         ],
       ),
     );
@@ -638,5 +638,18 @@ class StatsFields extends GetxController {
     modest.value = Colors.transparent;
     generous.value = Colors.transparent;
     exclusively.value = Colors.transparent;
+
+    stats1.value = '';
+    stats2.value = '';
+    stats3.value = '';
+
+    autoAmp.value = '';
+    autoSpeak.value = '';
+
+    parked.value = '';
+    harmony.value = '';
+
+    comments.value = '';
+    scouter.value = '';
   }
 }

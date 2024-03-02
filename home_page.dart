@@ -39,6 +39,9 @@ class HomePage extends StatelessWidget {
                     width: 190.w,
                     child: Obx(
                       () => TextField(
+                        onChanged: (value) {
+                          sv.firstBoot.write('scouters name', value);
+                        },
                         autocorrect: false,
                         controller: sv.scoutName,
                         textAlign: TextAlign.center,
@@ -74,6 +77,9 @@ class HomePage extends StatelessWidget {
                     width: 100.w,
                     child: Obx(
                       () => TextField(
+                        onChanged: (value) {
+                          sv.firstBoot.write('scouters team', value);
+                        },
                         autocorrect: false,
                         keyboardType: const TextInputType.numberWithOptions(
                             signed: false, decimal: false),

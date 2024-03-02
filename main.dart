@@ -3,12 +3,15 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
+import 'package:cyberviperscoutingapp2024/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const ScoutingApp());
 }
 
@@ -23,6 +26,7 @@ loadAllEvents({required RxBool finished}) async {
   //THE LORD HAS CLUTCHED
   //the line under this waits for the screen size to be init
   await ScreenUtil.ensureScreenSize();
+
   WidgetsFlutterBinding.ensureInitialized();
   List listOfRegionals = [];
   List listOfDistricts = [];
@@ -38,7 +42,38 @@ loadAllEvents({required RxBool finished}) async {
   sv.districtEventKeys.value = listOfDistricts;
   sv.events.value = sv.regionalEventsKeys;
   Future.delayed(const Duration(seconds: 2));
-  Get.to(() => const HomePage());
+
+  if (sv.firstBoot.read('booted') == true) {
+    sv.scoutName.text = sv.firstBoot.read('scouters name');
+    sv.scoutersTeam.text = sv.firstBoot.read('scouters team');
+    sv.eventKey.value = sv.firstBoot.read('event key');
+    sv.eventListHint.value = sv.firstBoot.read('selected event name');
+
+    sv.selectedAnEvent.value = sv.firstBoot.read('selected event?');
+
+    var blueMatches = await blueAllianceTeams();
+    var sortedBlue = blueMatches.keys.toList();
+    sortedBlue.sort();
+    sv.blueAllianceMatchesKeys.value = sortedBlue;
+    sv.blueAllianceMatches.value = blueMatches;
+
+    var redMatches = await redAllianceTeams();
+    var sortedRed = redMatches.keys.toList();
+    sortedRed.sort();
+    sv.redAllianceMatchesKeys.value = sortedRed;
+    sv.redAllianceMatches.value = redMatches;
+
+    var thing = await eventTeams();
+    var sortTeamList = thing.keys.toList();
+    sortTeamList.sort();
+    sv.teamXList.value = sortTeamList;
+    sv.eventTeams.value = thing;
+
+    sv.teamListHint.value = 'Select A Team To View';
+    Get.to(() => const HomePage());
+  } else {
+    Get.off(() => const WelcomePage());
+  }
 }
 
 class SplashScreen extends StatelessWidget {

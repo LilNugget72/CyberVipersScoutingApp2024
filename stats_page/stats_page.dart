@@ -4,7 +4,6 @@ import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_fields.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -72,6 +71,7 @@ class StatsPage extends StatelessWidget {
                 hint: Obx(
                   () => Text(
                     '      ${sv.teamListHint}',
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'NotoSans',
@@ -85,6 +85,7 @@ class StatsPage extends StatelessWidget {
                   sf.clearView();
                   var matchValues =
                       await getDataForMatchNumber(team: value.toString());
+
                   if (matchValues.isNotEmpty) {
                     var first = getAllAverageNumbers(made: 17);
                     var second = getAllAverageNumbers(made: 19);
@@ -149,6 +150,7 @@ class StatsPage extends StatelessWidget {
                     hint: Obx(
                       () => Text(
                         ' ${sv.selectMatch}',
+                        textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'NotoSans',
@@ -222,42 +224,50 @@ class StatsPage extends StatelessWidget {
                               case 6:
                                 if (whenSelected != '0') {
                                   sf.viewNote1.value = whenSelected;
+                                  sf.note1InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 7:
                                 if (whenSelected != '0') {
                                   sf.viewNote2.value = whenSelected;
+                                  sf.note2InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 8:
                                 if (whenSelected != '0') {
                                   sf.viewNote3.value = whenSelected;
+                                  sf.note3InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 9:
                                 if (whenSelected != '0') {
                                   sf.viewNote4.value = whenSelected;
+                                  sf.note4InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 10:
                                 if (whenSelected != '0') {
                                   sf.viewNote5.value = whenSelected;
+                                  sf.note5InStats.value = ut.buttonColor.value;
                                   break;
                                 }
 
                               case 11:
                                 if (whenSelected != '0') {
                                   sf.viewNote6.value = whenSelected;
+                                  sf.note6InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 12:
                                 if (whenSelected != '0') {
                                   sf.viewNote7.value = whenSelected;
+                                  sf.note7InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 13:
                                 if (whenSelected != '0') {
                                   sf.viewNote8.value = whenSelected;
+                                  sf.note8InStats.value = ut.buttonColor.value;
                                   break;
                                 }
                             }
@@ -328,6 +338,15 @@ class StatsPage extends StatelessWidget {
                               defense == 'TRUE'
                                   ? sf.exclusively.value = ut.buttonColor.value
                                   : sf.exclusively.value = Colors.transparent;
+                          }
+                        }
+                        for (int i = 15; i <= 16; i++) {
+                          String autoValues = sv.matchNumAndValue[value][i];
+                          switch (i) {
+                            case 15:
+                              sf.autoAmp.value = autoValues;
+                            case 16:
+                              sf.autoSpeak.value = autoValues;
                           }
                         }
                       }
@@ -437,6 +456,16 @@ class StatsPage extends StatelessWidget {
             () => sv.statsWantsBlue.value
                 ? sf.statsBlueStage()
                 : sf.statsRedStage(),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10.h),
+            child: const Center(
+                child: Text(
+              "Defense",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white, fontSize: 25, fontFamily: 'NotoSans'),
+            )),
           ),
           Padding(
             padding: EdgeInsets.only(top: 15.h),

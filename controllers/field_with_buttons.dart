@@ -533,7 +533,6 @@ class TouchField extends GetxController {
 
     stage.value = true;
     color.value = ut.buttonColor.value;
-    print(sv.leftStage);
   }
 
   finished() {
