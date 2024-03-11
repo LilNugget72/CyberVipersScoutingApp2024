@@ -19,9 +19,6 @@ class Endgame extends StatelessWidget {
     UserTheme ut = Get.find();
     EndgameDefense ed = Get.put(EndgameDefense());
 
-    Rx<Color> parkedColor = Colors.transparent.obs;
-    Rx<Color> harmonyColor = Colors.transparent.obs;
-
     return Scaffold(
       appBar: rw.ab(title: '"Endgame"'),
       body: Column(
@@ -61,10 +58,10 @@ class Endgame extends StatelessWidget {
                     } else {
                       if (sv.park.isFalse) {
                         sv.park.value = true;
-                        parkedColor.value = ut.buttonColor.value;
+                        ed.parkedColor.value = ut.buttonColor.value;
                       } else {
                         sv.park.value = false;
-                        parkedColor.value = Colors.transparent;
+                        ed.parkedColor.value = Colors.transparent;
                       }
                     }
                   },
@@ -74,7 +71,7 @@ class Endgame extends StatelessWidget {
                           borderRadius: BorderRadius.circular(18.r),
                           border: Border.all(
                               color: ut.buttonColor.value, width: 4.w),
-                          color: parkedColor.value),
+                          color: ed.parkedColor.value),
                       width: 120.w,
                       height: 60.h,
                       child: const Center(
@@ -98,13 +95,13 @@ class Endgame extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18.r),
                   onTap: () {
                     sv.park.value = false;
-                    parkedColor.value = Colors.transparent;
+                    ed.parkedColor.value = Colors.transparent;
                     if (sv.harmony.isFalse) {
                       sv.harmony.value = true;
-                      harmonyColor.value = ut.buttonColor.value;
+                      ed.harmonyColor.value = ut.buttonColor.value;
                     } else {
                       sv.harmony.value = false;
-                      harmonyColor.value = Colors.transparent;
+                      ed.harmonyColor.value = Colors.transparent;
                     }
                   },
                   child: Obx(
@@ -113,7 +110,7 @@ class Endgame extends StatelessWidget {
                           borderRadius: BorderRadius.circular(18.r),
                           border: Border.all(
                               color: ut.buttonColor.value, width: 4.w),
-                          color: harmonyColor.value),
+                          color: ed.harmonyColor.value),
                       width: 120.w,
                       height: 60.h,
                       child: const Center(

@@ -14,6 +14,9 @@ class EndgameDefense extends GetxController {
   Rx<Color> dGenerousColor = Colors.transparent.obs;
   Rx<Color> dExclusivelyColor = Colors.transparent.obs;
 
+  Rx<Color> parkedColor = Colors.transparent.obs;
+  Rx<Color> harmonyColor = Colors.transparent.obs;
+
   toggleDefense(
       {required RxBool defense,
       required String title,
