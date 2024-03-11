@@ -101,104 +101,50 @@ class SheetValues extends GetxController {
   final firstBoot = GetStorage();
 
   valueCard({required RxInt value, required String title}) {
-    return Stack(
-      children: [
-        Ink(
-          decoration: BoxDecoration(
+    return InkWell(
+      splashColor: const Color.fromARGB(80, 255, 255, 255),
+      borderRadius: BorderRadius.circular(12.r),
+      onTap: () {
+        value++;
+        if (trap > 3) trap.value = 3;
+      },
+      onLongPress: () {
+        value--;
+        if (value < 0) {
+          value.value = 0;
+        }
+      },
+      child: Ink(
+        width: 120.w,
+        height: 105.h,
+        decoration: BoxDecoration(
             color: ut.buttonColor.value,
-            borderRadius: BorderRadius.circular(18.r),
-          ),
-          width: 165.w,
-          height: 186.h,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'NotoSans',
-                      fontSize: 40),
+            borderRadius: BorderRadius.circular(12.r)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: 'NotoSans',
+                fontSize: 28,
+              ),
+            ),
+            Obx(
+              () => Text(
+                '$value',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'NotoSans',
+                  fontSize: 35,
                 ),
               ),
-              Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 12.h),
-                    child: Obx(
-                      () => Text(
-                        value.value.toString(),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'NotoSans',
-                            fontSize: 45),
-                      ),
-                    ),
-                  )),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 11.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        borderRadius: BorderRadius.circular(60.r),
-                        splashColor: Colors.grey[300],
-                        onTap: () {
-                          value--;
-                          if (value < 0) {
-                            value.value = 0;
-                          }
-                        },
-                        child: Ink(
-                          decoration: BoxDecoration(
-                              color: ut.buttonColor.value,
-                              borderRadius: BorderRadius.circular(60.r),
-                              border:
-                                  Border.all(color: Colors.white, width: 3)),
-                          width: 50.w,
-                          height: 50.w,
-                          child: const Icon(
-                            Icons.remove,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30.w,
-                      ),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(60.r),
-                        splashColor: Colors.grey[300],
-                        onTap: () {
-                          value++;
-                          if (trap > 3) trap.value = 3;
-                        },
-                        child: Ink(
-                          decoration: BoxDecoration(
-                              color: ut.buttonColor.value,
-                              border: Border.all(color: Colors.white, width: 3),
-                              borderRadius: BorderRadius.circular(60.r)),
-                          width: 50.w,
-                          height: 50.w,
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        )
-      ],
+            )
+          ],
+        ),
+      ),
     );
   }
 

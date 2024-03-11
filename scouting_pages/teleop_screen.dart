@@ -24,18 +24,18 @@ class TeleopScreen extends StatelessWidget {
           children: [
             rw.line(),
             rw.teaminfo(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  sv.valueCard(value: sv.teleopAmp, title: 'Amp'),
-                  sv.valueCard(value: sv.ampMissed, title: 'Missed')
-                ],
-              ),
+            SizedBox(
+              height: 120.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                sv.valueCard(value: sv.teleopAmp, title: 'Amp'),
+                sv.valueCard(value: sv.ampMissed, title: 'Missed')
+              ],
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 8.h),
+              padding: EdgeInsets.only(top: 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -45,7 +45,7 @@ class TeleopScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 16.h),
+              padding: EdgeInsets.only(top: 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -54,6 +54,7 @@ class TeleopScreen extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 130.h),
             GestureDetector(
               onTap: () {
                 if (sv.dNone.isTrue) ed.dNoneColor.value = ut.buttonColor.value;
