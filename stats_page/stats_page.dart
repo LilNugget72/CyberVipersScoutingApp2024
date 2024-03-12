@@ -143,13 +143,13 @@ class StatsPage extends StatelessWidget {
             child: Center(
               child: Obx(
                 () => SizedBox(
-                  width: 150.w,
+                  width: 160.w,
                   child: DropdownButton2(
                     underline: const SizedBox(),
                     isExpanded: true,
                     hint: Obx(
                       () => Text(
-                        ' ${sv.selectMatch}',
+                        '${sv.selectMatch}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
@@ -159,6 +159,7 @@ class StatsPage extends StatelessWidget {
                       ),
                     ),
                     onChanged: (value) async {
+                      sv.alreadyInStats.value = true;
                       bool startedInAuto = false;
                       sv.selectMatch.value = 'Match $value';
                       sf.clearView();
@@ -472,27 +473,60 @@ class StatsPage extends StatelessWidget {
             child: sf.defenseRow(),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-            child: Obx(
-              () => Text(
-                "Parked: ${sf.parked}",
-                style: const TextStyle(
-                    color: Colors.white, fontFamily: 'NotoSans', fontSize: 25),
-              ),
-            ),
-          ),
-          Obx(
-            () => Text(
-              "Harmony: ${sf.harmony}",
-              style: const TextStyle(
-                  color: Colors.white, fontFamily: 'NotoSans', fontSize: 25),
+            padding: EdgeInsets.only(top: 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Obx(
+                  () => Container(
+                    width: 120.w,
+                    height: 100.h,
+                    decoration: BoxDecoration(
+                        color: ut.buttonColor.value,
+                        borderRadius: BorderRadius.circular(12.r)),
+                    child: Center(
+                      child: Obx(
+                        () => Text(
+                          "Parked\n${sf.parked}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'NotoSans',
+                              fontSize: 25),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Obx(
+                  () => Container(
+                    width: 120.w,
+                    height: 100.h,
+                    decoration: BoxDecoration(
+                        color: ut.buttonColor.value,
+                        borderRadius: BorderRadius.circular(12.r)),
+                    child: Center(
+                      child: Obx(
+                        () => Text(
+                          "Harmony\n${sf.harmony}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'NotoSans',
+                              fontSize: 25),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20.h),
             child: const Center(
               child: Text(
-                "Comments:",
+                "Comments",
                 style: TextStyle(
                     color: Colors.white, fontFamily: 'NotoSans', fontSize: 25),
               ),
@@ -504,6 +538,7 @@ class StatsPage extends StatelessWidget {
               child: Obx(
                 () => Text(
                   sf.comments.value,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'NotoSans',
