@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-teamInMatch({
-  required RxString text,
-  required RxString teamNumber,
-}) {
+teamInMatch(
+    {required RxString text,
+    required RxString teamNumber,
+    required RxString teamName}) {
   return InkWell(
     borderRadius: BorderRadius.circular(20.r),
     splashColor: Colors.grey,
@@ -19,11 +19,11 @@ teamInMatch({
         sv.teamNum.value = int.parse(text.value);
         int teamNum = sv.teamNum.value;
         teamNumber.value = teamNum.toString();
-        String? teamName = sv.eventTeams[teamNum];
-        if (teamName != null) {
-          sv.teamName.value = teamName;
+        String? findTeamName = sv.eventTeams[teamNum];
+        if (findTeamName != null) {
+          teamName.value = findTeamName;
         } else {
-          sv.teamName.value = 'No Team Found';
+          teamName.value = 'No Team Found';
         }
       }
     },
@@ -70,6 +70,7 @@ class ManualPage extends StatelessWidget {
     RxString localAlliacne = ''.obs;
     RxString localMatch = ''.obs;
     RxString localTeam = ''.obs;
+    RxString localTeamName = ''.obs;
 
     return Scaffold(
       drawer: rw.d(),
@@ -85,13 +86,29 @@ class ManualPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     if (sv.selectedAnEvent.isTrue) {
-                      matches.value = sv.blueAllianceMatchesKeys;
-                      matchHint.value = 'Blue Allaince Matches';
-                      sv.alliance.value = 'Blue';
-                      localAlliacne.value = 'Blue';
-                      selectedBlueAlliance.value = true;
-                      ut.buttonColor.value =
-                          const Color.fromARGB(255, 0, 101, 179);
+                      if (sv.blueAllianceMatchesKeys.isNotEmpty) {
+                        matches.value = sv.blueAllianceMatchesKeys;
+                        matchHint.value = 'Blue Allaince Matches';
+                        sv.alliance.value = 'Blue';
+                        localAlliacne.value = 'Blue';
+                        selectedBlueAlliance.value = true;
+                        ut.buttonColor.value =
+                            const Color.fromARGB(255, 0, 101, 179);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            showCloseIcon: true,
+                            backgroundColor: Colors.grey[800],
+                            content: const Text(
+                              'No Qualifying Matches Available',
+                              style: TextStyle(
+                                fontFamily: 'NotoSans',
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -130,13 +147,29 @@ class ManualPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     if (sv.selectedAnEvent.isTrue) {
-                      matches.value = sv.redAllianceMatchesKeys;
-                      sv.alliance.value = 'Red';
-                      localAlliacne.value = 'Red';
-                      selectedBlueAlliance.value = false;
-                      matchHint.value = 'Red Allaince Matches';
-                      ut.buttonColor.value =
-                          const Color.fromARGB(255, 237, 52, 52);
+                      if (sv.redAllianceMatchesKeys.isNotEmpty) {
+                        matches.value = sv.redAllianceMatchesKeys;
+                        sv.alliance.value = 'Red';
+                        localAlliacne.value = 'Red';
+                        selectedBlueAlliance.value = false;
+                        matchHint.value = 'Red Allaince Matches';
+                        ut.buttonColor.value =
+                            const Color.fromARGB(255, 237, 52, 52);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            showCloseIcon: true,
+                            backgroundColor: Colors.grey[800],
+                            content: const Text(
+                              'No Qualifying Matches Available',
+                              style: TextStyle(
+                                fontFamily: 'NotoSans',
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -260,9 +293,12 @@ class ManualPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              teamInMatch(text: team1, teamNumber: localTeam),
-              teamInMatch(text: team2, teamNumber: localTeam),
-              teamInMatch(text: team3, teamNumber: localTeam),
+              teamInMatch(
+                  text: team1, teamNumber: localTeam, teamName: localTeamName),
+              teamInMatch(
+                  text: team2, teamNumber: localTeam, teamName: localTeamName),
+              teamInMatch(
+                  text: team3, teamNumber: localTeam, teamName: localTeamName),
             ],
           ),
           Row(
@@ -315,7 +351,7 @@ class ManualPage extends StatelessWidget {
             padding: EdgeInsets.only(top: 25.h),
             child: Obx(
               () => Text(
-                'Team Name: ${sv.teamName}',
+                'Team Name: $localTeamName',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -340,7 +376,7 @@ class ManualPage extends StatelessWidget {
                 localAlliacne.value = '';
                 localMatch.value = '';
                 localTeam.value = '';
-                sv.teamName.value = '';
+                localTeamName.value = '';
 
                 Get.to(() => const AutoStart());
               } else {
