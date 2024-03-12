@@ -144,7 +144,7 @@ double getAllAverageNumbers({required int made}) {
     average = 0;
     return average;
   } else {
-    return average.toPrecision(3);
+    return average.toPrecision(2);
   }
 }
 
