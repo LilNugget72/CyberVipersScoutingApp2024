@@ -317,7 +317,7 @@ class ReuseWid extends GetxController {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
                 child: const Text(
-                  'Version 1.0',
+                  'Version 1.1',
                   style: TextStyle(
                     color: Colors.grey,
                     fontFamily: 'NotoSans',
