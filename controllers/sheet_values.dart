@@ -10,7 +10,6 @@ UserTheme ut = Get.find();
 
 class SheetValues extends GetxController {
   RxInt matchNum = 0.obs;
-  RxString teamName = ''.obs;
   RxString alliance = ''.obs;
   RxInt teamNum = 0.obs;
 
@@ -97,6 +96,7 @@ class SheetValues extends GetxController {
   RxString selectMatch = 'Select a Match'.obs;
 
   RxBool statsWantsBlue = true.obs;
+  RxBool alreadyInStats = false.obs;
 
   final firstBoot = GetStorage();
 
@@ -150,7 +150,6 @@ class SheetValues extends GetxController {
 
   finished() {
     matchNum.value = 1;
-    teamName.value = '';
     teamNum.value = 1;
 
     posAmp.value = false;
