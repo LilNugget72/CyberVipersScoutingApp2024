@@ -367,9 +367,11 @@ class ReuseWid extends GetxController {
             }
           case 2:
             if (sv.selectedAnEvent.isTrue) {
-              sv.statsWantsBlue.value = true;
-              ut.buttonColor.value = const Color.fromARGB(255, 0, 101, 179);
-              Get.off(() => const StatsPage());
+              if (sv.alreadyInStats.isFalse) {
+                sv.statsWantsBlue.value = true;
+                ut.buttonColor.value = const Color.fromARGB(255, 0, 101, 179);
+              }
+              Get.to(() => const StatsPage());
             }
         }
       },
