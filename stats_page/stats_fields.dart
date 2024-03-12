@@ -100,8 +100,9 @@ class StatsFields extends GetxController {
     return Stack(
       children: [
         Ink.image(
+          fit: BoxFit.fill,
           height: 370.h,
-          centerSlice: Rect.largest,
+          width: 360.w,
           image: const AssetImage('lib/assets/Field - Blue.png'),
         ),
         Positioned(
@@ -228,8 +229,8 @@ class StatsFields extends GetxController {
     return Stack(
       children: [
         Ink.image(
+          fit: BoxFit.fill,
           height: 370.h,
-          centerSlice: Rect.largest,
           image: const AssetImage('lib/assets/Field - Red.png'),
         ),
         Positioned(
@@ -380,9 +381,9 @@ class StatsFields extends GetxController {
       alignment: Alignment.center,
       children: [
         Ink.image(
+          fit: BoxFit.fill,
           height: 300.h,
           width: 360.w,
-          centerSlice: Rect.largest,
           image: const AssetImage('lib/assets/Stage - Red.png'),
         ),
         Positioned(
@@ -473,9 +474,9 @@ class StatsFields extends GetxController {
       alignment: Alignment.center,
       children: [
         Ink.image(
+          fit: BoxFit.fill,
           height: 300.h,
           width: 360.w,
-          centerSlice: Rect.largest,
           image: const AssetImage('lib/assets/Stage - Blue.png'),
         ),
         Positioned(
