@@ -4,7 +4,6 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/teleop_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
