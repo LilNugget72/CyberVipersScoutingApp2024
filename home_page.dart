@@ -35,51 +35,16 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  rw.nameField(),
                   SizedBox(
-                    width: 190.w,
+                    width: 110.w,
                     child: Obx(
                       () => TextField(
-                        onChanged: (value) {
-                          sv.firstBoot.write('scouters name', value);
+                        maxLength: 4,
+                        onTapOutside: (event) {
+                          FocusScope.of(context).unfocus();
                         },
-                        autocorrect: false,
-                        controller: sv.scoutName,
-                        textAlign: TextAlign.center,
-                        enabled: true,
-                        cursorColor: Colors.white,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'NotoSans',
-                            fontSize: 20),
-                        decoration: InputDecoration(
-                          label: Center(
-                              child: Text(
-                            'Name',
-                            style: TextStyle(
-                                color: ut.ts.value,
-                                fontFamily: 'NotoSans',
-                                fontSize: 20),
-                          )),
-                          labelStyle: const TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.r),
-                              borderSide:
-                                  BorderSide(color: ut.tfc.value, width: 2)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.r),
-                              borderSide:
-                                  BorderSide(color: ut.tfc.value, width: 2)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 100.w,
-                    child: Obx(
-                      () => TextField(
-                        onChanged: (value) {
-                          sv.firstBoot.write('scouters team', value);
-                        },
+                        textInputAction: TextInputAction.done,
                         autocorrect: false,
                         keyboardType: const TextInputType.numberWithOptions(
                             signed: false, decimal: false),
@@ -92,6 +57,7 @@ class HomePage extends StatelessWidget {
                             fontFamily: 'NotoSans',
                             fontSize: 20),
                         decoration: InputDecoration(
+                          counterText: '',
                           label: Center(
                             child: Text(
                               'Team #',
@@ -113,7 +79,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

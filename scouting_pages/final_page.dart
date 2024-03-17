@@ -34,6 +34,9 @@ class FinalPage extends StatelessWidget {
               child: SizedBox(
                 width: 320.w,
                 child: TextField(
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                  },
                   maxLines: null,
                   canRequestFocus: true,
                   controller: sv.comments,
@@ -76,7 +79,7 @@ class FinalPage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
                 child: Align(
-                  alignment: FractionalOffset.bottomCenter,
+                  alignment: Alignment.bottomCenter,
                   child: GestureDetector(
                     onTap: () async {
                       final submitData = {
