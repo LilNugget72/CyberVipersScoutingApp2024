@@ -71,13 +71,23 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
       String matchNumber = values[i][2].toString();
 
       // Retrieve the list of data associated with the match number
-      // List<String> rowData = values[i]
-      //     .sublist(1)
-      //     .map<String>((value) => value == null || value.toString().isEmpty
-      //         ? 'NO VALUE PRESENT'
-      //         : value.toString())
-      //     .toList();
-      if (values[i][36] == sv.scoutersTeam.text) {
+      /*the reason why this function works the way we want it is becaue any time
+       there is more than one row with the same team number,the map where all the data gets put into gets overwritten and
+        the value gets changed to the last instance of the data. EX: scouter A submitted data for match 6 team XYZ at 9:00am but scouter B did the same thing but at 9:10am. 
+        When they go to the view the data, it will only show scouter B's data for match 6*/
+      if (sv.wantsTeamOnlyStats.isTrue) {
+        if (values[i][36] == sv.scoutersTeam.text) {
+          List<String> rowData = values[i]
+              .sublist(1)
+              .map<String>((value) => value == null || value.toString().isEmpty
+                  ? 'NO VALUE PRESENT'
+                  : value.toString())
+              .toList();
+          // Store the data in the map
+
+          matchDataMap[matchNumber] = rowData;
+        }
+      } else {
         List<String> rowData = values[i]
             .sublist(1)
             .map<String>((value) => value == null || value.toString().isEmpty
@@ -160,6 +170,29 @@ String getMatchAverageNumbers(
     total += over + under;
   }
   return '$top/$total';
+}
+
+String getBoolAverage({required int value}) {
+  int top = 0;
+  List row = sv.matchAndRowNum;
+  int bottom = row.length;
+  bool notBlank = true;
+  if (sv.matchNumAndValue.isNotEmpty) {
+    for (int i = 0; i < bottom; i++) {
+      var currentRow = sv.matchNumAndValue[row[i]][value];
+
+      if (currentRow == 'TRUE') {
+        top++;
+      }
+    }
+  } else {
+    notBlank = false;
+  }
+  if (notBlank != false) {
+    return '$top/$bottom';
+  } else {
+    return 'N/A';
+  }
 }
 
 Future<Map<int, String>> eventTeams() async {

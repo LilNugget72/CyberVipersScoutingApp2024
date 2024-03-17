@@ -506,6 +506,7 @@ class StatsFields extends GetxController {
           right: 30.w,
           top: 60.h,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
                 'Amp',

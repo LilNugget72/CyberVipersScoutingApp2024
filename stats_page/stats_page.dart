@@ -91,16 +91,30 @@ class StatsPage extends StatelessWidget {
                     var second = getAllAverageNumbers(made: 19);
                     var third = getAllAverageNumbers(made: 21);
 
+                    var autoAmpAv = getAllAverageNumbers(made: 15);
+                    var autoSpeakAv = getAllAverageNumbers(made: 16);
+
+                    var parkav = getBoolAverage(value: 31);
+                    var harmonyav = getBoolAverage(value: 32);
+
                     sf.stats1.value = first.toString();
                     sf.stats2.value = second.toString();
                     sf.stats3.value = third.toString();
+                    sf.autoAmp.value = autoAmpAv.toString();
+                    sf.autoSpeak.value = autoSpeakAv.toString();
+                    sf.parked.value = parkav;
+                    sf.harmony.value = harmonyav;
                     sv.selectMatch.value = 'Select a Match';
                   } else {
                     sv.matchAndRowNum.value = [];
-                    sv.selectMatch.value = 'No Data';
-                    sf.stats1.value = 'No Data';
-                    sf.stats2.value = 'No Data';
-                    sf.stats3.value = 'No Data';
+                    sv.selectMatch.value = 'N/A';
+                    sf.stats1.value = 'N/A';
+                    sf.stats2.value = 'N/A';
+                    sf.stats3.value = 'N/A';
+                    sf.autoAmp.value = 'N/A';
+                    sf.autoSpeak.value = 'N/A';
+                    sf.parked.value = 'N/A';
+                    sf.harmony.value = 'N/A';
                   }
                 },
                 items: sv.teamXList
@@ -274,6 +288,7 @@ class StatsPage extends StatelessWidget {
                             }
                           }
                         }
+
                         for (int i = 23; i <= 25; i++) {
                           String stagePos =
                               getMatchBool(column: i, match: value);
@@ -477,43 +492,73 @@ class StatsPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Obx(
-                  () => Container(
-                    width: 120.w,
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                        color: ut.buttonColor.value,
-                        borderRadius: BorderRadius.circular(12.r)),
-                    child: Center(
-                      child: Obx(
-                        () => Text(
-                          "Parked\n${sf.parked}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'NotoSans',
-                              fontSize: 25),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Obx(
+                      () => Container(
+                        decoration: BoxDecoration(
+                            color: ut.buttonColor.value,
+                            borderRadius:
+                                BorderRadiusDirectional.circular(15.r)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "Parked",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'NotoSans',
+                                    fontSize: 27),
+                              ),
+                              Text(
+                                sf.parked.value,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'NotoSans',
+                                    fontSize: 25),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Obx(
-                  () => Container(
-                    width: 120.w,
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                        color: ut.buttonColor.value,
-                        borderRadius: BorderRadius.circular(12.r)),
-                    child: Center(
-                      child: Obx(
-                        () => Text(
-                          "Harmony\n${sf.harmony}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'NotoSans',
-                              fontSize: 25),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Obx(
+                      () => Container(
+                        decoration: BoxDecoration(
+                            color: ut.buttonColor.value,
+                            borderRadius:
+                                BorderRadiusDirectional.circular(15.r)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 10.h),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "Harmony",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'NotoSans',
+                                    fontSize: 27),
+                              ),
+                              Text(
+                                sf.harmony.value,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'NotoSans',
+                                    fontSize: 25),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -526,7 +571,7 @@ class StatsPage extends StatelessWidget {
             padding: EdgeInsets.only(top: 20.h),
             child: const Center(
               child: Text(
-                "Comments",
+                "Comments:",
                 style: TextStyle(
                     color: Colors.white, fontFamily: 'NotoSans', fontSize: 25),
               ),
@@ -542,13 +587,13 @@ class StatsPage extends StatelessWidget {
                   style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'NotoSans',
-                      fontSize: 25),
+                      fontSize: 20),
                 ),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10.h),
+            padding: EdgeInsets.only(top: 20.h),
             child: Center(
               child: Obx(
                 () => Text(
