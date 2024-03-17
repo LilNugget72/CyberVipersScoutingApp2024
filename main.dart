@@ -43,13 +43,18 @@ loadAllEvents({required RxBool finished}) async {
   sv.events.value = sv.regionalEventsKeys;
   Future.delayed(const Duration(seconds: 2));
 
-  if (sv.firstBoot.read('booted') == true) {
-    sv.scoutName.text = sv.firstBoot.read('scouters name');
-    sv.scoutersTeam.text = sv.firstBoot.read('scouters team');
-    sv.eventKey.value = sv.firstBoot.read('event key');
-    sv.eventListHint.value = sv.firstBoot.read('selected event name');
+  if (sv.pref.read('booted') == true) {
+    sv.scoutName.text = sv.pref.read('scouters name');
+    sv.scoutersTeam.text = sv.pref.read('scouters team');
+    sv.eventKey.value = sv.pref.read('event key');
+    sv.eventListHint.value = sv.pref.read('selected event name');
 
-    sv.selectedAnEvent.value = sv.firstBoot.read('selected event?');
+    sv.selectedAnEvent.value = sv.pref.read('selected event?');
+
+    sv.wantsTeamOnlyStats.value = sv.pref.read('team only data');
+    sv.wantsTeamOnlyStats.value == true
+        ? sv.switchIcon.value = sv.switchIcon2
+        : sv.switchIcon.value = sv.switchIcon1;
 
     var blueMatches = await blueAllianceTeams();
     var sortedBlue = blueMatches.keys.toList();
@@ -119,10 +124,12 @@ class ScoutingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ut.bars,
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.grey[850],
         systemNavigationBarColor: Colors.grey[850],
-        statusBarBrightness: ut.statbright));
+      ),
+    );
     return ScreenUtilInit(
       builder: (_, child) => Obx(
         () => SafeArea(
