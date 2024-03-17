@@ -88,7 +88,7 @@ class ManualPage extends StatelessWidget {
                     if (sv.selectedAnEvent.isTrue) {
                       if (sv.blueAllianceMatchesKeys.isNotEmpty) {
                         matches.value = sv.blueAllianceMatchesKeys;
-                        matchHint.value = 'Blue Allaince Matches';
+                        matchHint.value = 'Blue Alliance Matches';
                         sv.alliance.value = 'Blue';
                         localAlliacne.value = 'Blue';
                         selectedBlueAlliance.value = true;
@@ -131,15 +131,18 @@ class ManualPage extends StatelessWidget {
                       color: const Color.fromARGB(255, 0, 101, 179),
                     ),
                     width: 150.w,
-                    height: 100.h,
-                    child: const Center(
-                      child: Text(
-                        'Tap to Scout the Blue Alliance',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'NotoSans',
-                            fontSize: 20),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 18.h, horizontal: 1.w),
+                      child: const Center(
+                        child: Text(
+                          'Tap to Scout the Blue Alliance',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'NotoSans',
+                              fontSize: 20),
+                        ),
                       ),
                     ),
                   ),
@@ -152,7 +155,7 @@ class ManualPage extends StatelessWidget {
                         sv.alliance.value = 'Red';
                         localAlliacne.value = 'Red';
                         selectedBlueAlliance.value = false;
-                        matchHint.value = 'Red Allaince Matches';
+                        matchHint.value = 'Red Alliance Matches';
                         ut.buttonColor.value =
                             const Color.fromARGB(255, 237, 52, 52);
                       } else {
@@ -192,15 +195,18 @@ class ManualPage extends StatelessWidget {
                       color: const Color.fromARGB(255, 237, 52, 52),
                     ),
                     width: 150.w,
-                    height: 100.h,
-                    child: const Center(
-                      child: Text(
-                        'Tap to Scout the Red Alliance',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'NotoSans',
-                            fontSize: 20),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 18.h, horizontal: 1.w),
+                      child: const Center(
+                        child: Text(
+                          'Tap to Scout the Red Alliance',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'NotoSans',
+                              fontSize: 20),
+                        ),
                       ),
                     ),
                   ),
@@ -211,70 +217,69 @@ class ManualPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 25.h),
             child: Center(
-              child: SizedBox(
-                width: 170.w,
-                child: Obx(
-                  () => DropdownButton2(
-                    underline: const SizedBox(),
-                    isExpanded: true,
-                    hint: Obx(
-                      () => Text(
-                        matchHint.value,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'NotoSans',
-                          fontSize: 18,
-                        ),
+              child: Obx(
+                () => DropdownButton2(
+                  underline: const SizedBox(),
+                  hint: Obx(
+                    () => Text(
+                      matchHint.value,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'NotoSans',
+                        fontSize: 18,
                       ),
                     ),
-                    onChanged: (value) {
-                      matchHint.value = 'Match $value';
-                      sv.matchNum.value = value;
-                      localMatch.value = value.toString();
-                      if (selectedBlueAlliance.isTrue) {
-                        var blueList = sv.blueAllianceMatches;
-                        team1.value = blueList[value][0].toString();
-                        team2.value = blueList[value][1].toString();
-                        team3.value = blueList[value][2].toString();
-                      } else {
-                        var redList = sv.redAllianceMatches;
-                        team1.value = redList[value][0].toString();
-                        team2.value = redList[value][1].toString();
-                        team3.value = redList[value][2].toString();
-                      }
-                    },
-                    items: matches
-                        .map((dynamic matchNum) => DropdownMenuItem<dynamic>(
-                              value: matchNum,
-                              child: Text(
-                                'Match $matchNum',
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'NotoSans',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1),
-                              ),
-                            ))
-                        .toList(),
-                    alignment: Alignment.center,
-                    iconStyleData: const IconStyleData(
-                        iconEnabledColor: Colors.white,
-                        iconDisabledColor: Colors.white),
-                    dropdownStyleData: DropdownStyleData(
-                      scrollbarTheme: const ScrollbarThemeData(
-                          thumbColor: MaterialStatePropertyAll(Colors.grey)),
-                      maxHeight: 400.h,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.r)),
-                    ),
-                    buttonStyleData: ButtonStyleData(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(15.r)),
-                    ),
+                  ),
+                  onChanged: (value) {
+                    matchHint.value = 'Match $value';
+                    sv.matchNum.value = value;
+                    localMatch.value = value.toString();
+                    if (selectedBlueAlliance.isTrue) {
+                      var blueList = sv.blueAllianceMatches;
+                      team1.value = blueList[value][0].toString();
+                      team2.value = blueList[value][1].toString();
+                      team3.value = blueList[value][2].toString();
+                    } else {
+                      var redList = sv.redAllianceMatches;
+                      team1.value = redList[value][0].toString();
+                      team2.value = redList[value][1].toString();
+                      team3.value = redList[value][2].toString();
+                    }
+                  },
+                  items: matches
+                      .map(
+                        (dynamic matchNum) => DropdownMenuItem<dynamic>(
+                          value: matchNum,
+                          child: Text(
+                            'Match $matchNum',
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'NotoSans',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  alignment: Alignment.center,
+                  iconStyleData: const IconStyleData(
+                      iconEnabledColor: Colors.white,
+                      iconDisabledColor: Colors.white),
+                  dropdownStyleData: DropdownStyleData(
+                    scrollbarTheme: const ScrollbarThemeData(
+                        thumbColor: MaterialStatePropertyAll(Colors.grey)),
+                    maxHeight: 400.h,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.r)),
+                  ),
+                  buttonStyleData: ButtonStyleData(
+                    elevation: 0,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 2),
+                        borderRadius: BorderRadius.circular(15.r)),
                   ),
                 ),
               ),
@@ -301,39 +306,66 @@ class ManualPage extends StatelessWidget {
                   text: team3, teamNumber: localTeam, teamName: localTeamName),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 25.h),
-                child: Obx(
-                  () => Text(
-                    'Alliance: $localAlliacne',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 27,
-                      fontFamily: 'NotoSans',
+          Padding(
+            padding: EdgeInsets.only(top: 25.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Alliance',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 27,
+                        fontFamily: 'NotoSans',
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 25.h),
-                child: Obx(
-                  () => Text(
-                    'Match: $localMatch',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 27,
-                      fontFamily: 'NotoSans',
+                    Obx(
+                      () => Text(
+                        '$localAlliacne',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: ut.buttonColor.value,
+                          fontSize: 24,
+                          fontFamily: 'NotoSans',
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Match',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 27,
+                        fontFamily: 'NotoSans',
+                      ),
+                    ),
+                    Obx(
+                      () => Text(
+                        '$localMatch',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontFamily: 'NotoSans',
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 35.h),
+            padding: EdgeInsets.only(top: 8.h),
             child: Center(
               child: Obx(
                 () => Text(
