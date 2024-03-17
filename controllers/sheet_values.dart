@@ -98,7 +98,16 @@ class SheetValues extends GetxController {
   RxBool statsWantsBlue = true.obs;
   RxBool alreadyInStats = false.obs;
 
-  final firstBoot = GetStorage();
+  Rx<MaterialStateProperty<Icon?>> switchIcon =
+      const MaterialStatePropertyAll(Icon(Icons.close)).obs;
+
+  final MaterialStateProperty<Icon> switchIcon1 =
+      const MaterialStatePropertyAll(Icon(Icons.close));
+  final MaterialStateProperty<Icon> switchIcon2 =
+      const MaterialStatePropertyAll(Icon(Icons.check));
+  RxBool wantsTeamOnlyStats = false.obs;
+
+  final pref = GetStorage();
 
   valueCard({required RxInt value, required String title}) {
     return InkWell(
