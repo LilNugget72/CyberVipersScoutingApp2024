@@ -1,3 +1,4 @@
+import 'package:cyberviperscoutingapp2024/controllers/reuseable_widgets.dart';
 import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
@@ -7,56 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-toggleEventType() {
-  String tapForDistricts = 'Tap to see District Events';
-  String tapForRegionals = 'Tap to see Regional Events';
-  RxString eventHint = 'Tap to see District Events'.obs;
-  String regionalListHint = 'Select Regional';
-  String districtListHint = 'Select District ';
-
-  return InkWell(
-    borderRadius: BorderRadius.circular(20.r),
-    splashColor: Colors.grey[350],
-    splashFactory: InkRipple.splashFactory,
-    onTap: () {
-      if (sv.isDistrict.isFalse) {
-        sv.isDistrict.value = true;
-        eventHint.value = tapForRegionals;
-        sv.events.value = sv.districtEventKeys;
-        sv.eventListHint.value = districtListHint;
-      } else {
-        sv.isDistrict.value = false;
-        eventHint.value = tapForDistricts;
-        sv.events.value = sv.regionalEventsKeys;
-        sv.eventListHint.value = regionalListHint;
-      }
-      sv.teamListHint.value = 'Select A Team To View';
-      sv.selectedAnEvent.value = false;
-    },
-    child: Ink(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 2.w),
-          borderRadius: BorderRadius.circular(20.r)),
-      width: 300.w,
-      height: 60.h,
-      child: Center(
-        child: Obx(
-          () => Text(
-            eventHint.value,
-            style: const TextStyle(
-                fontSize: 25, fontFamily: 'NotoSans', color: Colors.white),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ReuseWid rw = Get.put(ReuseWid());
     SheetValues sv = Get.find();
     UserTheme ut = Get.find();
 
@@ -66,7 +23,7 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Welcome!',
+          'Welcome',
           style: TextStyle(
             fontSize: 25,
             fontFamily: 'NotoSans',
@@ -78,95 +35,68 @@ class WelcomePage extends StatelessWidget {
           SizedBox(
             height: 40.h,
           ),
-          SizedBox(
-            width: 190.w,
-            child: Obx(
-              () => TextField(
-                autocorrect: false,
-                controller: sv.scoutName,
-                textAlign: TextAlign.center,
-                enabled: true,
-                cursorColor: Colors.white,
-                style: const TextStyle(
-                    color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
-                decoration: InputDecoration(
-                  label: Center(
-                      child: Text(
-                    'Name',
-                    style: TextStyle(
-                        color: ut.ts.value,
+          rw.nameField(),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.h),
+              child: SizedBox(
+                width: 110.w,
+                child: Obx(
+                  () => TextField(
+                    maxLength: 4,
+                    onTapOutside: (event) {
+                      FocusScope.of(context).unfocus();
+                    },
+                    textInputAction: TextInputAction.done,
+                    autocorrect: false,
+                    keyboardType: const TextInputType.numberWithOptions(
+                        signed: false, decimal: false),
+                    controller: sv.scoutersTeam,
+                    textAlign: TextAlign.center,
+                    enabled: true,
+                    cursorColor: Colors.white,
+                    style: const TextStyle(
+                        color: Colors.white,
                         fontFamily: 'NotoSans',
                         fontSize: 20),
-                  )),
-                  labelStyle: const TextStyle(color: Colors.white),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: ut.tfc.value, width: 2)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: ut.tfc.value, width: 2)),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          SizedBox(
-            width: 110.w,
-            child: Obx(
-              () => TextField(
-                autocorrect: false,
-                keyboardType: const TextInputType.numberWithOptions(
-                    signed: false, decimal: false),
-                controller: sv.scoutersTeam,
-                textAlign: TextAlign.center,
-                enabled: true,
-                cursorColor: Colors.white,
-                style: const TextStyle(
-                    color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
-                decoration: InputDecoration(
-                  label: Center(
-                    child: Text(
-                      'Team #',
-                      style: TextStyle(
-                          color: ut.ts.value,
-                          fontFamily: 'NotoSans',
-                          fontSize: 20),
+                    decoration: InputDecoration(
+                      counterText: '',
+                      label: Center(
+                        child: Text(
+                          'Team #',
+                          style: TextStyle(
+                              color: ut.ts.value,
+                              fontFamily: 'NotoSans',
+                              fontSize: 20),
+                        ),
+                      ),
+                      labelStyle: const TextStyle(color: Colors.white),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide:
+                              BorderSide(color: ut.tfc.value, width: 2)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                          borderSide:
+                              BorderSide(color: ut.tfc.value, width: 2)),
                     ),
                   ),
-                  labelStyle: const TextStyle(color: Colors.white),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: ut.tfc.value, width: 2)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: ut.tfc.value, width: 2)),
                 ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          toggleEventType(),
-          SizedBox(
-            height: 20.h,
-          ),
-          Center(
-            child: SizedBox(
-              width: 200.w,
+              )),
+          rw.toggleEventType(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.h),
+            child: Center(
               child: Obx(
                 () => DropdownButton2(
                   underline: const SizedBox(),
-                  isExpanded: true,
                   hint: Obx(
                     () => Text(
-                      '      ${sv.eventListHint}',
+                      '    ${sv.eventListHint}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
                         fontFamily: 'NotoSans',
-                        fontSize: 15,
+                        fontSize: 17,
                       ),
                     ),
                   ),
@@ -223,24 +153,26 @@ class WelcomePage extends StatelessWidget {
                     maxHeight: 350.h,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.r)),
+                        borderRadius: BorderRadius.circular(15.r)),
                   ),
                   buttonStyleData: ButtonStyleData(
+                    width: 230.w,
                     decoration: BoxDecoration(
                       border: Border.all(color: noEvent.value, width: 2),
-                      borderRadius: BorderRadius.circular(20.r),
+                      borderRadius: BorderRadius.circular(15.r),
                     ),
                   ),
                 ),
               ),
             ),
           ),
+          rw.statsType(),
+          const Expanded(child: SizedBox()),
           if (!isKeyboard)
-            Expanded(
-                child: Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20.h),
+                padding: EdgeInsets.only(bottom: 30.h),
                 child: GestureDetector(
                   onTap: () {
                     if (sv.scoutName.text.isEmpty ||
@@ -260,25 +192,28 @@ class WelcomePage extends StatelessWidget {
                         ),
                       );
                     } else {
-                      sv.firstBoot.write('scouters name', sv.scoutName.text);
-                      sv.firstBoot.write('scouters team', sv.scoutersTeam.text);
-                      sv.firstBoot.write('event key', sv.eventKey.value);
-                      sv.firstBoot
+                      sv.pref.write('scouters name', sv.scoutName.text);
+                      sv.pref.write('scouters team', sv.scoutersTeam.text);
+                      sv.pref.write('event key', sv.eventKey.value);
+                      sv.pref
                           .write('selected event name', sv.eventListHint.value);
-                      sv.firstBoot
+                      sv.pref
                           .write('selected event?', sv.selectedAnEvent.value);
-                      sv.firstBoot.write('booted', true);
+                      sv.pref
+                          .write('team only data', sv.wantsTeamOnlyStats.value);
+
+                      sv.pref.write('booted', true);
                       Get.off(() => const HomePage());
                     }
                   },
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.red,
-                        borderRadius: BorderRadius.circular(20.r)),
-                    width: 250.w,
-                    height: 60.h,
-                    child: const Center(
-                      child: Text(
+                        borderRadius: BorderRadius.circular(15.r)),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 13.w),
+                      child: const Text(
                         'LETS GET SCOUTING',
                         style: TextStyle(
                             fontSize: 25,
@@ -289,7 +224,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
               ),
-            ))
+            ),
         ],
       ),
     );

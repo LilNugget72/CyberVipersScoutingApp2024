@@ -116,44 +116,76 @@ class ReuseWid extends GetxController {
     );
   }
 
+  statsType() {
+    return Column(
+      children: [
+        const Text(
+          'Team Only Data',
+          style: TextStyle(
+              color: Colors.white, fontFamily: 'NotoSans', fontSize: 25),
+        ),
+        Obx(
+          () => Switch.adaptive(
+            activeTrackColor: Colors.red,
+            thumbIcon: sv.switchIcon.value,
+            trackOutlineColor: const MaterialStatePropertyAll(Colors.white),
+            value: sv.wantsTeamOnlyStats.value,
+            onChanged: (value) {
+              if (sv.wantsTeamOnlyStats.value == false) {
+                sv.wantsTeamOnlyStats.value = true;
+                sv.switchIcon.value = sv.switchIcon2;
+              } else {
+                sv.wantsTeamOnlyStats.value = false;
+
+                sv.switchIcon.value = sv.switchIcon1;
+              }
+              sv.pref.write('team only data', sv.wantsTeamOnlyStats.value);
+            },
+          ),
+        )
+      ],
+    );
+  }
+
   toggleEventType() {
     String tapForDistricts = 'Tap to see District Events';
     String tapForRegionals = 'Tap to see Regional Events';
     RxString eventHint = 'Tap to see District Events'.obs;
     String regionalListHint = 'Select Regional';
-    String districtListHint = 'Select District ';
+    String districtListHint = 'Select District';
 
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          if (sv.isDistrict.isFalse) {
-            sv.isDistrict.value = true;
-            eventHint.value = tapForRegionals;
-            sv.events.value = sv.districtEventKeys;
-            sv.eventListHint.value = districtListHint;
-          } else {
-            sv.isDistrict.value = false;
-            eventHint.value = tapForDistricts;
-            sv.events.value = sv.regionalEventsKeys;
-            sv.eventListHint.value = regionalListHint;
-          }
-          sv.teamListHint.value = 'Select A Team To View';
-          sv.selectedAnEvent.value = false;
-          sv.firstBoot.write('selected event?', sv.selectedAnEvent.value);
-        },
-        style: const ButtonStyle(
-            padding:
-                MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 16, 0, 16)),
-            backgroundColor: MaterialStatePropertyAll(Color(0x00FFFFFF)),
-            splashFactory: InkSplash.splashFactory,
-            overlayColor:
-                MaterialStatePropertyAll(Color.fromARGB(225, 176, 171, 171)),
-            elevation: MaterialStatePropertyAll(0)),
-        child: Obx(
-          () => Text(
-            eventHint.value,
-            style: const TextStyle(
-                color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
+    return InkWell(
+      borderRadius: BorderRadius.circular(15.r),
+      splashColor: Colors.grey[350],
+      splashFactory: InkRipple.splashFactory,
+      onTap: () {
+        if (sv.isDistrict.isFalse) {
+          sv.isDistrict.value = true;
+          eventHint.value = tapForRegionals;
+          sv.events.value = sv.districtEventKeys;
+          sv.eventListHint.value = districtListHint;
+        } else {
+          sv.isDistrict.value = false;
+          eventHint.value = tapForDistricts;
+          sv.events.value = sv.regionalEventsKeys;
+          sv.eventListHint.value = regionalListHint;
+        }
+        sv.teamListHint.value = 'Select A Team To View';
+        sv.selectedAnEvent.value = false;
+      },
+      child: Ink(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 2.w),
+            borderRadius: BorderRadius.circular(15.r)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
+          child: Obx(
+            () => Text(
+              eventHint.value,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 25, fontFamily: 'NotoSans', color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -171,145 +203,103 @@ class ReuseWid extends GetxController {
           SizedBox(
             height: 10.h,
           ),
-          // drawerWid(
-          //   title: 'About',
-          //   function: ()  {},
-          //   icon: const Icon(
-          //     Icons.info_outline,
-          //     color: Colors.white,
-          //     size: 35,
-          //   ),
-          // ),
-          // drawerWid(
-          //   title: 'Admin',
-          //   function: () {
-          //     if (sv.selectedAnEvent.isTrue) {
-          //       Get.to(() => const AdminAuth());
-          //     } else {
-          //       noEvent.value = Colors.red;
-          //     }
-          //   },
-          //   icon: Icon(
-          //     Icons.person,
-          //     color: ut.tt.value,
-          //     size: 35,
-          //   ),
-          // ),
-          // drawerWid(
-          //   title: 'Manual',
-          //   function: () {
-          //     if (sv.selectedAnEvent.isTrue) {
-          //       Get.to(() => const ManualPage());
-          //     } else {
-          //       noEvent.value = Colors.red;
-          //     }
-          //   },
-          //   icon: Icon(
-          //     Icons.add_circle_outline_rounded,
-          //     color: ut.tt.value,
-          //     size: 35,
-          //   ),
-          // ),
-          // drawerWid(
-          //   title: 'Update?',
-          //   function: () => print('update'),
-          //   icon: Icon(
-          //     Icons.update,
-          //     color: ut.tt.value,
-          //     size: 35,
-          //   ),
-          // ),
           toggleEventType(),
-          Center(
-            child: SizedBox(
-              width: 200.w,
-              child: Obx(
-                () => DropdownButton2(
-                  underline: const SizedBox(),
-                  isExpanded: true,
-                  hint: Obx(
-                    () => Text(
-                      '      ${sv.eventListHint}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'NotoSans',
-                        fontSize: 15,
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 18.h),
+            child: Center(
+              child: SizedBox(
+                width: 200.w,
+                child: Obx(
+                  () => DropdownButton2(
+                    underline: const SizedBox(),
+                    isExpanded: true,
+                    hint: Obx(
+                      () => Text(
+                        '      ${sv.eventListHint}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'NotoSans',
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                  ),
-                  onChanged: (value) async {
-                    sv.matchAndRowNum.value = [];
-                    sv.eventListHint.value = value!;
-                    sv.selectMatch.value = 'Select a Match';
-                    sf.clearView();
-                    if (sv.isDistrict.isFalse) {
-                      sv.eventKey.value = sv.regionalEvents[value];
-                    } else {
-                      sv.eventKey.value = sv.districtEvents[value];
-                    }
-                    noEvent.value = Colors.white;
-                    sv.selectedAnEvent.value = true;
+                    onChanged: (value) async {
+                      sv.matchAndRowNum.value = [];
+                      sv.eventListHint.value = value!;
+                      sv.selectMatch.value = 'Select a Match';
+                      sf.clearView();
+                      if (sv.isDistrict.isFalse) {
+                        sv.eventKey.value = sv.regionalEvents[value];
+                      } else {
+                        sv.eventKey.value = sv.districtEvents[value];
+                      }
+                      noEvent.value = Colors.white;
+                      sv.selectedAnEvent.value = true;
 
-                    sv.firstBoot.write('event key', sv.eventKey.value);
-                    sv.firstBoot
-                        .write('selected event?', sv.selectedAnEvent.value);
-                    sv.firstBoot
-                        .write('selected event name', sv.eventListHint.value);
+                      sv.pref.write('event key', sv.eventKey.value);
+                      sv.pref
+                          .write('selected event?', sv.selectedAnEvent.value);
+                      sv.pref
+                          .write('selected event name', sv.eventListHint.value);
 
-                    var blueMatches = await blueAllianceTeams();
-                    var sortedBlue = blueMatches.keys.toList();
-                    sortedBlue.sort();
-                    sv.blueAllianceMatchesKeys.value = sortedBlue;
-                    sv.blueAllianceMatches.value = blueMatches;
+                      var blueMatches = await blueAllianceTeams();
+                      var sortedBlue = blueMatches.keys.toList();
+                      sortedBlue.sort();
+                      sv.blueAllianceMatchesKeys.value = sortedBlue;
+                      sv.blueAllianceMatches.value = blueMatches;
 
-                    var redMatches = await redAllianceTeams();
-                    var sortedRed = redMatches.keys.toList();
-                    sortedRed.sort();
-                    sv.redAllianceMatchesKeys.value = sortedRed;
-                    sv.redAllianceMatches.value = redMatches;
+                      var redMatches = await redAllianceTeams();
+                      var sortedRed = redMatches.keys.toList();
+                      sortedRed.sort();
+                      sv.redAllianceMatchesKeys.value = sortedRed;
+                      sv.redAllianceMatches.value = redMatches;
 
-                    var thing = await eventTeams();
-                    var sortTeamList = thing.keys.toList();
-                    sortTeamList.sort();
-                    sv.teamXList.value = sortTeamList;
-                    sv.eventTeams.value = thing;
+                      var thing = await eventTeams();
+                      var sortTeamList = thing.keys.toList();
+                      sortTeamList.sort();
+                      sv.teamXList.value = sortTeamList;
+                      sv.eventTeams.value = thing;
 
-                    sv.teamListHint.value = 'Select A Team To View';
-                  },
-                  items: sv.events
-                      .map((dynamic event) => DropdownMenuItem<String>(
-                            value: event,
-                            child: Text(
-                              event,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'NotoSans',
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1),
-                            ),
-                          ))
-                      .toList(),
-                  alignment: Alignment.center,
-                  iconStyleData:
-                      const IconStyleData(iconEnabledColor: Colors.white),
-                  dropdownStyleData: DropdownStyleData(
-                    scrollbarTheme: const ScrollbarThemeData(
-                        thumbColor: MaterialStatePropertyAll(Colors.grey)),
-                    maxHeight: 400.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.r)),
-                  ),
-                  buttonStyleData: ButtonStyleData(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: noEvent.value, width: 2),
-                      borderRadius: BorderRadius.circular(20.r),
+                      sv.teamListHint.value = 'Select A Team To View';
+                    },
+                    items: sv.events
+                        .map((dynamic event) => DropdownMenuItem<String>(
+                              value: event,
+                              child: Text(
+                                event,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'NotoSans',
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1),
+                              ),
+                            ))
+                        .toList(),
+                    alignment: Alignment.center,
+                    iconStyleData:
+                        const IconStyleData(iconEnabledColor: Colors.white),
+                    dropdownStyleData: DropdownStyleData(
+                      scrollbarTheme: const ScrollbarThemeData(
+                          thumbColor: MaterialStatePropertyAll(Colors.grey)),
+                      maxHeight: 400.h,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.r)),
+                    ),
+                    buttonStyleData: ButtonStyleData(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: noEvent.value, width: 2),
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
+          ),
+          Center(
+            child: statsType(),
           ),
           Expanded(
             child: Align(
@@ -317,7 +307,7 @@ class ReuseWid extends GetxController {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
                 child: const Text(
-                  'Version 1.1',
+                  'Version 1.2',
                   style: TextStyle(
                     color: Colors.grey,
                     fontFamily: 'NotoSans',
@@ -389,6 +379,42 @@ class ReuseWid extends GetxController {
           label: 'Stats',
         ),
       ],
+    );
+  }
+
+  nameField() {
+    return SizedBox(
+      width: 190.w,
+      child: Obx(
+        () => TextField(
+          onChanged: (value) {
+            sv.pref.write('scouters name', value);
+          },
+          autocorrect: false,
+          controller: sv.scoutName,
+          textAlign: TextAlign.center,
+          enabled: true,
+          cursorColor: Colors.white,
+          style: const TextStyle(
+              color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
+          decoration: InputDecoration(
+            label: Center(
+              child: Text(
+                'Name',
+                style: TextStyle(
+                    color: ut.ts.value, fontFamily: 'NotoSans', fontSize: 20),
+              ),
+            ),
+            labelStyle: const TextStyle(color: Colors.white),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.r),
+                borderSide: BorderSide(color: ut.tfc.value, width: 2)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.r),
+                borderSide: BorderSide(color: ut.tfc.value, width: 2)),
+          ),
+        ),
+      ),
     );
   }
 }
