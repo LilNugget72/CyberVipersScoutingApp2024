@@ -42,7 +42,7 @@ class UserTheme extends GetxController {
               selectionColor: Colors.blue, selectionHandleColor: Colors.blue))
       .obs;
   Color? bars = Colors.grey[850];
-  Brightness statbright = Brightness.light;
+  Brightness statbright = Brightness.dark;
 
   // final ThemeData lightTheme = ThemeData(
   //   splashColor: Colors.transparent,
