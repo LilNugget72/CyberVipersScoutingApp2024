@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -24,18 +23,27 @@ class StatsFields extends GetxController {
   RxString viewNote7 = ''.obs;
   RxString viewNote8 = ''.obs;
 
+  // RxString  = '1/11'.obs;
+  // RxString note2av = '2/2'.obs;
+  // RxString note3av = '3/3'.obs;
+  // RxString note4av = '4/4'.obs;
+  // RxString note5av = '5/5'.obs;
+  // RxString note6av = '6/6'.obs;
+  // RxString note7av = '7/7'.obs;
+  // RxString note8av = '8/8'.obs;
+
   Rx<Color> viewZone1 = Colors.transparent.obs; //near amp
   Rx<Color> viewZone2 = Colors.transparent.obs; //middle of speaker
   Rx<Color> viewZone3 = Colors.transparent.obs; //between speaker and source
   Rx<Color> viewZone4 = Colors.transparent.obs; //closest to the source
-  Rx<Color> note1InStats = Colors.transparent.obs;
-  Rx<Color> note2InStats = Colors.transparent.obs;
-  Rx<Color> note3InStats = Colors.transparent.obs;
-  Rx<Color> note4InStats = Colors.transparent.obs;
-  Rx<Color> note5InStats = Colors.transparent.obs;
-  Rx<Color> note6InStats = Colors.transparent.obs;
-  Rx<Color> note7InStats = Colors.transparent.obs;
-  Rx<Color> note8InStats = Colors.transparent.obs;
+  Rx<Color> note1Color = Colors.transparent.obs;
+  Rx<Color> note2Color = Colors.transparent.obs;
+  Rx<Color> note3Color = Colors.transparent.obs;
+  Rx<Color> note4Color = Colors.transparent.obs;
+  Rx<Color> note5Color = Colors.transparent.obs;
+  Rx<Color> note6Color = Colors.transparent.obs;
+  Rx<Color> note7Color = Colors.transparent.obs;
+  Rx<Color> note8Color = Colors.transparent.obs;
 
   Rx<Color> stage1 = Colors.transparent.obs; //left
   Rx<Color> stage2 = Colors.transparent.obs; //center
@@ -59,7 +67,7 @@ class StatsFields extends GetxController {
     required Rx<Color> color,
   }) {
     return Obx(
-      () => Ink(
+      () => Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(color: ut.buttonColor.value, width: 4.w),
@@ -70,7 +78,7 @@ class StatsFields extends GetxController {
     );
   }
 
-  statsNoteTimeline({required RxString value}) {
+  statsNote({required RxString value}) {
     return Obx(
       () => Text(
         value.value,
@@ -83,9 +91,9 @@ class StatsFields extends GetxController {
     );
   }
 
-  statsButton({required Rx<Color> noteColor}) {
+  noteCover({required Rx<Color> noteColor}) {
     return Obx(
-      () => Ink(
+      () => Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(60.r),
             border: Border.all(color: ut.buttonColor.value, width: 3.w),
@@ -99,7 +107,7 @@ class StatsFields extends GetxController {
   statsBlueAuto() {
     return Stack(
       children: [
-        Ink.image(
+        Image(
           fit: BoxFit.fill,
           height: 370.h,
           width: 360.w,
@@ -141,85 +149,90 @@ class StatsFields extends GetxController {
             ],
           ),
         ),
-        Positioned.fill(
-          left: 154.w,
-          bottom: 119.h,
+        Positioned(
+          right: 51.5.w,
+          top: 106.5.h,
           child: Row(
             children: [
-              statsButton(noteColor: note3InStats),
               Padding(
-                padding: EdgeInsets.only(left: 25.w),
-                child: statsButton(noteColor: note2InStats),
+                padding: EdgeInsets.only(right: 24.5.w),
+                child: noteCover(noteColor: note2Color),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 24.w),
-                child: statsButton(noteColor: note1InStats),
+                padding: EdgeInsets.only(right: 24.5.w),
+                child: noteCover(noteColor: note2Color),
               ),
+              noteCover(noteColor: note1Color),
             ],
           ),
         ),
         Positioned(
-            right: 220.w,
-            top: 105.h,
-            child: statsNoteTimeline(value: viewNote3)),
+            right: 220.w, top: 105.h, child: statsNote(value: viewNote3)),
         Positioned(
           top: 150.h,
-          right: 62.w,
-          child: Row(
-            children: [
-              statsNoteTimeline(value: viewNote2),
-              SizedBox(
-                width: 47.w,
-              ),
-              statsNoteTimeline(value: viewNote1),
-            ],
-          ),
+          right: 120.w,
+          child: statsNote(value: viewNote2),
+        ),
+        Positioned(
+          top: 150.h,
+          right: 61.w,
+          child: statsNote(value: viewNote1),
         ),
         Positioned.fill(
           top: 283.h,
           left: 16.5.w,
           child: Row(
             children: [
-              statsButton(noteColor: note8InStats),
+              noteCover(
+                noteColor: note8Color,
+              ),
               Padding(
                   padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note7InStats)),
+                  child: noteCover(
+                    noteColor: note7Color,
+                  )),
               Padding(
                   padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note6InStats)),
+                  child: noteCover(
+                    noteColor: note6Color,
+                  )),
               Padding(
                   padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note5InStats)),
+                  child: noteCover(
+                    noteColor: note5Color,
+                  )),
               Padding(
                   padding: EdgeInsets.only(left: 34.w),
-                  child: statsButton(noteColor: note4InStats)),
+                  child: noteCover(
+                    noteColor: note4Color,
+                  )),
             ],
           ),
         ),
         Positioned(
           bottom: 65.h,
           left: 28.w,
-          child: statsNoteTimeline(value: viewNote8),
+          child: statsNote(value: viewNote8),
         ),
         Positioned(
           bottom: 65.h,
           left: 97.w,
-          child: statsNoteTimeline(value: viewNote7),
+          child: statsNote(value: viewNote7),
         ),
         Positioned(
           bottom: 65.h,
           left: 165.w,
-          child: statsNoteTimeline(value: viewNote6),
+          child: statsNote(value: viewNote6),
         ),
         Positioned(
           bottom: 65.h,
           left: 235.w,
-          child: statsNoteTimeline(value: viewNote5),
+          child: statsNote(value: viewNote5),
         ),
         Positioned(
           bottom: 65.h,
           left: 304.w,
-          child: statsNoteTimeline(value: viewNote4),
+          child: statsNote(value: viewNote4),
         ),
       ],
     );
@@ -228,7 +241,7 @@ class StatsFields extends GetxController {
   statsRedAuto() {
     return Stack(
       children: [
-        Ink.image(
+        Image(
           fit: BoxFit.fill,
           height: 370.h,
           image: const AssetImage('lib/assets/Field - Red.png'),
@@ -272,59 +285,61 @@ class StatsFields extends GetxController {
           bottom: 138.h,
           child: Row(
             children: [
-              statsButton(noteColor: note1InStats),
+              noteCover(
+                noteColor: note1Color,
+              ),
               Padding(
                 padding: EdgeInsets.only(left: 27.w),
-                child: statsButton(noteColor: note2InStats),
+                child: noteCover(
+                  noteColor: note2Color,
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 28.w),
-                child: statsButton(noteColor: note3InStats),
+                child: noteCover(
+                  noteColor: note3Color,
+                ),
               )
             ],
           ),
         ),
-        Positioned(
-            left: 63.w, top: 135.h, child: statsNoteTimeline(value: viewNote1)),
+        Positioned(left: 63.w, top: 135.h, child: statsNote(value: viewNote1)),
         Positioned(
           top: 135.h,
           left: 125.w,
-          child: statsNoteTimeline(value: viewNote2),
+          child: statsNote(value: viewNote2),
         ),
-        Positioned(
-            top: 99.h,
-            right: 115.w,
-            child: statsNoteTimeline(value: viewNote3)),
+        Positioned(top: 99.h, right: 115.w, child: statsNote(value: viewNote3)),
         Positioned.fill(
           top: 300.h,
           left: 32.w,
           child: Row(
             children: [
-              statsButton(
-                noteColor: note4InStats,
+              noteCover(
+                noteColor: note4Color,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 37.w),
-                child: statsButton(
-                  noteColor: note5InStats,
+                child: noteCover(
+                  noteColor: note5Color,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 37.5.w),
-                child: statsButton(
-                  noteColor: note6InStats,
+                child: noteCover(
+                  noteColor: note6Color,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 37.w),
-                child: statsButton(
-                  noteColor: note7InStats,
+                child: noteCover(
+                  noteColor: note7Color,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 37.w),
-                child: statsButton(
-                  noteColor: note8InStats,
+                child: noteCover(
+                  noteColor: note8Color,
                 ),
               ),
             ],
@@ -333,27 +348,27 @@ class StatsFields extends GetxController {
         Positioned(
           bottom: 62.h,
           left: 40.w,
-          child: statsNoteTimeline(value: viewNote4),
+          child: statsNote(value: viewNote4),
         ),
         Positioned(
           bottom: 62.h,
           left: 114.w,
-          child: statsNoteTimeline(value: viewNote5),
+          child: statsNote(value: viewNote5),
         ),
         Positioned(
           bottom: 62.h,
           left: 186.w,
-          child: statsNoteTimeline(value: viewNote6),
+          child: statsNote(value: viewNote6),
         ),
         Positioned(
           bottom: 62.h,
           left: 258.w,
-          child: statsNoteTimeline(value: viewNote7),
+          child: statsNote(value: viewNote7),
         ),
         Positioned(
           bottom: 62.h,
           left: 330.w,
-          child: statsNoteTimeline(value: viewNote8),
+          child: statsNote(value: viewNote8),
         ),
       ],
     );
@@ -622,14 +637,14 @@ class StatsFields extends GetxController {
     viewZone2.value = Colors.transparent; //middle of speaker
     viewZone3.value = Colors.transparent; //between speaker and source
     viewZone4.value = Colors.transparent; //closest to the source
-    note1InStats.value = Colors.transparent;
-    note2InStats.value = Colors.transparent;
-    note3InStats.value = Colors.transparent;
-    note4InStats.value = Colors.transparent;
-    note5InStats.value = Colors.transparent;
-    note6InStats.value = Colors.transparent;
-    note7InStats.value = Colors.transparent;
-    note8InStats.value = Colors.transparent;
+    note1Color.value = Colors.transparent;
+    note2Color.value = Colors.transparent;
+    note3Color.value = Colors.transparent;
+    note4Color.value = Colors.transparent;
+    note5Color.value = Colors.transparent;
+    note6Color.value = Colors.transparent;
+    note7Color.value = Colors.transparent;
+    note8Color.value = Colors.transparent;
 
     stage1.value = Colors.transparent;
     stage2.value = Colors.transparent;

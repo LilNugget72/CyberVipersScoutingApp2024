@@ -7,6 +7,8 @@ import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+//TODO finish implementing the chart in the app
+// TODO add more averages
 
 showAverage({required RxString value}) {
   return Container(
@@ -96,6 +98,25 @@ class StatsPage extends StatelessWidget {
 
                     var parkav = getBoolAverage(value: 31);
                     var harmonyav = getBoolAverage(value: 32);
+                    int defav = seeAverageDefense();
+
+                    switch (defav) {
+                      case 1:
+                        sf.none.value = ut.buttonColor.value;
+                        break;
+                      case 2:
+                        sf.slight.value = ut.buttonColor.value;
+                        break;
+                      case 3:
+                        sf.modest.value = ut.buttonColor.value;
+                        break;
+                      case 4:
+                        sf.generous.value = ut.buttonColor.value;
+                        break;
+                      case 5:
+                        sf.exclusively.value = ut.buttonColor.value;
+                        break;
+                    }
 
                     sf.stats1.value = first.toString();
                     sf.stats2.value = second.toString();
@@ -239,50 +260,50 @@ class StatsPage extends StatelessWidget {
                               case 6:
                                 if (whenSelected != '0') {
                                   sf.viewNote1.value = whenSelected;
-                                  sf.note1InStats.value = ut.buttonColor.value;
+                                  sf.note1Color.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 7:
                                 if (whenSelected != '0') {
                                   sf.viewNote2.value = whenSelected;
-                                  sf.note2InStats.value = ut.buttonColor.value;
+                                  sf.note2Color.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 8:
                                 if (whenSelected != '0') {
                                   sf.viewNote3.value = whenSelected;
-                                  sf.note3InStats.value = ut.buttonColor.value;
+                                  sf.note3Color.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 9:
                                 if (whenSelected != '0') {
                                   sf.viewNote4.value = whenSelected;
-                                  sf.note4InStats.value = ut.buttonColor.value;
+                                  sf.note4Color.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 10:
                                 if (whenSelected != '0') {
                                   sf.viewNote5.value = whenSelected;
-                                  sf.note5InStats.value = ut.buttonColor.value;
+                                  sf.note5Color.value = ut.buttonColor.value;
                                   break;
                                 }
 
                               case 11:
                                 if (whenSelected != '0') {
                                   sf.viewNote6.value = whenSelected;
-                                  sf.note6InStats.value = ut.buttonColor.value;
+                                  sf.note6Color.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 12:
                                 if (whenSelected != '0') {
                                   sf.viewNote7.value = whenSelected;
-                                  sf.note7InStats.value = ut.buttonColor.value;
+                                  sf.note7Color.value = ut.buttonColor.value;
                                   break;
                                 }
                               case 13:
                                 if (whenSelected != '0') {
                                   sf.viewNote8.value = whenSelected;
-                                  sf.note8InStats.value = ut.buttonColor.value;
+                                  sf.note8Color.value = ut.buttonColor.value;
                                   break;
                                 }
                             }
@@ -418,6 +439,29 @@ class StatsPage extends StatelessWidget {
               showAverage(value: sf.stats3)
             ],
           ),
+          // SizedBox(
+          //   width: 200.w,
+          //   height: 400.h,
+          //   child: LineChart(
+          //     LineChartData(
+          //       titlesData: const FlTitlesData(
+          //         leftTitles: AxisTitles(axisNameWidget: Text('Notes')),
+
+          //       ),
+          //       lineBarsData: [LineChartBarData()],
+          //       gridData: const FlGridData(
+          //           horizontalInterval: 1, verticalInterval: 1),
+          //       lineTouchData: const LineTouchData(enabled: false),
+          //       backgroundColor: Colors.green,
+          //       borderData: FlBorderData(
+          //           show: true, border: Border.all(color: Colors.white)),
+          //       maxX: 12,
+          //       maxY: 20,
+          //       minX: 0,
+          //       minY: 0,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 20.h,
           ),
