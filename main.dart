@@ -19,6 +19,7 @@ UserTheme ut = Get.put(UserTheme());
 SheetValues sv = Get.put(SheetValues());
 
 loadAllEvents({required RxBool finished}) async {
+  bool canBoot = true;
   // makes sure you have a connection with the sheet
   //calls for the initialization meathod for the sheet
   await GoogleSheetsApi().init();
@@ -51,10 +52,16 @@ loadAllEvents({required RxBool finished}) async {
 
     sv.selectedAnEvent.value = sv.pref.read('selected event?');
 
-    sv.wantsTeamOnlyStats.value = sv.pref.read('team only data');
-    sv.wantsTeamOnlyStats.value == true
-        ? sv.switchIcon.value = sv.switchIcon2
-        : sv.switchIcon.value = sv.switchIcon1;
+    if (sv.pref.read('team only data') == true ||
+        sv.pref.read('team only data') == false) {
+      sv.wantsTeamOnlyStats.value = sv.pref.read('team only data');
+      sv.wantsTeamOnlyStats.value == true
+          ? sv.switchIcon.value = sv.switchIcon2
+          : sv.switchIcon.value = sv.switchIcon1;
+      canBoot = true;
+    } else {
+      canBoot = false;
+    }
 
     var blueMatches = await blueAllianceTeams();
     var sortedBlue = blueMatches.keys.toList();
@@ -74,8 +81,11 @@ loadAllEvents({required RxBool finished}) async {
     sv.teamXList.value = sortTeamList;
     sv.eventTeams.value = thing;
 
-    sv.teamListHint.value = 'Select A Team To View';
-    Get.to(() => const HomePage());
+    if (canBoot == true) {
+      Get.to(() => const HomePage());
+    } else {
+      Get.to(() => const WelcomePage());
+    }
   } else {
     Get.off(() => const WelcomePage());
   }
@@ -91,7 +101,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.only(top: 220.h),
+          padding: EdgeInsets.only(top: 300.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -130,6 +140,7 @@ class ScoutingApp extends StatelessWidget {
         systemNavigationBarColor: Colors.grey[850],
       ),
     );
+    //TODO REMIDER SET SIZE TO 360,800 AND SAFE AREA THE APP
     return ScreenUtilInit(
       builder: (_, child) => Obx(
         () => SafeArea(
