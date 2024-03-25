@@ -7,8 +7,10 @@ import 'package:cyberviperscoutingapp2024/stats_page/stats_fields.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReuseWid extends GetxController {
   RxInt selectedIndex = 0.obs;
@@ -306,12 +308,45 @@ class ReuseWid extends GetxController {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: const Text(
-                  'Version 1.2',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontFamily: 'NotoSans',
-                  ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () => launchUrl(
+                        mode: LaunchMode.externalApplication,
+                        Uri.parse(
+                            'https://drive.google.com/drive/folders/14D17j5ANKq0OcgsYpS1qCAYZtc1uqhSb'),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.info,
+                            color: Colors.white,
+                            size: 16.w,
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          const Text(
+                            'About',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'NotoSans'),
+                          )
+                        ],
+                      ),
+                    ),
+                    const Text(
+                      'Version 1.3',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontFamily: 'NotoSans',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -324,6 +359,8 @@ class ReuseWid extends GetxController {
   ab({required String title}) {
     return AppBar(
       surfaceTintColor: Colors.transparent,
+      systemOverlayStyle:
+          const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
       centerTitle: true,
       title: Text(
         title,
