@@ -328,7 +328,9 @@ class ManualPage extends StatelessWidget {
                         '$localAlliacne',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: ut.buttonColor.value,
+                          color: selectedBlueAlliance.value == true
+                              ? Colors.blue
+                              : Colors.red[400],
                           fontSize: 24,
                           fontFamily: 'NotoSans',
                         ),
