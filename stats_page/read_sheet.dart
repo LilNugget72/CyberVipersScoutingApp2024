@@ -180,6 +180,7 @@ String getBoolAverage({required int value}) {
   if (sv.matchNumAndValue.isNotEmpty) {
     for (int i = 0; i < bottom; i++) {
       var currentRow = sv.matchNumAndValue[row[i]][value];
+      // int intCurrentValue = int.parse(currentRow);
 
       if (currentRow == 'TRUE') {
         top++;
@@ -195,15 +196,77 @@ String getBoolAverage({required int value}) {
   }
 }
 
+int seeAverageDefense() {
+  int none = 0;
+  int slight = 0;
+  int modest = 0;
+  int generous = 0;
+  int exclusively = 0;
+  int rowLength = sv.matchNumAndValue.length;
+  List row = sv.matchAndRowNum;
+  Map currentRow = sv.matchNumAndValue;
+  for (int i = 0; i < rowLength; i++) {
+    List currentValues = currentRow[row[i]];
+    for (int a = 26; a <= 30; a++) {
+      String currentBool = currentValues[a];
+      switch (a) {
+        case 26:
+          if (currentBool == 'TRUE') {
+            none++;
+            break;
+          }
+        case 27:
+          if (currentBool == 'TRUE') {
+            slight++;
+            break;
+          }
+        case 28:
+          if (currentBool == 'TRUE') {
+            modest++;
+            break;
+          }
+        case 29:
+          if (currentBool == 'TRUE') {
+            generous++;
+            break;
+          }
+        case 30:
+          if (currentBool == 'TRUE') {
+            exclusively++;
+            break;
+          }
+      }
+    }
+  }
+  //1 for none, 2 for slight, 3 for modest, 4 generous, 5 exclusively
+  if (none > slight) {
+    return 1;
+  } else {
+    if (slight > modest) {
+      return 2;
+    } else {
+      if (modest > generous) {
+        return 3;
+      } else {
+        if (generous > exclusively) {
+          return 4;
+        } else {
+          return 5;
+        }
+      }
+    }
+  }
+}
+
 Future<Map<int, String>> eventTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
-  final String apiUrl =
+  final String url =
       'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/teams/simple';
   Map<int, String> teamNames = {};
 
   final response =
-      await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+      await http.get(Uri.parse(url), headers: {'X-TBA-Auth-Key': apiKey});
 
   if (response.statusCode == 200) {
     final List<dynamic> eventTeams = json.decode(response.body);
@@ -222,12 +285,12 @@ Future<Map<int, String>> eventTeams() async {
 Future<Map<int, List<int>>> redAllianceTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
-  final String apiUrl =
+  final String url =
       'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches/simple';
   Map<int, List<int>> redAllianceTeams = {};
 
   final response =
-      await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+      await http.get(Uri.parse(url), headers: {'X-TBA-Auth-Key': apiKey});
   if (response.statusCode == 200) {
     final List<dynamic> matchesData = json.decode(response.body);
     for (var match in matchesData) {
@@ -248,12 +311,12 @@ Future<Map<int, List<int>>> redAllianceTeams() async {
 Future<Map<int, List<int>>> blueAllianceTeams() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF	';
-  final String apiUrl =
+  final String url =
       'https://www.thebluealliance.com/api/v3/event/2024${sv.eventKey}/matches/simple';
   Map<int, List<int>> blueAllianceTeams = {};
 
   final response =
-      await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
+      await http.get(Uri.parse(url), headers: {'X-TBA-Auth-Key': apiKey});
   if (response.statusCode == 200) {
     final List<dynamic> matchesData = json.decode(response.body);
     for (var match in matchesData) {
@@ -274,27 +337,22 @@ Future<Map<int, List<int>>> blueAllianceTeams() async {
 Future<Map<String, String>> getAllRegionalEvents() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
-  const String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
+  const String url = 'https://www.thebluealliance.com/api/v3/events/2024';
   Map<String, String> allEventsMap = {};
-
-  try {
-    final response =
-        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
-    if (response.statusCode == 200) {
-      final List<dynamic> events = json.decode(response.body);
-      for (var events in events) {
-        final String eventName = events['short_name'];
-        final String eventKey = events['event_code'];
-        final int eventType = events['event_type'];
-        if (eventType == 0) {
-          allEventsMap[eventName] = eventKey;
-        }
+  final response =
+      await http.get(Uri.parse(url), headers: {'X-TBA-Auth-Key': apiKey});
+  if (response.statusCode == 200) {
+    final List<dynamic> events = json.decode(response.body);
+    for (var events in events) {
+      final String eventName = events['short_name'];
+      final String eventKey = events['event_code'];
+      final int eventType = events['event_type'];
+      if (eventType == 0) {
+        allEventsMap[eventName] = eventKey;
       }
-      return allEventsMap;
-    } else {
-      return {};
     }
-  } catch (e) {
+    return allEventsMap;
+  } else {
     return {};
   }
 }
@@ -302,27 +360,22 @@ Future<Map<String, String>> getAllRegionalEvents() async {
 Future<Map<String, String>> getAllDistrictEvents() async {
   const String apiKey =
       'N2Qk9rnQmy2tPsqr9pWsefid1wGUM7sKZgstXWGaj2W9hYr8I7XMu3y3tGF0FYiF';
-  const String apiUrl = 'https://www.thebluealliance.com/api/v3/events/2024';
+  const String url = 'https://www.thebluealliance.com/api/v3/events/2024';
   Map<String, String> allEventsMap = {};
-
-  try {
-    final response =
-        await http.get(Uri.parse(apiUrl), headers: {'X-TBA-Auth-Key': apiKey});
-    if (response.statusCode == 200) {
-      final List<dynamic> events = json.decode(response.body);
-      for (var events in events) {
-        final String eventName = events['short_name'];
-        final String eventKey = events['event_code'];
-        final int eventType = events['event_type'];
-        if (eventType == 1) {
-          allEventsMap[eventName] = eventKey;
-        }
+  final response =
+      await http.get(Uri.parse(url), headers: {'X-TBA-Auth-Key': apiKey});
+  if (response.statusCode == 200) {
+    final List<dynamic> events = json.decode(response.body);
+    for (var events in events) {
+      final String eventName = events['short_name'];
+      final String eventKey = events['event_code'];
+      final int eventType = events['event_type'];
+      if (eventType == 1 || eventType == 2 || eventType == 5) {
+        allEventsMap[eventName] = eventKey;
       }
-      return allEventsMap;
-    } else {
-      return {};
     }
-  } catch (e) {
+    return allEventsMap;
+  } else {
     return {};
   }
 }
