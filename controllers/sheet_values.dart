@@ -98,6 +98,9 @@ class SheetValues extends GetxController {
   RxBool statsWantsBlue = true.obs;
   RxBool alreadyInStats = false.obs;
 
+  RxBool missedInAuto = false.obs;
+  RxBool notesFromSource = false.obs;
+
   Rx<MaterialStateProperty<Icon?>> switchIcon =
       const MaterialStatePropertyAll(Icon(Icons.close)).obs;
 
@@ -202,6 +205,8 @@ class SheetValues extends GetxController {
 
     park.value = false;
     harmony.value = false;
+    missedInAuto.value = false;
+    notesFromSource.value = false;
 
     comments.clear();
   }

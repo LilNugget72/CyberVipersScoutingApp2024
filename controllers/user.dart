@@ -45,6 +45,8 @@ class UserFields {
   static const String harmony = 'HARMONY';
 
   static const String comments = 'COMMENTS';
+  static const String missedInAuto = 'MISSED IN AUTO';
+  static const String notesFromWhere = 'NOTES FROM WHERE';
   static const String scoutersName = 'SCOUTER\'S NAME';
   static const String scoutersTeam = 'SCOUTER\'S TEAM';
 
@@ -84,6 +86,8 @@ class UserFields {
         park,
         harmony,
         comments,
+        missedInAuto,
+        notesFromWhere,
         scoutersName,
         scoutersTeam,
       ];

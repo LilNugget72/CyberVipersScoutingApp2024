@@ -49,8 +49,10 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
     'PARK', // value is 31
     'HARMONY', // value is 32
     'COMMENTS', // value is 33
-    'SCOUTER'S NAME', // value is 34
-    'SCOUTER'S TEAM', // value is 35 / 36 for some reason
+    'MISSED IN AUTO' value is 34
+    'NOTES FROM WHERE' value is 35
+    'SCOUTER'S NAME', // value is 36
+    'SCOUTER'S TEAM', // value is 37 / 38 for some reason
        */
 
   final response = await http.get(uri);
@@ -76,7 +78,8 @@ Future<Map<String, List<String>>> getDataForMatchNumber({
         the value gets changed to the last instance of the data. EX: scouter A submitted data for match 6 team XYZ at 9:00am but scouter B did the same thing but at 9:10am. 
         When they go to the view the data, it will only show scouter B's data for match 6*/
       if (sv.wantsTeamOnlyStats.isTrue) {
-        if (values[i][36] == sv.scoutersTeam.text) {
+        if (values[i][37] == sv.scoutersTeam.text ||
+            values[i][38] == sv.scoutersTeam.text) {
           List<String> rowData = values[i]
               .sublist(1)
               .map<String>((value) => value == null || value.toString().isEmpty

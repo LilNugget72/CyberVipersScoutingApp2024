@@ -61,6 +61,10 @@ class StatsFields extends GetxController {
   RxString comments = ''.obs;
   RxString scouter = ''.obs;
 
+  RxString missedInAuto = '?'.obs;
+
+  RxString notesFromWhere = '?'.obs;
+
   statsAutoZone({
     required double width,
     required double height,
@@ -244,6 +248,7 @@ class StatsFields extends GetxController {
         Image(
           fit: BoxFit.fill,
           height: 370.h,
+          width: 360.w,
           image: const AssetImage('lib/assets/Field - Red.png'),
         ),
         Positioned(
@@ -580,22 +585,23 @@ class StatsFields extends GetxController {
 
   defenseButtons({
     required String title,
-    required double width,
     required Rx<Color> fillColor,
   }) {
     return Obx(
       () => Ink(
-        width: width,
         height: 35.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.r),
             border: Border.all(color: ut.buttonColor.value, width: 2.w),
             color: fillColor.value),
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 15, fontFamily: 'NotoSans'),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+          child: Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                  color: Colors.white, fontSize: 15, fontFamily: 'NotoSans'),
+            ),
           ),
         ),
       ),
@@ -610,14 +616,12 @@ class StatsFields extends GetxController {
         children: [
           defenseButtons(
             title: 'None',
-            width: 50.w,
             fillColor: none,
           ),
-          defenseButtons(title: 'Slight', width: 55.w, fillColor: slight),
-          defenseButtons(title: 'Modest', width: 63.w, fillColor: modest),
-          defenseButtons(title: 'Generous', width: 78.w, fillColor: generous),
-          defenseButtons(
-              title: 'Exclusively', width: 83.w, fillColor: exclusively)
+          defenseButtons(title: 'Slight', fillColor: slight),
+          defenseButtons(title: 'Modest', fillColor: modest),
+          defenseButtons(title: 'Generous', fillColor: generous),
+          defenseButtons(title: 'Exclusively', fillColor: exclusively)
         ],
       ),
     );
@@ -667,6 +671,8 @@ class StatsFields extends GetxController {
     harmony.value = '';
 
     comments.value = '';
+    notesFromWhere.value = '?';
+    missedInAuto.value = '?';
     scouter.value = '';
   }
 }

@@ -2,7 +2,7 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/home_page.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/read_sheet.dart';
-import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
+import 'package:cyberviperscoutingapp2024/scouting_pages/scouting_page.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_fields.dart';
 import 'package:cyberviperscoutingapp2024/stats_page/stats_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -18,6 +18,86 @@ class ReuseWid extends GetxController {
   SheetValues sv = Get.put(SheetValues());
   StatsFields sf = Get.put(StatsFields());
   TextEditingController event = TextEditingController();
+
+  toggleComments() {
+    const MaterialStateProperty<Icon> switchIcon1 =
+        MaterialStatePropertyAll(Icon(Icons.close));
+    const MaterialStateProperty<Icon> switchIcon2 =
+        MaterialStatePropertyAll(Icon(Icons.check));
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'Missed in Auto',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'NotoSans',
+            fontSize: 27,
+          ),
+        ),
+        Obx(
+          () => Switch.adaptive(
+            activeTrackColor: Colors.red,
+            thumbIcon: sv.missedInAuto.isFalse ? switchIcon1 : switchIcon2,
+            trackOutlineColor: const MaterialStatePropertyAll(Colors.white),
+            value: sv.missedInAuto.value,
+            onChanged: (value) {
+              if (sv.missedInAuto.value == false) {
+                sv.missedInAuto.value = true;
+                sv.switchIcon.value = sv.switchIcon2;
+              } else {
+                sv.missedInAuto.value = false;
+
+                sv.switchIcon.value = sv.switchIcon1;
+              }
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  notesFromWhere() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'Floor',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'NotoSans',
+            fontSize: 23,
+          ),
+        ),
+        Obx(
+          () => Switch.adaptive(
+            activeTrackColor: Colors.red,
+            trackOutlineColor: const MaterialStatePropertyAll(Colors.white),
+            value: sv.notesFromSource.value,
+            onChanged: (value) {
+              if (sv.notesFromSource.value == false) {
+                sv.notesFromSource.value = true;
+                sv.switchIcon.value = sv.switchIcon2;
+              } else {
+                sv.notesFromSource.value = false;
+
+                sv.switchIcon.value = sv.switchIcon1;
+              }
+            },
+          ),
+        ),
+        const Text(
+          'Source',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'NotoSans',
+            fontSize: 23,
+          ),
+        ),
+      ],
+    );
+  }
 
   textForGraph({required String name}) {
     return Text(
@@ -196,162 +276,164 @@ class ReuseWid extends GetxController {
 
   d() {
     Rx<Color> noEvent = Colors.white.obs;
-    return Drawer(
-      backgroundColor: Colors.grey[800],
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          toggleEventType(),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 18.h),
-            child: Center(
-              child: SizedBox(
-                width: 200.w,
-                child: Obx(
-                  () => DropdownButton2(
-                    underline: const SizedBox(),
-                    isExpanded: true,
-                    hint: Obx(
-                      () => Text(
-                        '      ${sv.eventListHint}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'NotoSans',
-                          fontSize: 15,
+    return SafeArea(
+      child: Drawer(
+        backgroundColor: Colors.grey[800],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10.h,
+            ),
+            toggleEventType(),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 18.h),
+              child: Center(
+                child: SizedBox(
+                  width: 200.w,
+                  child: Obx(
+                    () => DropdownButton2(
+                      underline: const SizedBox(),
+                      isExpanded: true,
+                      hint: Obx(
+                        () => Text(
+                          '      ${sv.eventListHint}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'NotoSans',
+                            fontSize: 15,
+                          ),
                         ),
                       ),
-                    ),
-                    onChanged: (value) async {
-                      sv.matchAndRowNum.value = [];
-                      sv.eventListHint.value = value!;
-                      sv.selectMatch.value = 'Select a Match';
-                      sf.clearView();
-                      if (sv.isDistrict.isFalse) {
-                        sv.eventKey.value = sv.regionalEvents[value];
-                      } else {
-                        sv.eventKey.value = sv.districtEvents[value];
-                      }
-                      noEvent.value = Colors.white;
-                      sv.selectedAnEvent.value = true;
+                      onChanged: (value) async {
+                        sv.matchAndRowNum.value = [];
+                        sv.eventListHint.value = value!;
+                        sv.selectMatch.value = 'Select a Match';
+                        sf.clearView();
+                        if (sv.isDistrict.isFalse) {
+                          sv.eventKey.value = sv.regionalEvents[value];
+                        } else {
+                          sv.eventKey.value = sv.districtEvents[value];
+                        }
+                        noEvent.value = Colors.white;
+                        sv.selectedAnEvent.value = true;
 
-                      sv.pref.write('event key', sv.eventKey.value);
-                      sv.pref
-                          .write('selected event?', sv.selectedAnEvent.value);
-                      sv.pref
-                          .write('selected event name', sv.eventListHint.value);
+                        sv.pref.write('event key', sv.eventKey.value);
+                        sv.pref
+                            .write('selected event?', sv.selectedAnEvent.value);
+                        sv.pref.write(
+                            'selected event name', sv.eventListHint.value);
 
-                      var blueMatches = await blueAllianceTeams();
-                      var sortedBlue = blueMatches.keys.toList();
-                      sortedBlue.sort();
-                      sv.blueAllianceMatchesKeys.value = sortedBlue;
-                      sv.blueAllianceMatches.value = blueMatches;
+                        var blueMatches = await blueAllianceTeams();
+                        var sortedBlue = blueMatches.keys.toList();
+                        sortedBlue.sort();
+                        sv.blueAllianceMatchesKeys.value = sortedBlue;
+                        sv.blueAllianceMatches.value = blueMatches;
 
-                      var redMatches = await redAllianceTeams();
-                      var sortedRed = redMatches.keys.toList();
-                      sortedRed.sort();
-                      sv.redAllianceMatchesKeys.value = sortedRed;
-                      sv.redAllianceMatches.value = redMatches;
+                        var redMatches = await redAllianceTeams();
+                        var sortedRed = redMatches.keys.toList();
+                        sortedRed.sort();
+                        sv.redAllianceMatchesKeys.value = sortedRed;
+                        sv.redAllianceMatches.value = redMatches;
 
-                      var thing = await eventTeams();
-                      var sortTeamList = thing.keys.toList();
-                      sortTeamList.sort();
-                      sv.teamXList.value = sortTeamList;
-                      sv.eventTeams.value = thing;
+                        var thing = await eventTeams();
+                        var sortTeamList = thing.keys.toList();
+                        sortTeamList.sort();
+                        sv.teamXList.value = sortTeamList;
+                        sv.eventTeams.value = thing;
 
-                      sv.teamListHint.value = 'Select A Team To View';
-                    },
-                    items: sv.events
-                        .map((dynamic event) => DropdownMenuItem<String>(
-                              value: event,
-                              child: Text(
-                                event,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'NotoSans',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1),
-                              ),
-                            ))
-                        .toList(),
-                    alignment: Alignment.center,
-                    iconStyleData:
-                        const IconStyleData(iconEnabledColor: Colors.white),
-                    dropdownStyleData: DropdownStyleData(
-                      scrollbarTheme: const ScrollbarThemeData(
-                          thumbColor: MaterialStatePropertyAll(Colors.grey)),
-                      maxHeight: 400.h,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.r)),
-                    ),
-                    buttonStyleData: ButtonStyleData(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: noEvent.value, width: 2),
-                        borderRadius: BorderRadius.circular(15.r),
+                        sv.teamListHint.value = 'Select A Team To View';
+                      },
+                      items: sv.events
+                          .map((dynamic event) => DropdownMenuItem<String>(
+                                value: event,
+                                child: Text(
+                                  event,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'NotoSans',
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1),
+                                ),
+                              ))
+                          .toList(),
+                      alignment: Alignment.center,
+                      iconStyleData:
+                          const IconStyleData(iconEnabledColor: Colors.white),
+                      dropdownStyleData: DropdownStyleData(
+                        scrollbarTheme: const ScrollbarThemeData(
+                            thumbColor: MaterialStatePropertyAll(Colors.grey)),
+                        maxHeight: 400.h,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.r)),
+                      ),
+                      buttonStyleData: ButtonStyleData(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: noEvent.value, width: 2),
+                          borderRadius: BorderRadius.circular(15.r),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Center(
-            child: statsType(),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 20.h),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () => launchUrl(
-                        mode: LaunchMode.externalApplication,
-                        Uri.parse(
-                            'https://drive.google.com/drive/folders/14D17j5ANKq0OcgsYpS1qCAYZtc1uqhSb'),
+            Center(
+              child: statsType(),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 20.h),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: () => launchUrl(
+                          mode: LaunchMode.externalApplication,
+                          Uri.parse(
+                              'https://drive.google.com/drive/folders/14D17j5ANKq0OcgsYpS1qCAYZtc1uqhSb'),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.info,
+                              color: Colors.white,
+                              size: 16.w,
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            const Text(
+                              'About',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'NotoSans'),
+                            )
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.info,
-                            color: Colors.white,
-                            size: 16.w,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          const Text(
-                            'About',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'NotoSans'),
-                          )
-                        ],
+                      const Text(
+                        'Version 1.4',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: 'NotoSans',
+                        ),
                       ),
-                    ),
-                    const Text(
-                      'Version 1.3',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontFamily: 'NotoSans',
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -435,6 +517,7 @@ class ReuseWid extends GetxController {
           style: const TextStyle(
               color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
           decoration: InputDecoration(
+            alignLabelWithHint: false,
             label: Center(
               child: Text(
                 'Name',

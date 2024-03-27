@@ -5,7 +5,7 @@ import 'package:cyberviperscoutingapp2024/controllers/sheet_values.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user.dart';
 import 'package:cyberviperscoutingapp2024/controllers/user_theme.dart';
 import 'package:cyberviperscoutingapp2024/scouting_pages/engame_defense.dart';
-import 'package:cyberviperscoutingapp2024/scouting_pages/manual_function.dart';
+import 'package:cyberviperscoutingapp2024/scouting_pages/scouting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,48 +27,60 @@ class FinalPage extends StatelessWidget {
       body: Column(
         children: [
           rw.line(),
-          Expanded(
-            flex: 9,
-            child: Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: 320.w,
-                child: TextField(
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  maxLines: null,
-                  canRequestFocus: true,
-                  controller: sv.comments,
-                  textAlign: TextAlign.center,
-                  enabled: true,
-                  cursorColor: Colors.white,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'NotoSans',
-                      fontSize: 20),
-                  decoration: InputDecoration(
-                    label: Center(
-                        child: Text(
+          Padding(
+            padding: EdgeInsets.only(top: 10.h),
+            child: rw.toggleComments(),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 15.h),
+            child: const Text(
+              'Mainly Grabbed From',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'NotoSans', fontSize: 27),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 15.h),
+            child: rw.notesFromWhere(),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 320.w,
+              child: TextField(
+                onTapOutside: (event) {
+                  FocusScope.of(context).unfocus();
+                },
+                maxLines: null,
+                canRequestFocus: true,
+                controller: sv.comments,
+                textAlign: TextAlign.center,
+                enabled: true,
+                cursorColor: Colors.white,
+                style: const TextStyle(
+                    color: Colors.white, fontFamily: 'NotoSans', fontSize: 20),
+                decoration: InputDecoration(
+                  label: Center(
+                    child: Text(
                       'Comments',
                       style: TextStyle(
                           color: ut.ts.value,
                           fontFamily: 'NotoSans',
                           fontSize: 20),
-                    )),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    labelStyle: const TextStyle(color: Colors.white),
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2)),
+                    ),
                   ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  labelStyle: const TextStyle(color: Colors.white),
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.r),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.r),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2)),
                 ),
               ),
             ),
@@ -77,7 +89,7 @@ class FinalPage extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 20.h),
+                padding: EdgeInsets.only(bottom: 35.h),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
@@ -118,6 +130,8 @@ class FinalPage extends StatelessWidget {
                         UserFields.park: sv.park.value,
                         UserFields.harmony: sv.harmony.value,
                         UserFields.comments: sv.comments.text,
+                        UserFields.missedInAuto: sv.missedInAuto.value,
+                        UserFields.notesFromWhere: sv.notesFromSource.value,
                         UserFields.scoutersName: sv.scoutName.text,
                         UserFields.scoutersTeam: sv.scoutersTeam.text,
                       };
