@@ -20,7 +20,6 @@ class EndgameDefense extends GetxController {
   toggleDefense(
       {required RxBool defense,
       required String title,
-      required double width,
       required Rx<Color> fillColor}) {
     return InkWell(
       splashFactory: InkSplash.splashFactory,
@@ -45,17 +44,19 @@ class EndgameDefense extends GetxController {
       },
       child: Obx(
         () => Ink(
-          width: width,
           height: 35.h,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               border: Border.all(color: ut.buttonColor.value, width: 2.w),
               color: fillColor.value),
-          child: Center(
-            child: Text(
-              title,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 15, fontFamily: 'NotoSans'),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Center(
+              child: Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 15, fontFamily: 'NotoSans'),
+              ),
             ),
           ),
         ),
@@ -72,31 +73,26 @@ class EndgameDefense extends GetxController {
           toggleDefense(
             defense: sv.dNone,
             title: 'None',
-            width: 50.w,
             fillColor: dNoneColor,
           ),
           toggleDefense(
             defense: sv.dSlight,
             title: 'Slight',
-            width: 55.w,
             fillColor: dSlightColor,
           ),
           toggleDefense(
             defense: sv.dModest,
             title: 'Modest',
-            width: 63.w,
             fillColor: dModestColor,
           ),
           toggleDefense(
             defense: sv.dGenerous,
             title: 'Generous',
-            width: 78.w,
             fillColor: dGenerousColor,
           ),
           toggleDefense(
             defense: sv.dExclusively,
             title: 'Exclusively',
-            width: 83.w,
             fillColor: dExclusivelyColor,
           )
         ],

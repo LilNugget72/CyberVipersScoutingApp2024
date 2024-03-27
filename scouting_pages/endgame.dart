@@ -72,15 +72,17 @@ class Endgame extends StatelessWidget {
                           border: Border.all(
                               color: ut.buttonColor.value, width: 4.w),
                           color: ed.parkedColor.value),
-                      width: 120.w,
                       height: 60.h,
-                      child: const Center(
-                        child: Text(
-                          'Parked',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontFamily: 'NotoSans'),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: const Center(
+                          child: Text(
+                            'Parked',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontFamily: 'NotoSans'),
+                          ),
                         ),
                       ),
                     ),
@@ -111,15 +113,17 @@ class Endgame extends StatelessWidget {
                           border: Border.all(
                               color: ut.buttonColor.value, width: 4.w),
                           color: ed.harmonyColor.value),
-                      width: 120.w,
                       height: 60.h,
-                      child: const Center(
-                        child: Text(
-                          'Harmony',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontFamily: 'NotoSans'),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: const Center(
+                          child: Text(
+                            'Harmony',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontFamily: 'NotoSans'),
+                          ),
                         ),
                       ),
                     ),
