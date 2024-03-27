@@ -82,9 +82,9 @@ loadAllEvents({required RxBool finished}) async {
     sv.eventTeams.value = thing;
 
     if (canBoot == true) {
-      Get.to(() => const HomePage());
+      Get.off(() => const HomePage());
     } else {
-      Get.to(() => const WelcomePage());
+      Get.off(() => const WelcomePage());
     }
   } else {
     Get.off(() => const WelcomePage());
@@ -101,12 +101,12 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.only(top: 300.h),
+          padding: EdgeInsets.only(top: 220.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image(
-                height: 200.h,
+                height: 220.h,
                 image:
                     const AssetImage("lib/assets/Cyber Vipers Logo 2023.png"),
               ),
@@ -140,15 +140,13 @@ class ScoutingApp extends StatelessWidget {
         systemNavigationBarColor: Colors.grey[850],
       ),
     );
-    //TODO REMIDER SET SIZE TO 360,800 AND SAFE AREA THE APP
+    //TODO safe aread and make the 360,800 and move padding
     return ScreenUtilInit(
-      builder: (_, child) => Obx(
-        () => SafeArea(
-          child: GetMaterialApp(
-            theme: ut.currentTheme.value,
-            home: const SplashScreen(),
-            debugShowCheckedModeBanner: false,
-          ),
+      builder: (_, child) => SafeArea(
+        child: GetMaterialApp(
+          theme: ut.currentTheme,
+          home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
         ),
       ),
       designSize: const Size(360, 800),
